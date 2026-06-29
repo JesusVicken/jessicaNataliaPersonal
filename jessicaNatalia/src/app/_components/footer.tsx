@@ -148,10 +148,10 @@ export function Footer() {
               <li className="flex items-start gap-3 max-w-xs">
                 <MapPin size={18} className="text-[#bda07a] mt-0.5 shrink-0" />
                 <span>
-                  Academia Bodytech – Lago Sul
+                  Academia Bodytech Lago Sul
                   <br />
                   <span className="text-[10px] text-zinc-400 uppercase font-bold tracking-widest">
-                    Brasília - DF
+                    Brasília DF
                   </span>
                 </span>
               </li>
@@ -166,7 +166,7 @@ export function Footer() {
 
             <div className="flex gap-4">
               <SocialLink
-                href="https://www.instagram.com/jessicanataliiapersonal/"
+                href="https://www.instagram.com/jessicanataliapersonal"
                 icon={InstagramLogo}
                 label="Instagram"
               />

@@ -260,7 +260,7 @@ export default function Projects() {
 
                 {/* Social media quick links */}
                 <div className="flex items-center gap-4 text-[#66635f]">
-                    <a href="https://www.instagram.com/jessicanataliiapersonal/" target="_blank" rel="noopener noreferrer" className="hover:text-[#bda07a] transition-colors" aria-label="Instagram">
+                    <a href="https://www.instagram.com/jessicanataliapersonal" target="_blank" rel="noopener noreferrer" className="hover:text-[#bda07a] transition-colors" aria-label="Instagram">
                         <InstagramLogo size={18} />
                     </a>
                     <a href="https://www.linkedin.com/in/jéssica-natália-749423235/" target="_blank" rel="noopener noreferrer" className="hover:text-[#bda07a] transition-colors" aria-label="LinkedIn">
