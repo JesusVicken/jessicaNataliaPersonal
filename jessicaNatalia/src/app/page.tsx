@@ -10,9 +10,9 @@ export default function Home() {
     <main>
       <Projects />
       <About />
+      <YogaSection />
       <Services />
       <Tours />
-      <YogaSection />
       <Footer />
     </main>
   )

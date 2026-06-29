@@ -259,15 +259,16 @@ export default function Projects() {
             {/* --- HERO SECTION (PINNED CANVAS SEQUENCE) --- */}
             <section
                 ref={containerRef}
-                className="relative h-[100dvh] w-full overflow-hidden bg-[#FAF8F5]"
+                className="relative h-[100dvh] w-full overflow-hidden bg-[#0A0A0A]"
             >
                 <canvas
                     ref={canvasRef}
                     className="absolute inset-0 w-full h-full object-cover z-10"
                 />
                 
-                {/* Visual luminoso e limpo com gradientes suaves */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5]/50 via-transparent to-[#FAF8F5]/80 z-20 pointer-events-none" />
+                {/* Visual escurecido cinemático para dar alto contraste para o texto branco */}
+                <div className="absolute inset-0 bg-black/35 z-20 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-black/70 z-20 pointer-events-none" />
 
                 <div className="absolute inset-0 z-30 flex flex-col items-center justify-between py-20 px-6 pointer-events-none">
                     
@@ -280,11 +281,17 @@ export default function Projects() {
                         {/* GRUPO 1: Frames iniciais */}
                         <div className="hero-group-1 absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
                             <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#bda07a] uppercase mb-4">EXCLUSIVIDADE & ESTÉTICA</span>
-                            <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[0.95] text-[#111111] mb-4 max-w-4xl">
+                            <h1 
+                                className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[0.95] text-white mb-4 max-w-4xl"
+                                style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.4)' }}
+                            >
                                 Transforme seu corpo. <br />
                                 <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">Eleve sua vida.</span>
                             </h1>
-                            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-[#66635f] font-light max-w-2xl leading-relaxed">
+                            <p 
+                                className="text-xs sm:text-sm md:text-base lg:text-lg text-zinc-300 font-light max-w-2xl leading-relaxed"
+                                style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.3)' }}
+                            >
                                 Treinamento personalizado de alta performance estruturado para construir força, confiança e resultados estéticos consistentes.
                             </p>
                         </div>
@@ -292,11 +299,17 @@ export default function Projects() {
                         {/* GRUPO 2: Frames intermediários */}
                         <div className="hero-group-2 absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 opacity-0 pointer-events-none">
                             <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#bda07a] uppercase mb-4">BIOMECÂNICA APLICADA</span>
-                            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[0.95] text-[#111111] max-w-3xl">
+                            <h2 
+                                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[0.95] text-white max-w-3xl"
+                                style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.4)' }}
+                            >
                                 Técnica, Precisão <br />
                                 <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">& Alta Performance.</span>
                             </h2>
-                            <p className="text-xs sm:text-sm md:text-base text-[#66635f] font-light max-w-lg leading-relaxed mt-4">
+                            <p 
+                                className="text-xs sm:text-sm md:text-base text-zinc-300 font-light max-w-lg leading-relaxed mt-4"
+                                style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.3)' }}
+                            >
                                 Cada movimento é calculado para máxima ativação e desenvolvimento muscular seguro, livre de dores ou lesões.
                             </p>
                         </div>
@@ -304,14 +317,17 @@ export default function Projects() {
                         {/* GRUPO 3: Frames finais */}
                         <div className="hero-group-3 absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 opacity-0 pointer-events-none">
                             <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#bda07a] uppercase mb-4">COMECE A SUA EVOLUÇÃO</span>
-                            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[0.95] text-[#111111] mb-6 max-w-3xl">
+                            <h2 
+                                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[0.95] text-white mb-6 max-w-3xl"
+                                style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.4)' }}
+                            >
                                 Pronta para o <br />
                                 <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">próximo nível?</span>
                             </h2>
                             
                             <a
                                 href="#cta"
-                                className="group inline-flex items-center gap-2.5 bg-[#111111] text-white px-8 py-4 sm:px-10 sm:py-5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest hover:bg-[#bda07a] transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.15)] hover:scale-105"
+                                className="group inline-flex items-center gap-2.5 bg-white text-[#111111] px-8 py-4 sm:px-10 sm:py-5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest hover:bg-[#bda07a] hover:text-white transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.25)] hover:scale-105"
                             >
                                 Agendar Minha Primeira Sessão
                                 <ArrowRight size={16} />
@@ -320,8 +336,8 @@ export default function Projects() {
                     </div>
 
                     {/* INDICADOR INICIAL */}
-                    <div className="flex flex-col items-center opacity-40">
-                        <span className="text-[8px] uppercase tracking-[0.3em] text-[#111111] mb-2 font-bold">Role para iniciar</span>
+                    <div className="flex flex-col items-center text-white/60">
+                        <span className="text-[8px] uppercase tracking-[0.3em] text-white mb-2 font-bold">Role para iniciar</span>
                         <CaretDoubleDown size={16} className="animate-bounce" />
                     </div>
                 </div>

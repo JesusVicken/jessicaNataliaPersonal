@@ -20,89 +20,166 @@ import {
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Hook useGSAP Isomórfico customizado para compatibilidade SSR do Next.js
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+function useGSAP(callback: gsap.ContextFunc, dependencies: any[] = []) {
+    useIsomorphicLayoutEffect(() => {
+        const ctx = gsap.context(callback);
+        return () => ctx.revert();
+    }, dependencies);
+}
+
 export function About() {
     const containerRef = useRef<HTMLDivElement>(null)
     const imageRef = useRef<HTMLDivElement>(null)
     const textRef = useRef<HTMLDivElement>(null)
     const statsRef = useRef<HTMLDivElement>(null)
+    const specialtiesTriggerRef = useRef<HTMLDivElement>(null)
 
-    useLayoutEffect(() => {
-        const ctx = gsap.context(() => {
-            // 1. Efeito parallax / zoom suave na imagem principal conforme scroll
-            gsap.fromTo(".about-photo",
-                { scale: 1.12 },
+    // Agrupador de especialidades para reuso estrutural nos layouts
+    const specialtiesList = [
+        {
+            title: "Climatério & Menopausa",
+            desc: "MatPilates adaptado para mulheres na perimenopausa e menopausa, focando em ganho de densidade óssea e flexibilidade muscular.",
+            src: "/image12.jpeg",
+            icon: <FlowerLotus size={20} />,
+            delay: "100"
+        },
+        {
+            title: "MatPilates Gestantes",
+            desc: "Fortalecimento de assoalho pélvico e estabilização de core para uma gestação ativa, saudável e sem desconforto lombar.",
+            src: "/image44.jpeg",
+            icon: <Baby size={20} />,
+            delay: "200"
+        },
+        {
+            title: "Recuperação Pós-Parto",
+            desc: "Recuperação biomecânica progressiva pós-parto, com foco em reabilitação de diástase abdominal e fortalecimento postural global.",
+            src: "/image36.jpeg",
+            icon: <Users size={20} />,
+            delay: "300"
+        },
+        {
+            title: "MatPilates Corredores",
+            desc: "Foco em estabilização pélvica, aumento de amplitude articular e equilíbrio muscular para prevenção de lesões na corrida.",
+            src: "/image38.jpeg",
+            icon: <Star size={20} />,
+            delay: "400"
+        },
+        {
+            title: "MatPilates Ciclistas",
+            desc: "Compensação e fortalecimento da cadeia posterior para ciclistas de estrada e mountain bike, reduzindo fadiga e dores nas costas.",
+            src: "/image35.jpeg",
+            icon: <Bicycle size={20} />,
+            delay: "500"
+        },
+        {
+            title: "Consultoria de Treino",
+            desc: "Acompanhamento individualizado e personalizado de treinamento de força, unindo ciência prática e biomecânica.",
+            src: "/image5.jpeg",
+            icon: <Barbell size={20} />,
+            delay: "600"
+        }
+    ]
+
+    useGSAP(() => {
+        // 1. Efeito parallax / zoom suave na imagem principal conforme scroll
+        gsap.fromTo(".about-photo",
+            { scale: 1.12 },
+            {
+                scale: 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            }
+        )
+
+        // 2. Revelação em máscara (clip-path) da imagem
+        gsap.fromTo(imageRef.current,
+            { clipPath: 'inset(0% 100% 0% 0%)', opacity: 0.8 },
+            {
+                clipPath: 'inset(0% 0% 0% 0%)',
+                opacity: 1,
+                duration: 1.4,
+                ease: 'power4.inOut',
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: 'top 75%',
+                }
+            }
+        )
+
+        // 3. Revelação em cascata dos textos editoriais
+        const animateElements = textRef.current?.querySelectorAll('.reveal-item')
+        if (animateElements) {
+            gsap.fromTo(animateElements,
+                { y: 40, opacity: 0 },
                 {
-                    scale: 1,
-                    ease: 'none',
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.12,
+                    ease: 'power3.out',
                     scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: true
+                        trigger: textRef.current,
+                        start: 'top 80%',
                     }
                 }
             )
+        }
 
-            // 2. Revelação em máscara (clip-path) da imagem
-            gsap.fromTo(imageRef.current,
-                { clipPath: 'inset(0% 100% 0% 0%)', opacity: 0.8 },
+        // 4. Animação Stagger Bento Grid com revelação clip-path cinematográfica
+        const bentoCards = containerRef.current?.querySelectorAll('.bento-card-revelation')
+        if (bentoCards && bentoCards.length > 0) {
+            gsap.fromTo(bentoCards,
+                { 
+                    clipPath: 'inset(100% 0% 0% 0%)', 
+                    y: 80, 
+                    opacity: 0 
+                },
                 {
                     clipPath: 'inset(0% 0% 0% 0%)',
+                    y: 0,
                     opacity: 1,
-                    duration: 1.4,
-                    ease: 'power4.inOut',
+                    duration: 1.6,
+                    stagger: 0.15,
+                    ease: 'power4.out',
                     scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: 'top 75%',
+                        trigger: specialtiesTriggerRef.current,
+                        start: 'top 85%',
                     }
                 }
             )
+        }
 
-            // 3. Revelação em cascata dos textos editoriais
-            const animateElements = textRef.current?.querySelectorAll('.reveal-item')
-            if (animateElements) {
-                gsap.fromTo(animateElements,
-                    { y: 40, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.8,
-                        stagger: 0.12,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: textRef.current,
-                            start: 'top 80%',
-                        }
+        // 5. Animação dos contadores numéricos na seção de destaques
+        const counters = statsRef.current?.querySelectorAll('.about-counter')
+        if (counters) {
+            counters.forEach((counter) => {
+                const targetVal = parseInt(counter.getAttribute('data-target') || '0', 10)
+                const suffix = counter.getAttribute('data-suffix') || ''
+                const obj = { value: 0 }
+
+                gsap.to(obj, {
+                    value: targetVal,
+                    duration: 2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: counter,
+                        start: 'top 90%',
+                        toggleActions: 'play none none none',
+                    },
+                    onUpdate: () => {
+                        counter.textContent = Math.round(obj.value) + suffix
                     }
-                )
-            }
-
-            // 4. Animação dos contadores numéricos na seção de destaques
-            const counters = statsRef.current?.querySelectorAll('.about-counter')
-            if (counters) {
-                counters.forEach((counter) => {
-                    const targetVal = parseInt(counter.getAttribute('data-target') || '0', 10)
-                    const suffix = counter.getAttribute('data-suffix') || ''
-                    const obj = { value: 0 }
-
-                    gsap.to(obj, {
-                        value: targetVal,
-                        duration: 2,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: counter,
-                            start: 'top 90%',
-                            toggleActions: 'play none none none',
-                        },
-                        onUpdate: () => {
-                            counter.textContent = Math.round(obj.value) + suffix
-                        }
-                    })
                 })
-            }
-        }, containerRef)
-
-        return () => ctx.revert()
+            })
+        }
     }, [])
 
     // Função de scroll suave até a seção de programas
@@ -247,84 +324,183 @@ export function About() {
                 </div>
 
                 {/* --- SEÇÃO DE ESPECIALIDADES --- */}
-                <div className="mb-24 md:mb-32">
+                <div ref={specialtiesTriggerRef} className="mb-24 md:mb-32 specialties-trigger">
                     {/* Header */}
                     <div className="text-center mb-16" data-aos="fade-up">
                         <span className="text-[10px] font-black tracking-[0.35em] text-[#bda07a] uppercase block mb-4">MÉTODOS DE AÇÃO</span>
                         <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111]">Especialidades</h3>
                     </div>
 
-                    {/* Cards Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {/* --- LAYOUT MOBILE: CARROUSSEL HORIZONTAL --- */}
+                    <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-6 scrollbar-none px-2 pb-8 w-full">
+                        {specialtiesList.map((item, idx) => (
+                            <div 
+                                key={`mob-spec-${idx}`}
+                                className="w-[80vw] shrink-0 snap-center rounded-3xl overflow-hidden aspect-[3/4] relative border border-zinc-200/80 bg-zinc-950 shadow-lg"
+                            >
+                                <Image
+                                    src={item.src}
+                                    alt={item.title}
+                                    fill
+                                    className="object-cover"
+                                    sizes="80vw"
+                                    loading="lazy"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/55 to-transparent z-10 pointer-events-none" />
+                                <div className="absolute inset-0 p-6 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                    <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-3 border border-white/10 shrink-0">
+                                        {item.icon}
+                                    </div>
+                                    <h4 className="text-sm font-bold uppercase tracking-wider mb-1" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>{item.title}</h4>
+                                    <p className="text-[10px] text-zinc-300 font-light leading-relaxed">{item.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* --- LAYOUT DESKTOP: BENTO GRID ASSIMÉTRICO (AWWWARDS) --- */}
+                    <div className="hidden md:grid grid-cols-3 gap-6 auto-rows-[320px] items-stretch">
                         
-                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="100">
-                            <div>
-                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
-                                    <FlowerLotus size={20} />
+                        {/* CARD 1: Climatério & Menopausa (Largo - spans 2 cols, row 1) */}
+                        <div className="bento-card-revelation col-span-2 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
+                            <Image
+                                src={specialtiesList[0].src}
+                                alt={specialtiesList[0].title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                sizes="66vw"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                    {specialtiesList[0].icon}
                                 </div>
-                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">Climatério & Menopausa</h4>
-                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
-                                    MatPilates adaptado para mulheres na perimenopausa e menopausa, focando em ganho de densidade óssea e flexibilidade muscular.
+                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+                                    {specialtiesList[0].title}
+                                </h4>
+                                <p className="text-xs text-zinc-300 font-light leading-relaxed max-w-xl">
+                                    {specialtiesList[0].desc}
                                 </p>
                             </div>
                         </div>
 
-                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="200">
-                            <div>
-                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
-                                    <Baby size={20} />
+                        {/* CARD 2: MatPilates Gestantes (Alto - spans 1 col, row 1 & 2) */}
+                        <div className="bento-card-revelation col-span-1 row-span-2 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
+                            <Image
+                                src={specialtiesList[1].src}
+                                alt={specialtiesList[1].title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                sizes="33vw"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                    {specialtiesList[1].icon}
                                 </div>
-                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">MatPilates Gestantes</h4>
-                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
-                                    Fortalecimento de assoalho pélvico e estabilização de core para uma gestação ativa, saudável e sem desconforto lombar.
+                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+                                    {specialtiesList[1].title}
+                                </h4>
+                                <p className="text-xs text-zinc-300 font-light leading-relaxed">
+                                    {specialtiesList[1].desc}
                                 </p>
                             </div>
                         </div>
 
-                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="300">
-                            <div>
-                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
-                                    <Users size={20} />
+                        {/* CARD 3: Recuperação Pós-Parto (Normal - spans 1 col, row 2) */}
+                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
+                            <Image
+                                src={specialtiesList[2].src}
+                                alt={specialtiesList[2].title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                sizes="33vw"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                    {specialtiesList[2].icon}
                                 </div>
-                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">Recuperação Pós-Parto</h4>
-                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
-                                    Recuperação biomecânica progressiva pós-parto, com foco em reabilitação de diástase abdominal e fortalecimento postural global.
+                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+                                    {specialtiesList[2].title}
+                                </h4>
+                                <p className="text-xs text-zinc-300 font-light leading-relaxed">
+                                    {specialtiesList[2].desc}
                                 </p>
                             </div>
                         </div>
 
-                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="400">
-                            <div>
-                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
-                                    <Star size={20} />
+                        {/* CARD 4: MatPilates Corredores (Normal - spans 1 col, row 2) */}
+                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
+                            <Image
+                                src={specialtiesList[3].src}
+                                alt={specialtiesList[3].title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                sizes="33vw"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                    {specialtiesList[3].icon}
                                 </div>
-                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">MatPilates Corredores</h4>
-                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
-                                    Foco em estabilização pélvica, aumento de amplitude articular e equilíbrio muscular para prevenção de lesões na corrida.
+                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+                                    {specialtiesList[3].title}
+                                </h4>
+                                <p className="text-xs text-zinc-300 font-light leading-relaxed">
+                                    {specialtiesList[3].desc}
                                 </p>
                             </div>
                         </div>
 
-                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="500">
-                            <div>
-                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
-                                    <Bicycle size={20} />
+                        {/* CARD 5: MatPilates Ciclistas (Normal - spans 1 col, row 3) */}
+                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
+                            <Image
+                                src={specialtiesList[4].src}
+                                alt={specialtiesList[4].title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                sizes="33vw"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                    {specialtiesList[4].icon}
                                 </div>
-                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">MatPilates Ciclistas</h4>
-                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
-                                    Compensação e fortalecimento da cadeia posterior para ciclistas de estrada e mountain bike, reduzindo fadiga e dores nas costas.
+                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+                                    {specialtiesList[4].title}
+                                </h4>
+                                <p className="text-xs text-zinc-300 font-light leading-relaxed">
+                                    {specialtiesList[4].desc}
                                 </p>
                             </div>
                         </div>
 
-                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="600">
-                            <div>
-                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
-                                    <Barbell size={20} />
+                        {/* CARD 6: Consultoria de Treino (Largo - spans 2 cols, row 3) */}
+                        <div className="bento-card-revelation col-span-2 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
+                            <Image
+                                src={specialtiesList[5].src}
+                                alt={specialtiesList[5].title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                sizes="66vw"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                    {specialtiesList[5].icon}
                                 </div>
-                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">Consultoria de Treino</h4>
-                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
-                                    Acompanhamento individualizado e personalizado de treinamento de força, unindo ciência prática e biomecânica.
+                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+                                    {specialtiesList[5].title}
+                                </h4>
+                                <p className="text-xs text-zinc-300 font-light leading-relaxed max-w-xl">
+                                    {specialtiesList[5].desc}
                                 </p>
                             </div>
                         </div>

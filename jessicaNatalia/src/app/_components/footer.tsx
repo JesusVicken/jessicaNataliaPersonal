@@ -27,8 +27,8 @@ const PARTNERS = [
   { name: 'Bodytech', logo: bodytechLogo, url: 'https://bodytech.com.br' },
   { name: 'SmartFit', logo: smartfitLogo, url: 'https://www.smartfit.com.br' },
   { name: 'Vertaco', logo: vertacoLogo, url: 'https://www.vertaco.com.br' },
-  { name: 'ACVC', logo: acvcLogo, url: 'https://www.acvc.com.br' },
-  { name: 'Kale', logo: kaleLogo, url: 'https://www.kale.com.br' },
+  { name: 'ACVC', logo: acvcLogo, url: 'https://www.instagram.com/acv_cv_oficial/' },
+  { name: 'Kale', logo: kaleLogo, url: 'https://www.instagram.com/kaleespacosaude/' },
 ]
 
 export function Footer() {
@@ -148,7 +148,7 @@ export function Footer() {
               <li className="flex items-start gap-3 max-w-xs">
                 <MapPin size={18} className="text-[#bda07a] mt-0.5 shrink-0" />
                 <span>
-                  Ascade – Associação dos Servidores da Câmara dos Deputados
+                  Academia Bodytech – Lago Sul
                   <br />
                   <span className="text-[10px] text-zinc-400 uppercase font-bold tracking-widest">
                     Brasília - DF
@@ -186,13 +186,14 @@ export function Footer() {
       </div>
 
       {/* MAPA LOCAL */}
-      <div className="w-full h-[350px] md:h-[400px] border-t border-[#e6e2da]">
+      <div className="w-full h-[350px] md:h-[400px] border-t border-[#e6e2da] overflow-hidden relative">
         <iframe
           title="Localização de Atendimento"
-          src="https://www.google.com/maps?q=-15.8186875,-47.8519375&z=17&output=embed"
+          src="https://www.google.com/maps?q=Bodytech%20Sudoeste%20Brasilia&z=17&output=embed"
           width="100%"
           height="100%"
           loading="lazy"
+          className="filter grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500 ease-out"
           style={{ border: 0 }}
           allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"

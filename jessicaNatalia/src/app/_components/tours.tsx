@@ -194,7 +194,7 @@ export function Tours() {
           <div className="flex items-center gap-3 bg-[#F5F2EB] border border-[#e6e2da] px-8 py-4 rounded-full">
             <MapPin size={20} className="text-[#111111]" weight="fill" />
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#111111] text-center">
-              Atendimento presencial na Ascade (Brasília - DF) & Online
+              Atendimento presencial na Bodytech Lago Sul (Brasília - DF) & Online
             </span>
           </div>
         </div>
