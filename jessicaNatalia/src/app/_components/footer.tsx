@@ -67,7 +67,7 @@ export function Footer() {
   }, [])
 
   return (
-    <section className="bg-[#FAF8F5] text-[#66635f] border-t border-[#e6e2da] relative overflow-hidden flex flex-col font-sans">
+    <section id="cta" className="bg-[#FAF8F5] text-[#66635f] border-t border-[#e6e2da] relative overflow-hidden flex flex-col font-sans">
       
       <div className="container mx-auto px-6 py-20 relative z-10 max-w-7xl">
         {/* PARCEIROS */}

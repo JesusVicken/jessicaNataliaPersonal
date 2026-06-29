@@ -25,6 +25,14 @@ export default function Projects() {
     const [loadingProgress, setLoadingProgress] = useState(0)
     const [imagesLoaded, setImagesLoaded] = useState(false)
 
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+        e.preventDefault()
+        const target = document.getElementById(id)
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' })
+        }
+    }
+
     // Desenho cover proporcional em qualquer tela para manter o preenchimento full-bleed
     const drawImageProp = (ctx: CanvasRenderingContext2D, img: HTMLImageElement) => {
         const canvas = ctx.canvas
@@ -70,8 +78,8 @@ export default function Projects() {
         if (!device) return
 
         let loadedCount = 0
-        const numFrames = device === 'mobile' ? 40 : 119
-        const folder = device === 'mobile' ? 'sequence_mobile' : 'sequence_desktop'
+        const numFrames = device === 'mobile' ? 120 : 119
+        const folder = device === 'mobile' ? 'sequence_mobile2' : 'sequence_desktop'
         const tempImages: HTMLImageElement[] = []
 
         setImagesLoaded(false)
@@ -112,7 +120,7 @@ export default function Projects() {
         canvas.width = canvas.clientWidth
         canvas.height = canvas.clientHeight
 
-        const numFrames = device === 'mobile' ? 40 : 119
+        const numFrames = device === 'mobile' ? 120 : 119
 
         // Primeiro frame imediato
         if (imagesRef.current[0]) {
@@ -233,17 +241,21 @@ export default function Projects() {
             
             {/* --- FIXED HEADER (MINIMALIST & LUXURY) --- */}
             <header className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F5]/80 backdrop-blur-md border-b border-[#e6e2da] py-4 px-6 md:px-12 flex justify-between items-center">
-                <div className="flex flex-col">
-                    <span className="text-sm font-black tracking-[0.25em] text-[#111111] uppercase">Jéssica Natália</span>
+                <a 
+                    href="#hero" 
+                    onClick={(e) => handleNavClick(e, 'hero')}
+                    className="flex flex-col cursor-pointer group"
+                >
+                    <span className="text-sm font-black tracking-[0.25em] text-[#111111] uppercase group-hover:text-[#bda07a] transition-colors">Jéssica Natália</span>
                     <span className="text-[7px] tracking-[0.3em] text-[#bda07a] uppercase font-bold">Personal Trainer</span>
-                </div>
+                </a>
                 
                 {/* Navigation links */}
                 <nav className="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest text-[#66635f]">
-                    <a href="#about" className="hover:text-[#111111] transition-colors">Sobre</a>
-                    <a href="#programs" className="hover:text-[#111111] transition-colors">Programas</a>
-                    <a href="#results" className="hover:text-[#111111] transition-colors">Resultados</a>
-                    <a href="#cta" className="hover:text-[#111111] transition-colors">Contato</a>
+                    <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="hover:text-[#111111] transition-colors">Sobre</a>
+                    <a href="#programs" onClick={(e) => handleNavClick(e, 'programs')} className="hover:text-[#111111] transition-colors">Programas</a>
+                    <a href="#results" onClick={(e) => handleNavClick(e, 'results')} className="hover:text-[#111111] transition-colors">Resultados</a>
+                    <a href="#cta" onClick={(e) => handleNavClick(e, 'cta')} className="hover:text-[#111111] transition-colors">Contato</a>
                 </nav>
 
                 {/* Social media quick links */}
@@ -266,6 +278,7 @@ export default function Projects() {
             {/* --- HERO SECTION (PINNED CANVAS SEQUENCE) --- */}
             <section
                 ref={containerRef}
+                id="hero"
                 className="relative h-[100dvh] w-full overflow-hidden bg-[#0A0A0A]"
             >
                 <canvas

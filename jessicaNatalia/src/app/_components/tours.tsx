@@ -1,8 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { Check, Clock, MapPin, CalendarBlank, Anchor } from '@phosphor-icons/react'
-import Image from 'next/image'
+import { Check, Clock, MapPin, CalendarBlank, Anchor, WhatsappLogo } from '@phosphor-icons/react'
 import gsap from 'gsap'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -27,8 +26,12 @@ export function Tours() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-[#FAF8F5] py-24 px-4 md:px-6 border-t border-[#e6e2da]">
-      <div className="container mx-auto max-w-7xl">
+    <section ref={sectionRef} id="results" className="bg-[#FAF8F5] py-24 px-4 md:px-6 border-t border-[#e6e2da] relative overflow-hidden font-sans">
+      
+      {/* Elementos decorativos de fundo */}
+      <div className="absolute top-0 left-1/2 w-[1px] h-full bg-[#e6e2da]/30 pointer-events-none hidden lg:block" />
+
+      <div className="container mx-auto max-w-7xl relative z-10">
 
         {/* --- CABEÇALHO --- */}
         <div className="text-center mb-16 md:mb-20 tours-reveal">
@@ -48,43 +51,55 @@ export function Tours() {
 
           {/* CARD 01: CONSULTORIA ONLINE */}
           <div
-            className="group relative rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#F5F2EB] flex flex-col transition-all duration-500 hover:shadow-md"
+            className="group relative rounded-[2.5rem] overflow-hidden border border-white/10 bg-zinc-950 flex flex-col transition-all duration-500 hover:shadow-2xl"
             data-aos="fade-up"
           >
+            {/* Vídeo de Fundo Loop */}
+            <video
+              src="/video3.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
+            />
+            {/* Película Protetora Escura */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/65 to-[#060606]/20 z-10 pointer-events-none" />
+
             {/* Conteúdo */}
-            <div className="relative z-10 flex flex-col p-8 md:p-12 justify-between flex-1">
+            <div className="relative z-20 flex flex-col p-8 md:p-12 justify-between flex-1">
               <div>
                 <div className="flex justify-between items-start mb-12 md:mb-20">
                   <div className="flex flex-col gap-2">
-                    <div className="bg-[#111111] text-white text-[9px] font-black px-3 py-1 uppercase tracking-widest self-start rounded-sm">
+                    <div className="bg-white/10 backdrop-blur-md text-[#bda07a] text-[9px] font-black px-3 py-1.5 uppercase tracking-widest self-start rounded-md border border-white/10">
                       Consultoria Online
                     </div>
-                    <div className="bg-[#bda07a] text-white text-[9px] font-black px-3 py-1 uppercase tracking-widest self-start rounded-sm">
+                    <div className="bg-[#bda07a] text-white text-[9px] font-black px-3 py-1.5 uppercase tracking-widest self-start rounded-md shadow-sm">
                       Via Aplicativo
                     </div>
                   </div>
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#e6e2da] flex items-center justify-center bg-white shadow-sm">
-                    <CalendarBlank size={20} className="text-[#111111]" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/10 backdrop-blur-md shadow-sm text-[#bda07a]">
+                    <CalendarBlank size={20} />
                   </div>
                 </div>
 
-                <h3 className="text-4xl md:text-6xl font-black text-[#111111] uppercase leading-[0.8] mb-6 tracking-tighter">
+                <h3 className="text-4xl md:text-6xl font-black text-white uppercase leading-[0.8] mb-6 tracking-tighter" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                   Treine onde <br />
                   <span className="font-serif italic font-light text-[#bda07a] capitalize">quiser</span>
                 </h3>
 
                 <div className="flex flex-wrap gap-2 md:gap-3 mb-8">
-                  <span className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full text-[9px] font-bold uppercase border border-[#e6e2da] text-[#111111]">
+                  <span className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-2 rounded-full text-[9px] font-bold uppercase border border-white/10 text-white">
                     <Clock size={14} weight="fill" className="text-[#bda07a]" /> Treino no Seu Tempo
                   </span>
-                  <span className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full text-[9px] font-bold uppercase border border-[#e6e2da] text-[#111111]">
+                  <span className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-2 rounded-full text-[9px] font-bold uppercase border border-white/10 text-white">
                     <Clock size={14} weight="fill" className="text-[#bda07a]" /> Suporte Direto
                   </span>
                 </div>
 
-                {/* Lista de Tópicos */}
-                <div className="bg-white p-6 rounded-3xl border border-[#e6e2da] transition-all">
-                  <h4 className="text-zinc-400 font-black uppercase mb-4 tracking-[0.2em] text-[9px] border-b border-[#e6e2da] pb-2">O que está incluso:</h4>
+                {/* Lista de Tópicos (Glassmorphism Premium) */}
+                <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 transition-all">
+                  <h4 className="text-[#bda07a] font-black uppercase mb-4 tracking-[0.2em] text-[9px] border-b border-white/10 pb-2">O que está incluso:</h4>
                   <ul className="space-y-4 md:space-y-3">
                     {[
                       "Ficha de treino dinâmica personalizada via aplicativo",
@@ -96,7 +111,7 @@ export function Tours() {
                       "Ajustes periódicos na rotina de treino conforme evolução",
                       "Foco em hipertrofia, emagrecimento ou condicionamento"
                     ].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-xs md:text-sm text-[#66635f] hover:text-[#111111] transition-colors leading-snug">
+                      <li key={i} className="flex items-start gap-3 text-xs md:text-sm text-zinc-300 hover:text-white transition-colors leading-snug">
                         <Check size={16} className="text-[#bda07a] mt-0.5 shrink-0" weight="bold" />
                         {item}
                       </li>
@@ -110,9 +125,9 @@ export function Tours() {
                   href="https://wa.me/5561996844400?text=Olá%20Jéssica!%20Gostaria%20de%20saber%20mais%20sobre%20a%20sua%20Consultoria%20Online."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-[#111111] hover:bg-[#bda07a] text-white font-bold py-4 px-6 transition-all flex items-center justify-center gap-3 uppercase text-xs tracking-widest rounded-xl shadow-sm"
+                  className="w-full bg-white hover:bg-[#bda07a] text-[#111111] hover:text-white font-bold py-4 px-6 transition-all flex items-center justify-center gap-3 uppercase text-xs tracking-widest rounded-xl shadow-lg hover:scale-[1.02]"
                 >
-                  Contratar Consultoria
+                  Contratar Consultoria <WhatsappLogo size={14} weight="fill" />
                 </a>
               </div>
             </div>
@@ -120,40 +135,53 @@ export function Tours() {
 
           {/* CARD 02: PERSONAL PRESENCIAL */}
           <div
-            className="group relative rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#F5F2EB] flex flex-col transition-all duration-500 hover:shadow-md"
+            className="group relative rounded-[2.5rem] overflow-hidden border border-white/10 bg-zinc-950 flex flex-col transition-all duration-500 hover:shadow-2xl"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            <div className="relative z-10 flex flex-col p-8 md:p-12 justify-between flex-1">
+            {/* Vídeo de Fundo Loop */}
+            <video
+              src="/video2.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
+            />
+            {/* Película Protetora Escura */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/65 to-[#060606]/20 z-10 pointer-events-none" />
+
+            {/* Conteúdo */}
+            <div className="relative z-20 flex flex-col p-8 md:p-12 justify-between flex-1">
               <div>
                 <div className="flex justify-between items-start mb-12 md:mb-20">
                   <div className="flex flex-col gap-2">
-                    <div className="bg-[#111111] text-white text-[9px] font-black px-4 py-2 tracking-widest uppercase rounded-sm">
+                    <div className="bg-white/10 backdrop-blur-md text-[#bda07a] text-[9px] font-black px-4 py-1.5 tracking-widest uppercase rounded-md border border-white/10">
                       Aulas Individuais
                     </div>
-                    <div className="bg-[#bda07a] text-white text-[9px] font-black px-4 py-2 tracking-widest uppercase rounded-sm">
+                    <div className="bg-[#bda07a] text-white text-[9px] font-black px-4 py-1.5 tracking-widest uppercase rounded-md shadow-sm">
                       Presencial VIP (DF)
                     </div>
                   </div>
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#e6e2da] flex items-center justify-center bg-white shadow-sm">
-                    <Anchor size={20} weight="fill" className="text-[#111111]" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/10 backdrop-blur-md shadow-sm text-[#bda07a]">
+                    <Anchor size={20} weight="fill" />
                   </div>
                 </div>
 
-                <h3 className="text-4xl md:text-6xl font-black text-[#111111] uppercase leading-[0.8] mb-6 tracking-tighter">
+                <h3 className="text-4xl md:text-6xl font-black text-white uppercase leading-[0.8] mb-6 tracking-tighter" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                   Presencial <br />
                   <span className="font-serif italic font-light text-[#bda07a] capitalize">VIP</span>
                 </h3>
 
                 <div className="flex items-center gap-3 mb-8">
-                  <span className="flex items-center gap-2 bg-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase border border-[#e6e2da] text-[#111111]">
+                  <span className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-2 rounded-full text-[9px] font-black uppercase border border-white/10 text-white">
                     <Clock size={14} weight="fill" className="text-[#bda07a]" /> Acompanhamento Individualizado
                   </span>
                 </div>
 
-                {/* Lista de Tópicos */}
-                <div className="bg-white p-6 rounded-3xl border border-[#e6e2da] transition-all">
-                  <h4 className="text-zinc-400 font-black uppercase mb-4 tracking-[0.2em] text-[9px] border-b border-[#e6e2da] pb-2">O que está incluso:</h4>
+                {/* Lista de Tópicos (Glassmorphism Premium) */}
+                <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 transition-all">
+                  <h4 className="text-[#bda07a] font-black uppercase mb-4 tracking-[0.2em] text-[9px] border-b border-white/10 pb-2">O que está incluso:</h4>
                   <ul className="space-y-4 md:space-y-3">
                     {[
                       "Supervisão presencial 100% dedicada durante todo o treino",
@@ -165,7 +193,7 @@ export function Tours() {
                       "Horários flexíveis pré-agendados semanalmente",
                       "Motivação e energia para treinar no seu limite máximo"
                     ].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-xs md:text-sm text-[#66635f] hover:text-[#111111] transition-colors leading-snug">
+                      <li key={i} className="flex items-start gap-3 text-xs md:text-sm text-zinc-300 hover:text-white transition-colors leading-snug">
                         <Check size={16} className="text-[#bda07a] mt-0.5 shrink-0" weight="bold" />
                         {item}
                       </li>
@@ -179,9 +207,9 @@ export function Tours() {
                   href="https://wa.me/5561996844400?text=Olá%20Jéssica!%20Gostaria%20de%20saber%20valores%20e%20disponibilidade%20para%20as%20Aulas%20VIP%20Presenciais%20em%20Brasília."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-[#111111] hover:bg-[#bda07a] text-white font-bold py-4 px-6 transition-all flex items-center justify-center gap-3 uppercase text-xs tracking-widest rounded-xl shadow-sm"
+                  className="w-full bg-white hover:bg-[#bda07a] text-[#111111] hover:text-white font-bold py-4 px-6 transition-all flex items-center justify-center gap-3 uppercase text-xs tracking-widest rounded-xl shadow-lg hover:scale-[1.02]"
                 >
-                  Consultar Disponibilidade
+                  Consultar Disponibilidade <WhatsappLogo size={14} weight="fill" />
                 </a>
               </div>
             </div>

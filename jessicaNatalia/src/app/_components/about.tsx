@@ -63,7 +63,7 @@ export function About() {
         {
             title: "MatPilates Corredores",
             desc: "Foco em estabilização pélvica, aumento de amplitude articular e equilíbrio muscular para prevenção de lesões na corrida.",
-            src: "/image38.jpeg",
+            src: "/image30.jpeg",
             icon: <Star size={20} />,
             delay: "400"
         },

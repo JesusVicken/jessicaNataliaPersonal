@@ -24,7 +24,7 @@ def extract_number(filename):
 
 def main():
     src_dir = "public/transition"
-    dest_dir = "public/sequence_mobile"
+    dest_dir = "public/sequence_mobile2"
     
     if not os.path.exists(src_dir):
         print(f"Erro: Pasta de origem '{src_dir}' não encontrada.")
