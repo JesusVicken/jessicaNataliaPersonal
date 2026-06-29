@@ -193,7 +193,6 @@ export function Footer() {
           width="100%"
           height="100%"
           loading="lazy"
-          className="filter grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500 ease-out"
           style={{ border: 0 }}
           allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"
