@@ -70,7 +70,7 @@ export function About() {
         {
             title: "MatPilates Ciclistas",
             desc: "Compensação e fortalecimento da cadeia posterior para ciclistas de estrada e mountain bike, reduzindo fadiga e dores nas costas.",
-            src: "/image35.jpeg",
+            src: "/image39.jpeg",
             icon: <Bicycle size={20} />,
             delay: "500"
         },
@@ -439,7 +439,7 @@ export function About() {
                                 src={specialtiesList[3].src}
                                 alt={specialtiesList[3].title}
                                 fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out z-0"
                                 sizes="33vw"
                                 loading="lazy"
                             />
@@ -463,7 +463,7 @@ export function About() {
                                 src={specialtiesList[4].src}
                                 alt={specialtiesList[4].title}
                                 fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out z-0"
                                 sizes="33vw"
                                 loading="lazy"
                             />
