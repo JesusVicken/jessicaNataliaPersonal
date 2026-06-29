@@ -15,11 +15,20 @@ import { Handshake } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import bodytechLogo from '../../../public/bodytech.png'
+import smartfitLogo from '../../../public/smartfit.png'
+import vertacoLogo from '../../../public/vertaco.jpg'
+import acvcLogo from '../../../public/acvc.jpg'
+import kaleLogo from '../../../public/kale.jpg'
+
 gsap.registerPlugin(ScrollTrigger)
 
 const PARTNERS = [
-  { name: 'Ascade', url: 'https://ascade.com.br' },
-  { name: 'Wellhub', url: 'https://wellhub.com' },
+  { name: 'Bodytech', logo: bodytechLogo, url: 'https://bodytech.com.br' },
+  { name: 'SmartFit', logo: smartfitLogo, url: 'https://www.smartfit.com.br' },
+  { name: 'Vertaco', logo: vertacoLogo, url: 'https://www.vertaco.com.br' },
+  { name: 'ACVC', logo: acvcLogo, url: 'https://www.acvc.com.br' },
+  { name: 'Kale', logo: kaleLogo, url: 'https://www.kale.com.br' },
 ]
 
 export function Footer() {
@@ -68,7 +77,7 @@ export function Footer() {
             Parceiros Oficiais
           </h4>
 
-          <div className="flex flex-wrap justify-center gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 justify-center items-center max-w-5xl mx-auto">
             {PARTNERS.map((item, index) => (
               <a
                 key={item.name}
@@ -78,11 +87,23 @@ export function Footer() {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-white px-10 py-6 rounded-2xl border border-[#e6e2da] flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-sm"
+                className="group bg-white p-6 rounded-[2rem] border border-[#e6e2da] flex items-center justify-center transition-all duration-500 hover:scale-[1.03] hover:shadow-md h-24 w-full"
               >
-                <span className="text-[#111111] font-black uppercase tracking-[0.2em] text-xs md:text-sm group-hover:text-[#bda07a] transition-colors duration-300">
-                  {item.name}
-                </span>
+                {item.logo ? (
+                  <Image
+                    src={item.logo}
+                    alt={item.name}
+                    width={item.name === 'SmartFit' ? 220 : 140}
+                    height={item.name === 'SmartFit' ? 60 : 40}
+                    className={`object-contain transition-all duration-500 ease-out ${
+                      item.name === 'SmartFit' ? 'max-h-20 scale-125' : 'max-h-12 hover:scale-105'
+                    }`}
+                  />
+                ) : (
+                  <span className="text-[#111111] font-black uppercase tracking-[0.2em] text-[10px] md:text-xs group-hover:text-[#bda07a] transition-colors duration-300">
+                    {item.name}
+                  </span>
+                )}
               </a>
             ))}
           </div>

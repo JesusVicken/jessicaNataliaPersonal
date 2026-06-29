@@ -133,71 +133,72 @@ export default function Projects() {
         const frameObj = { frame: 0 }
 
         const scrollDistance = device === 'mobile' ? 1200 : 2000
-
-        // Timeline de animação com base no scroll
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: container,
-                start: "top top",
-                end: `+=${scrollDistance}`,
-                scrub: 1, // Rolagem fluida com inércia no mobile e desktop
-                pin: true,
-                anticipatePin: 1,
-            }
-        })
-
-        // Animar sequência de frames
-        tl.to(frameObj, {
-            frame: numFrames - 1,
-            snap: "frame",
-            ease: "none",
-            duration: 1,
-            onUpdate: () => {
-                const index = Math.round(frameObj.frame)
-                if (imagesRef.current[index]) {
-                    drawImageProp(ctx, imagesRef.current[index])
-                }
-            }
-        }, 0)
-
-        // Animações de texto sincronizadas por frames de acordo com a quantidade
         const isMob = device === 'mobile'
 
-        // Grupo 1: Fades out (Fim da primeira fase)
-        tl.to(".hero-group-1", {
-            opacity: 0,
-            y: -30,
-            filter: "blur(10px)",
-            pointerEvents: "none",
-            duration: isMob ? 0.20 : 0.12,
-            ease: "power1.inOut"
-        }, isMob ? 0.15 : 0.22)
+        // Cria o GSAP Context para agrupar todas as animações e limpar corretamente no unmount
+        const gsapCtx = gsap.context(() => {
+            // Timeline de animação com base no scroll
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: container,
+                    start: "top top",
+                    end: `+=${scrollDistance}`,
+                    scrub: 1, // Rolagem fluida com inércia no mobile e desktop
+                    pin: true,
+                    anticipatePin: 1,
+                }
+            })
 
-        // Grupo 2: Aparece e desaparece (Metodologia)
-        tl.fromTo(".hero-group-2",
-            { opacity: 0, y: 30, filter: "blur(10px)", pointerEvents: "none" },
-            { opacity: 1, y: 0, filter: "blur(0px)", pointerEvents: "auto", duration: isMob ? 0.20 : 0.12, ease: "power1.inOut" },
-            isMob ? 0.35 : 0.34
-        )
-        tl.to(".hero-group-2", {
-            opacity: 0,
-            y: -30,
-            filter: "blur(10px)",
-            pointerEvents: "none",
-            duration: isMob ? 0.20 : 0.12,
-            ease: "power1.inOut"
-        }, isMob ? 0.65 : 0.66)
+            // Animar sequência de frames
+            tl.to(frameObj, {
+                frame: numFrames - 1,
+                snap: "frame",
+                ease: "none",
+                duration: 1,
+                onUpdate: () => {
+                    const index = Math.round(frameObj.frame)
+                    if (imagesRef.current[index]) {
+                        drawImageProp(ctx, imagesRef.current[index])
+                    }
+                }
+            }, 0)
 
-        // Grupo 3: Sobe e fixa no final
-        tl.fromTo(".hero-group-3",
-            { opacity: 0, y: 60, pointerEvents: "none" },
-            { opacity: 1, y: 0, pointerEvents: "auto", duration: isMob ? 0.25 : 0.15, ease: "power2.out" },
-            isMob ? 0.80 : 0.78
-        )
+            // Grupo 1: Fades out (Fim da primeira fase)
+            tl.to(".hero-group-1", {
+                opacity: 0,
+                y: -30,
+                filter: "blur(10px)",
+                pointerEvents: "none",
+                duration: isMob ? 0.20 : 0.12,
+                ease: "power1.inOut"
+            }, isMob ? 0.15 : 0.22)
+
+            // Grupo 2: Aparece e desaparece (Metodologia)
+            tl.fromTo(".hero-group-2",
+                { opacity: 0, y: 30, filter: "blur(10px)", pointerEvents: "none" },
+                { opacity: 1, y: 0, filter: "blur(0px)", pointerEvents: "auto", duration: isMob ? 0.20 : 0.12, ease: "power1.inOut" },
+                isMob ? 0.35 : 0.34
+            )
+            tl.to(".hero-group-2", {
+                opacity: 0,
+                y: -30,
+                filter: "blur(10px)",
+                pointerEvents: "none",
+                duration: isMob ? 0.20 : 0.12,
+                ease: "power1.inOut"
+            }, isMob ? 0.65 : 0.66)
+
+            // Grupo 3: Sobe e fixa no final
+            tl.fromTo(".hero-group-3",
+                { opacity: 0, y: 60, pointerEvents: "none" },
+                { opacity: 1, y: 0, pointerEvents: "auto", duration: isMob ? 0.25 : 0.15, ease: "power2.out" },
+                isMob ? 0.80 : 0.78
+            )
+        }, container)
 
         return () => {
             window.removeEventListener('resize', handleResize)
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+            gsapCtx.revert() // Reverte o DOM limpo e remove todos os pin-spacers e timelines
         }
     }, [imagesLoaded, device])
 
