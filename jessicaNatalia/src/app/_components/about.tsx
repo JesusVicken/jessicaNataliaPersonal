@@ -1,10 +1,22 @@
 'use client'
 
-import React, { useLayoutEffect, useRef } from 'react'
+import React, { useLayoutEffect, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { GraduationCap, Trophy, FlowerLotus, Sparkle, MapPin } from '@phosphor-icons/react'
+import { 
+    Barbell, 
+    FlowerLotus, 
+    GraduationCap, 
+    Star, 
+    Users, 
+    Mountains, 
+    Compass, 
+    Baby, 
+    Bicycle, 
+    ArrowRight,
+    Sparkle
+} from '@phosphor-icons/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -18,7 +30,7 @@ export function About() {
         const ctx = gsap.context(() => {
             // 1. Efeito parallax / zoom suave na imagem principal conforme scroll
             gsap.fromTo(".about-photo",
-                { scale: 1.15 },
+                { scale: 1.12 },
                 {
                     scale: 1,
                     ease: 'none',
@@ -37,11 +49,11 @@ export function About() {
                 {
                     clipPath: 'inset(0% 0% 0% 0%)',
                     opacity: 1,
-                    duration: 1.6,
+                    duration: 1.4,
                     ease: 'power4.inOut',
                     scrollTrigger: {
                         trigger: containerRef.current,
-                        start: 'top 70%',
+                        start: 'top 75%',
                     }
                 }
             )
@@ -50,12 +62,12 @@ export function About() {
             const animateElements = textRef.current?.querySelectorAll('.reveal-item')
             if (animateElements) {
                 gsap.fromTo(animateElements,
-                    { y: 50, opacity: 0 },
+                    { y: 40, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 1,
-                        stagger: 0.15,
+                        duration: 0.8,
+                        stagger: 0.12,
                         ease: 'power3.out',
                         scrollTrigger: {
                             trigger: textRef.current,
@@ -65,59 +77,71 @@ export function About() {
                 )
             }
 
-            // 4. Animação dos cards de conquistas
-            const cards = statsRef.current?.querySelectorAll('.cred-card')
-            if (cards) {
-                gsap.fromTo(cards,
-                    { y: 40, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.8,
-                        stagger: 0.12,
-                        ease: 'power2.out',
+            // 4. Animação dos contadores numéricos na seção de destaques
+            const counters = statsRef.current?.querySelectorAll('.about-counter')
+            if (counters) {
+                counters.forEach((counter) => {
+                    const targetVal = parseInt(counter.getAttribute('data-target') || '0', 10)
+                    const suffix = counter.getAttribute('data-suffix') || ''
+                    const obj = { value: 0 }
+
+                    gsap.to(obj, {
+                        value: targetVal,
+                        duration: 2,
+                        ease: 'power3.out',
                         scrollTrigger: {
-                            trigger: statsRef.current,
-                            start: 'top 85%',
+                            trigger: counter,
+                            start: 'top 90%',
+                            toggleActions: 'play none none none',
+                        },
+                        onUpdate: () => {
+                            counter.textContent = Math.round(obj.value) + suffix
                         }
-                    }
-                )
+                    })
+                })
             }
         }, containerRef)
 
         return () => ctx.revert()
     }, [])
 
+    // Função de scroll suave até a seção de programas
+    const scrollToPrograms = (e: React.MouseEvent) => {
+        e.preventDefault()
+        const target = document.getElementById('programs')
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' })
+        }
+    }
+
     return (
         <section 
             ref={containerRef} 
             id="about" 
-            className="bg-[#FAF8F5] py-32 md:py-48 px-6 md:px-12 border-t border-[#e6e2da] overflow-hidden relative font-sans text-[#111111]"
+            className="bg-[#FAF8F5] py-24 md:py-36 px-6 md:px-12 border-t border-[#e6e2da] overflow-hidden relative font-sans text-[#111111]"
         >
-            {/* Linhas decorativas sutis - Estilo Editorial Awwwards */}
+            {/* Linhas decorativas de fundo para estética Awwwards */}
             <div className="absolute top-0 left-1/4 w-[1px] h-full bg-[#e6e2da]/40 pointer-events-none hidden lg:block" />
             <div className="absolute top-0 left-3/4 w-[1px] h-full bg-[#e6e2da]/40 pointer-events-none hidden lg:block" />
 
             <div className="container mx-auto max-w-7xl relative z-10">
-                <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-
-                    {/* --- COLUNA ESQUERDA: FOTO (LARGURA 5/12) --- */}
+                
+                {/* --- SEÇÃO PRINCIPAL: FOTO + BIO --- */}
+                <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start mb-24 md:mb-32">
+                    
+                    {/* Lado Esquerdo: Imagem Profissional */}
                     <div ref={imageRef} className="lg:col-span-5 w-full sticky lg:top-32">
-                        <div className="aspect-[3/4] relative rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#F5F2EB] shadow-2xl group">
-                            
-                            {/* Overlay de gradiente luxuoso no topo da imagem */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 pointer-events-none" />
-
+                        <div className="aspect-[3/4] relative rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#F5F2EB] shadow-2xl">
                             <Image
                                 src="/jessica.jpeg"
-                                alt="Jéssica Natália - Personal Trainer & Pilates"
+                                alt="Jéssica Natália"
                                 fill
                                 className="about-photo object-cover transition-transform duration-700"
                                 quality={100}
                                 priority
                             />
-
-                            {/* Badge flutuante Awwwards no canto */}
+                            
+                            {/* Card de autoridade sobreposto */}
                             <div className="absolute bottom-6 left-6 z-20 bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl border border-[#e6e2da]/60 shadow-lg flex items-center gap-3">
                                 <div className="w-2.5 h-2.5 rounded-full bg-[#bda07a] animate-ping" />
                                 <span className="text-[9px] font-black tracking-widest text-[#111111] uppercase">CREF 0314135-G/DF</span>
@@ -125,113 +149,220 @@ export function About() {
                         </div>
                     </div>
 
-                    {/* --- COLUNA DIREITA: CONTEÚDO EDITORIAL (LARGURA 7/12) --- */}
-                    <div ref={textRef} className="lg:col-span-7 w-full flex flex-col justify-center pt-4 lg:pt-0">
+                    {/* Lado Direito: Conteúdo Editorial */}
+                    <div ref={textRef} className="lg:col-span-7 w-full flex flex-col justify-center">
                         
-                        {/* Categoria / Badge */}
-                        <div className="reveal-item mb-6 flex items-center gap-2">
-                            <span className="text-[10px] font-black tracking-[0.4em] text-[#bda07a] uppercase">
-                                HAUTE COUTURE FITNESS
+                        {/* Pequeno Título com sugestão de impacto */}
+                        <div className="reveal-item mb-4">
+                            <span className="text-[10px] font-black tracking-[0.35em] text-[#bda07a] uppercase block mb-2">
+                                CONHEÇA A JÉSSICA
                             </span>
-                            <div className="h-[1px] w-8 bg-[#bda07a]/60"></div>
+                            <span className="text-xs font-serif italic text-[#66635f] block">
+                                Especialista em MatPilates para Mulheres, Corredores e Ciclistas.
+                            </span>
                         </div>
 
                         {/* Título Principal */}
-                        <h2 className="reveal-item text-4xl md:text-6xl font-black uppercase tracking-tight leading-[0.9] text-[#111111] mb-8">
-                            Jéssica Natália <br />
-                            <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">
-                                Personal & Pilates
-                            </span>
+                        <h2 className="reveal-item text-xl md:text-3xl font-black uppercase tracking-tight leading-tight text-[#111111] mb-8 max-w-2xl">
+                            Mais de 10 anos ajudando mulheres, corredoras e ciclistas a conquistarem um corpo mais forte, saudável e preparado para viver e praticar esportes com qualidade de vida.
                         </h2>
 
-                        {/* Citação Inspiradora (Editorial) */}
-                        <div className="reveal-item border-l-2 border-[#bda07a] pl-6 py-2 mb-10">
-                            <p className="text-md md:text-xl font-light text-[#66635f] italic leading-relaxed">
-                                "Graduada pela UCB, com trajetória esculpida em grandes redes premium como a Bodytech. Desenvolvo um treinamento que une a exatidão biomecânica e a fluidez do Pilates para redefinir o seu corpo e performance."
-                            </p>
-                        </div>
-
-                        {/* Texto Biográfico */}
+                        {/* Parágrafos de Texto */}
                         <div className="reveal-item text-[#66635f] font-light leading-relaxed text-sm md:text-base space-y-6 mb-12">
                             <p>
-                                Jéssica Natália é especialista em treinos personalizados e instrutora certificada de Pilates. Com base teórica pela <strong className="text-[#111111] font-semibold">Universidade Católica de Brasília</strong> e experiência prática acumulada na rede de alta performance <strong className="text-[#111111] font-semibold">Bodytech</strong>, seu método foca no alinhamento perfeito de postura, potência e integridade articular.
+                                Especialista em treinamento feminino e MatPilates, Jéssica Natália une sua experiência como Personal Trainer, Instrutora de MatPilates e Pós-graduada em Treinamento para Grupos Especiais para desenvolver programas voltados à saúde, performance e prevenção de lesões.
                             </p>
                             <p>
-                                Seus planejamentos englobam o ganho de força, resistência, mobilidade e condicionamento físico de elite. Também oferece suporte altamente seguro para <strong className="text-[#111111] font-semibold">gestantes e acompanhamento de pós-parto</strong>, respeitando integralmente as alterações fisiológicas e os objetivos estéticos de cada fase da mulher.
+                                Sua metodologia atende mulheres em diferentes fases da vida — da gestação à menopausa — além de corredores e ciclistas que desejam melhorar o desempenho, reduzir dores e manter a prática esportiva por muitos anos.
                             </p>
                             <p>
-                                Atende de forma presencial exclusiva nas regiões da <strong className="text-[#111111] font-semibold">Asa Sul e Sudoeste (Brasília - DF)</strong>, além de guiar alunos em todo o Brasil e exterior por meio de sua renomada consultoria fitness online personalizada.
+                                Ao longo da carreira, já ajudou mais de 1.000 pessoas a conquistarem mais força, mobilidade, confiança e qualidade de vida.
                             </p>
                         </div>
 
-                        {/* Grid de Diferenciais e Qualificações */}
-                        <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {/* Grid Moderno de Cards / Ícones */}
+                        <div className="reveal-item grid grid-cols-1 sm:grid-cols-2 gap-4">
                             
-                            {/* Credencial 1 */}
-                            <div className="cred-card group p-6 rounded-[2rem] bg-white border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-[0_15px_30px_rgba(0,0,0,0.02)] transition-all duration-500 flex items-start gap-4">
-                                <div className="bg-[#FAF8F5] text-[#bda07a] p-3.5 rounded-2xl group-hover:bg-[#111111] group-hover:text-white transition-colors duration-500">
-                                    <GraduationCap size={22} />
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-black uppercase text-[#111111] mb-1 tracking-wider">Formação UCB</h4>
-                                    <p className="text-[11px] text-[#66635f] font-light leading-snug">
-                                        Bacharel em Educação Física pela prestigiada Universidade Católica de Brasília.
-                                    </p>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
+                                <Barbell size={20} className="text-[#bda07a]" weight="fill" />
+                                <div className="flex flex-col">
+                                    <span className="text-xs font-bold text-[#111111]">Personal Trainer</span>
+                                    <span className="text-[10px] text-zinc-400">Consultoria Online e Presencial</span>
                                 </div>
                             </div>
 
-                            {/* Credencial 2 */}
-                            <div className="cred-card group p-6 rounded-[2rem] bg-white border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-[0_15px_30px_rgba(0,0,0,0.02)] transition-all duration-500 flex items-start gap-4">
-                                <div className="bg-[#FAF8F5] text-[#bda07a] p-3.5 rounded-2xl group-hover:bg-[#111111] group-hover:text-white transition-colors duration-500">
-                                    <Trophy size={22} />
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-black uppercase text-[#111111] mb-1 tracking-wider">DNA Bodytech</h4>
-                                    <p className="text-[11px] text-[#66635f] font-light leading-snug">
-                                        Atuação de alto padrão na maior e mais qualificada rede de academias premium do país.
-                                    </p>
-                                </div>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
+                                <FlowerLotus size={20} className="text-[#bda07a]" weight="fill" />
+                                <span className="text-xs font-bold text-[#111111]">Instrutora de MatPilates</span>
                             </div>
 
-                            {/* Credencial 3 */}
-                            <div className="cred-card group p-6 rounded-[2rem] bg-white border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-[0_15px_30px_rgba(0,0,0,0.02)] transition-all duration-500 flex items-start gap-4">
-                                <div className="bg-[#FAF8F5] text-[#bda07a] p-3.5 rounded-2xl group-hover:bg-[#111111] group-hover:text-white transition-colors duration-500">
-                                    <FlowerLotus size={22} />
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-black uppercase text-[#111111] mb-1 tracking-wider">Método Pilates</h4>
-                                    <p className="text-[11px] text-[#66635f] font-light leading-snug">
-                                        Controle motor, reabilitação articular e fortalecimento profundo do core.
-                                    </p>
-                                </div>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
+                                <GraduationCap size={20} className="text-[#bda07a]" weight="fill" />
+                                <span className="text-xs font-bold text-[#111111]">Pós-graduada em Grupos Especiais</span>
                             </div>
 
-                            {/* Credencial 4 */}
-                            <div className="cred-card group p-6 rounded-[2rem] bg-white border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-[0_15px_30px_rgba(0,0,0,0.02)] transition-all duration-500 flex items-start gap-4">
-                                <div className="bg-[#FAF8F5] text-[#bda07a] p-3.5 rounded-2xl group-hover:bg-[#111111] group-hover:text-white transition-colors duration-500">
-                                    <Sparkle size={22} />
-                                </div>
-                                <div>
-                                    <h4 className="text-xs font-black uppercase text-[#111111] mb-1 tracking-wider">Gestantes & Materno</h4>
-                                    <p className="text-[11px] text-[#66635f] font-light leading-snug">
-                                        Protocolos seguros para uma gestação ativa e recuperação célere no pós-parto.
-                                    </p>
-                                </div>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
+                                <Sparkle size={20} className="text-[#bda07a]" weight="fill" />
+                                <span className="text-xs font-bold text-[#111111]">Professora da Rede Bodytech</span>
                             </div>
 
-                        </div>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
+                                <Mountains size={20} className="text-[#bda07a]" weight="fill" />
+                                <span className="text-xs font-bold text-[#111111]">Ex-atleta de esportes outdoor</span>
+                            </div>
 
-                        {/* Local de Atendimento / Link de Parceria */}
-                        <div className="reveal-item mt-10 p-5 rounded-2xl bg-[#F5F2EB]/60 border border-[#e6e2da] flex items-center gap-4 text-xs font-light text-[#66635f]">
-                            <MapPin size={18} className="text-[#bda07a] shrink-0" weight="fill" />
-                            <span>
-                                Atendimento presencial exclusivo em condomínios e na Ascade (Asa Sul / Sudoeste), Brasília - DF.
-                            </span>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
+                                <Compass size={20} className="text-[#bda07a]" weight="fill" />
+                                <span className="text-xs font-bold text-[#111111]">Guia da Chapada dos Veadeiros</span>
+                            </div>
+
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
+                                <Star size={20} className="text-[#bda07a]" weight="fill" />
+                                <span className="text-xs font-bold text-[#111111]">Mais de 10 anos de experiência</span>
+                            </div>
+
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
+                                <Users size={20} className="text-[#bda07a]" weight="fill" />
+                                <span className="text-xs font-bold text-[#111111]">Mais de 1.000 vidas transformadas</span>
+                            </div>
+
                         </div>
 
                     </div>
 
                 </div>
+
+                {/* --- FAIXA DESTACADA: MISSÃO --- */}
+                <div className="mb-24 md:mb-32 bg-[#F5F2EB] p-8 md:p-12 rounded-[2.5rem] border border-[#e6e2da] flex flex-col md:flex-row gap-8 items-start md:items-center justify-between" data-aos="fade-up">
+                    <div className="md:w-1/3">
+                        <span className="text-[10px] font-black tracking-[0.35em] text-[#bda07a] uppercase block mb-2">DIRETRIZ</span>
+                        <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-[#111111]">Minha missão</h3>
+                    </div>
+                    <div className="md:w-2/3 border-t md:border-t-0 md:border-l border-[#e6e2da] pt-6 md:pt-0 md:pl-10">
+                        <p className="text-sm md:text-base text-[#66635f] leading-relaxed font-light">
+                            <strong className="text-[#111111] font-semibold block mb-2 text-md">Acredito que o movimento transforma vidas.</strong>
+                            Meu objetivo é ajudar mulheres, corredoras e ciclistas a desenvolverem um corpo forte, funcional e resiliente através do MatPilates e do treinamento físico, permitindo que pratiquem suas atividades com mais segurança, confiança e qualidade de vida.
+                        </p>
+                    </div>
+                </div>
+
+                {/* --- SEÇÃO DE ESPECIALIDADES --- */}
+                <div className="mb-24 md:mb-32">
+                    {/* Header */}
+                    <div className="text-center mb-16" data-aos="fade-up">
+                        <span className="text-[10px] font-black tracking-[0.35em] text-[#bda07a] uppercase block mb-4">MÉTODOS DE AÇÃO</span>
+                        <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111]">Especialidades</h3>
+                    </div>
+
+                    {/* Cards Grid */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="100">
+                            <div>
+                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
+                                    <FlowerLotus size={20} />
+                                </div>
+                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">Climatério & Menopausa</h4>
+                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
+                                    MatPilates adaptado para mulheres na perimenopausa e menopausa, focando em ganho de densidade óssea e flexibilidade muscular.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="200">
+                            <div>
+                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
+                                    <Baby size={20} />
+                                </div>
+                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">MatPilates Gestantes</h4>
+                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
+                                    Fortalecimento de assoalho pélvico e estabilização de core para uma gestação ativa, saudável e sem desconforto lombar.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="300">
+                            <div>
+                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
+                                    <Users size={20} />
+                                </div>
+                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">Recuperação Pós-Parto</h4>
+                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
+                                    Recuperação biomecânica progressiva pós-parto, com foco em reabilitação de diástase abdominal e fortalecimento postural global.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="400">
+                            <div>
+                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
+                                    <Star size={20} />
+                                </div>
+                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">MatPilates Corredores</h4>
+                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
+                                    Foco em estabilização pélvica, aumento de amplitude articular e equilíbrio muscular para prevenção de lesões na corrida.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="500">
+                            <div>
+                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
+                                    <Bicycle size={20} />
+                                </div>
+                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">MatPilates Ciclistas</h4>
+                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
+                                    Compensação e fortalecimento da cadeia posterior para ciclistas de estrada e mountain bike, reduzindo fadiga e dores nas costas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="group bg-white p-8 rounded-3xl border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-sm transition-all duration-300 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="600">
+                            <div>
+                                <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] text-[#bda07a] flex items-center justify-center mb-6 group-hover:bg-[#111111] group-hover:text-white transition-colors duration-300">
+                                    <Barbell size={20} />
+                                </div>
+                                <h4 className="text-sm font-bold uppercase tracking-wide text-[#111111] mb-2">Consultoria de Treino</h4>
+                                <p className="text-xs text-[#66635f] font-light leading-relaxed">
+                                    Acompanhamento individualizado e personalizado de treinamento de força, unindo ciência prática e biomecânica.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* --- CONEXÃO DOS CONTADORES ANIMADOS --- */}
+                <div ref={statsRef} className="py-16 px-6 bg-white border border-[#e6e2da] rounded-[2.5rem] grid grid-cols-1 md:grid-cols-3 gap-12 text-center items-center shadow-sm">
+                    <div>
+                        <span className="about-counter block text-4xl md:text-5xl font-black text-[#111111] mb-2" data-target="10" data-suffix="+">0+</span>
+                        <span className="text-[9px] uppercase font-bold tracking-widest text-[#bda07a] block mb-1">Anos de experiência</span>
+                        <span className="text-[9px] text-zinc-400 font-light block">Atuação profissional consistente</span>
+                    </div>
+                    <div>
+                        <span className="about-counter block text-4xl md:text-5xl font-black text-[#111111] mb-2" data-target="1000" data-suffix="+">0+</span>
+                        <span className="text-[9px] uppercase font-bold tracking-widest text-[#bda07a] block mb-1">Vidas transformadas</span>
+                        <span className="text-[9px] text-zinc-400 font-light block">Resultados reais mensuráveis</span>
+                    </div>
+                    <div>
+                        <span className="about-counter block text-4xl md:text-5xl font-black text-[#111111] mb-2" data-target="100" data-suffix="%">0%</span>
+                        <span className="text-[9px] uppercase font-bold tracking-widest text-[#bda07a] block mb-1">Atendimento Individualizado</span>
+                        <span className="text-[9px] text-zinc-400 font-light block">Online, presencial e para todo o Brasil</span>
+                    </div>
+                </div>
+
+                {/* --- BOTÃO DE CHAMADA FINAL (CTA) --- */}
+                <div className="mt-20 flex justify-center" data-aos="fade-up">
+                    <a
+                        href="#programs"
+                        onClick={scrollToPrograms}
+                        className="group inline-flex items-center gap-3 bg-[#111111] text-white px-12 py-6 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#bda07a] transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.15)] hover:scale-105"
+                    >
+                        Quero treinar com a Jéssica
+                        <ArrowRight size={16} />
+                    </a>
+                </div>
+
             </div>
         </section>
     )

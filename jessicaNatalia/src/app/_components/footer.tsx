@@ -15,14 +15,11 @@ import { Handshake } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import ascadeLogo from '../../../public/logo-ascade.png'
-import wellhubLogo from '../../../public/wellhub-logo.png'
-
 gsap.registerPlugin(ScrollTrigger)
 
 const PARTNERS = [
-  { name: 'Ascade', logo: ascadeLogo, url: 'https://ascade.com.br' },
-  { name: 'Wellhub', logo: wellhubLogo, url: 'https://wellhub.com' },
+  { name: 'Ascade', url: 'https://ascade.com.br' },
+  { name: 'Wellhub', url: 'https://wellhub.com' },
 ]
 
 export function Footer() {
@@ -81,16 +78,11 @@ export function Footer() {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-white p-6 rounded-3xl border border-[#e6e2da] flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-sm"
+                className="group bg-white px-10 py-6 rounded-2xl border border-[#e6e2da] flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-sm"
               >
-                <Image
-                  src={item.logo}
-                  alt={item.name}
-                  width={200}
-                  height={200}
-                  quality={100}
-                  className="object-contain w-[140px] h-[140px] md:w-[180px] md:h-[180px]"
-                />
+                <span className="text-[#111111] font-black uppercase tracking-[0.2em] text-xs md:text-sm group-hover:text-[#bda07a] transition-colors duration-300">
+                  {item.name}
+                </span>
               </a>
             ))}
           </div>
