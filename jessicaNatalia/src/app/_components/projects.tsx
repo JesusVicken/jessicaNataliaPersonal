@@ -132,12 +132,14 @@ export default function Projects() {
 
         const frameObj = { frame: 0 }
 
+        const scrollDistance = device === 'mobile' ? 1200 : 2000
+
         // Timeline de animação com base no scroll
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: container,
                 start: "top top",
-                end: "+=3800",
+                end: `+=${scrollDistance}`,
                 scrub: 1, // Rolagem fluida com inércia no mobile e desktop
                 pin: true,
                 anticipatePin: 1,
