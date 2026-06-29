@@ -132,7 +132,7 @@ export default function Projects() {
 
         const frameObj = { frame: 0 }
 
-        const scrollDistance = device === 'mobile' ? 1200 : 2000
+        const scrollDistance = device === 'mobile' ? 800 : 2000
         const isMob = device === 'mobile'
 
         // Cria o GSAP Context para agrupar todas as animações e limpar corretamente no unmount
@@ -163,6 +163,13 @@ export default function Projects() {
                 }
             }, 0)
 
+            // Zoom suave cinemático no canvas conforme o scroll (Awwwards motion)
+            tl.to(canvas, {
+                scale: isMob ? 1.08 : 1.05,
+                ease: "none",
+                duration: 1
+            }, 0)
+
             // Grupo 1: Fades out (Fim da primeira fase)
             tl.to(".hero-group-1", {
                 opacity: 0,
@@ -171,13 +178,13 @@ export default function Projects() {
                 pointerEvents: "none",
                 duration: isMob ? 0.20 : 0.12,
                 ease: "power1.inOut"
-            }, isMob ? 0.15 : 0.22)
+            }, isMob ? 0.22 : 0.22)
 
             // Grupo 2: Aparece e desaparece (Metodologia)
             tl.fromTo(".hero-group-2",
                 { opacity: 0, y: 30, filter: "blur(10px)", pointerEvents: "none" },
                 { opacity: 1, y: 0, filter: "blur(0px)", pointerEvents: "auto", duration: isMob ? 0.20 : 0.12, ease: "power1.inOut" },
-                isMob ? 0.35 : 0.34
+                isMob ? 0.40 : 0.34
             )
             tl.to(".hero-group-2", {
                 opacity: 0,
@@ -192,7 +199,7 @@ export default function Projects() {
             tl.fromTo(".hero-group-3",
                 { opacity: 0, y: 60, pointerEvents: "none" },
                 { opacity: 1, y: 0, pointerEvents: "auto", duration: isMob ? 0.25 : 0.15, ease: "power2.out" },
-                isMob ? 0.80 : 0.78
+                isMob ? 0.82 : 0.78
             )
         }, container)
 

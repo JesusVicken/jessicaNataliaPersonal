@@ -210,7 +210,7 @@ export function About() {
                     <div ref={imageRef} className="lg:col-span-5 w-full sticky lg:top-32">
                         <div className="aspect-[3/4] relative rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#F5F2EB] shadow-2xl">
                             <Image
-                                src="/jessica.jpeg"
+                                src="/image25.jpeg"
                                 alt="Jéssica Natália"
                                 fill
                                 className="about-photo object-cover transition-transform duration-700"
