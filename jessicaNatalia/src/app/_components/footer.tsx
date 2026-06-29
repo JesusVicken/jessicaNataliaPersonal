@@ -5,10 +5,11 @@ import Image from 'next/image'
 import {
   FacebookLogo,
   InstagramLogo,
-  YoutubeLogo,
+  LinkedinLogo,
   WhatsappLogo,
   MapPin,
   Phone,
+  Envelope
 } from '@phosphor-icons/react'
 import { Handshake } from 'lucide-react'
 import gsap from 'gsap'
@@ -27,9 +28,9 @@ const PARTNERS = [
 export function Footer() {
   const partnersRef = useRef<(HTMLAnchorElement | null)[]>([])
 
-  const whatsappNumber = '27996314135'
+  const whatsappNumber = '5561996844400'
   const whatsappMessage =
-    'Olá Jessica! Gostaria de mais informações sobre o seu acompanhamento de personal e consultoria.'
+    'Olá Jéssica! Gostaria de mais informações sobre o seu acompanhamento de personal trainer e consultoria.'
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     whatsappMessage
   )}`
@@ -41,16 +42,16 @@ export function Footer() {
       partnersRef.current,
       {
         opacity: 0,
-        y: 80,
-        scale: 0.85,
+        y: 60,
+        scale: 0.9,
       },
       {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 1,
-        ease: 'power4.out',
-        stagger: 0.2,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.15,
         scrollTrigger: {
           trigger: partnersRef.current[0],
           start: 'top 85%',
@@ -60,15 +61,13 @@ export function Footer() {
   }, [])
 
   return (
-    <section className="bg-zinc-950 text-gray-300 border-t border-white/10 relative overflow-hidden flex flex-col">
-      {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-950 to-black opacity-50 pointer-events-none" />
-
-      <div className="container mx-auto px-6 py-16 relative z-10">
+    <section className="bg-[#FAF8F5] text-[#66635f] border-t border-[#e6e2da] relative overflow-hidden flex flex-col font-sans">
+      
+      <div className="container mx-auto px-6 py-20 relative z-10 max-w-7xl">
         {/* PARCEIROS */}
-        <div className="border-b border-white/10 pb-12 mb-12" data-aos="fade-up">
-          <h4 className="text-2xl md:text-3xl font-bold mb-10 text-center flex items-center justify-center gap-3 text-white uppercase tracking-wide">
-            <Handshake className="w-8 h-8 text-white/80" />
+        <div className="border-b border-[#e6e2da] pb-16 mb-16" data-aos="fade-up">
+          <h4 className="text-xl md:text-2xl font-black mb-10 text-center flex items-center justify-center gap-3 text-[#111111] uppercase tracking-wider">
+            <Handshake className="w-6 h-6 text-[#bda07a]" />
             Parceiros Oficiais
           </h4>
 
@@ -82,15 +81,15 @@ export function Footer() {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-white p-8 rounded-3xl flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] will-change-transform"
+                className="group bg-white p-6 rounded-3xl border border-[#e6e2da] flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-sm"
               >
                 <Image
                   src={item.logo}
                   alt={item.name}
-                  width={240}
-                  height={240}
+                  width={200}
+                  height={200}
                   quality={100}
-                  className="object-contain w-[200px] h-[200px] md:w-[240px] md:h-[240px]"
+                  className="object-contain w-[140px] h-[140px] md:w-[180px] md:h-[180px]"
                 />
               </a>
             ))}
@@ -98,43 +97,47 @@ export function Footer() {
         </div>
 
         {/* GRID INFO */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 md:gap-12">
           {/* SOBRE */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-            <h3 className="text-2xl font-black text-white uppercase tracking-wider">
-              Jessica Natalia
+            <h3 className="text-lg font-black text-[#111111] uppercase tracking-[0.2em]">
+              Jéssica Natália
             </h3>
-            <p className="text-gray-400 leading-relaxed max-w-sm">
-              Transformando vidas por meio do treinamento personalizado, periodização inteligente e consultoria fitness individualizada.
+            <p className="text-xs font-light leading-relaxed max-w-xs">
+              Treinamento personalizado e consultoria online baseados em evidência científica, anatomia e biomecânica aplicada.
             </p>
 
             <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-full transition-all hover:scale-105 shadow-lg shadow-green-900/20"
+              className="inline-flex items-center gap-2 bg-[#111111] hover:bg-[#bda07a] text-white font-bold py-3 px-6 rounded-full transition-all hover:scale-105 shadow-sm text-xs uppercase tracking-wider"
             >
-              <WhatsappLogo size={24} weight="fill" />
+              <WhatsappLogo size={18} weight="fill" />
               Fale Conosco
             </a>
           </div>
 
           {/* CONTATO */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-            <h3 className="text-xl font-bold text-white uppercase tracking-wider">
-              Contato
+            <h3 className="text-xs font-bold text-[#111111] uppercase tracking-widest">
+              Contatos & Locais
             </h3>
-            <ul className="space-y-4 text-gray-400">
+            <ul className="space-y-4 text-xs font-light">
               <li className="flex items-center gap-3">
-                <Phone size={20} className="text-white/60" />
-                <span>(27) 99631-4135</span>
+                <Phone size={16} className="text-[#bda07a]" />
+                <a href="tel:+5561996844400" className="hover:text-[#bda07a] transition-colors">(61) 99684-4400</a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Envelope size={16} className="text-[#bda07a]" />
+                <a href="mailto:jessnatalia.rs@gmail.com" className="hover:text-[#bda07a] transition-colors">jessnatalia.rs@gmail.com</a>
               </li>
               <li className="flex items-start gap-3 max-w-xs">
-                <MapPin size={24} className="text-white/60 mt-0.5 shrink-0" />
+                <MapPin size={18} className="text-[#bda07a] mt-0.5 shrink-0" />
                 <span>
                   Ascade – Associação dos Servidores da Câmara dos Deputados
                   <br />
-                  <span className="text-xs text-gray-500 uppercase font-bold">
+                  <span className="text-[10px] text-zinc-400 uppercase font-bold tracking-widest">
                     Brasília - DF
                   </span>
                 </span>
@@ -144,24 +147,25 @@ export function Footer() {
 
           {/* REDES */}
           <div className="flex flex-col items-center md:items-end text-center md:text-right space-y-4">
-            <h3 className="text-xl font-bold text-white uppercase tracking-wider">
-              Siga-nos
+            <h3 className="text-xs font-bold text-[#111111] uppercase tracking-widest">
+              Redes Sociais
             </h3>
 
             <div className="flex gap-4">
               <SocialLink
-                href="https://www.instagram.com/jessicanatalia.personal/"
+                href="https://www.instagram.com/jessicanataliiapersonal/"
                 icon={InstagramLogo}
-                baseColor="text-[#E4405F]"
-                hoverColor="hover:bg-[#E4405F]"
                 label="Instagram"
               />
               <SocialLink
-                href={whatsappLink}
-                icon={WhatsappLogo}
-                baseColor="text-[#25D366]"
-                hoverColor="hover:bg-[#25D366]"
-                label="WhatsApp"
+                href="https://www.linkedin.com/in/jéssica-natália-749423235/"
+                icon={LinkedinLogo}
+                label="LinkedIn"
+              />
+              <SocialLink
+                href="https://www.facebook.com/jessnatrs/"
+                icon={FacebookLogo}
+                label="Facebook"
               />
             </div>
           </div>
@@ -169,7 +173,7 @@ export function Footer() {
       </div>
 
       {/* MAPA LOCAL */}
-      <div className="w-full h-[350px] md:h-[420px] border-t border-white/10">
+      <div className="w-full h-[350px] md:h-[400px] border-t border-[#e6e2da]">
         <iframe
           title="Localização de Atendimento"
           src="https://www.google.com/maps?q=-15.8186875,-47.8519375&z=17&output=embed"
@@ -183,9 +187,9 @@ export function Footer() {
       </div>
 
       {/* COPYRIGHT */}
-      <div className="bg-black py-6 text-center border-t border-white/5">
-        <p className="text-xs text-gray-600">
-          © {new Date().getFullYear()} Jessica Natalia Personal. Todos os direitos reservados.
+      <div className="bg-[#111111] py-6 text-center border-t border-[#e6e2da] text-zinc-500 text-[10px] tracking-wider uppercase">
+        <p>
+          © {new Date().getFullYear()} Jéssica Natália. Todos os direitos reservados.
         </p>
       </div>
     </section>
@@ -195,14 +199,10 @@ export function Footer() {
 function SocialLink({
   href,
   icon: Icon,
-  baseColor,
-  hoverColor,
   label,
 }: {
   href: string
   icon: any
-  baseColor: string
-  hoverColor: string
   label: string
 }) {
   return (
@@ -211,9 +211,9 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className={`bg-zinc-900 p-3 rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] ${baseColor} ${hoverColor} hover:text-white`}
+      className="bg-[#F5F2EB] p-3 rounded-full border border-[#e6e2da] text-[#66635f] hover:bg-[#111111] hover:text-white transition-all duration-300 hover:-translate-y-1 will-change-transform"
     >
-      <Icon size={24} weight="fill" />
+      <Icon size={18} />
     </a>
   )
 }

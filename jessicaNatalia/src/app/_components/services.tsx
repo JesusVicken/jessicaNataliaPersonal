@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { ArrowRight } from '@phosphor-icons/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -17,20 +18,19 @@ export function Services() {
             cardsRef.current,
             {
                 opacity: 0,
-                y: 80,
-                scale: 0.9,
+                y: 60,
+                scale: 0.95,
             },
             {
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                duration: 1,
-                ease: 'power4.out',
-                stagger: 0.18,
+                duration: 0.8,
+                ease: 'power3.out',
+                stagger: 0.15,
                 scrollTrigger: {
                     trigger: gridRef.current,
                     start: 'top 80%',
-                    toggleActions: 'play none none reverse',
                 },
             }
         )
@@ -38,101 +38,88 @@ export function Services() {
 
     return (
         <section
-            className="bg-black py-28 border-y border-white/10"
-            data-aos="fade-up"
+            id="programs"
+            className="bg-[#F5F2EB] py-48 px-6 md:px-12 border-t border-[#e6e2da]"
         >
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto max-w-7xl">
 
-                {/* Intro */}
+                {/* Header */}
                 <div
-                    className="max-w-4xl mx-auto text-center mb-20"
+                    className="text-center mb-24"
                     data-aos="fade-up"
                 >
-                    <h2 className="text-5xl md:text-7xl font-black text-white uppercase leading-none mb-6">
-                        Metodologia de<span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600"> Treinamento</span>
+                    <span className="text-[10px] font-black tracking-[0.3em] text-[#bda07a] uppercase mb-4 inline-block">MÉTODOS DE ACOMPANHAMENTO</span>
+                    <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111] leading-none">
+                        Programas de <span className="font-serif italic font-light text-[#bda07a]">Evolução</span>
                     </h2>
-                    <p className="text-gray-400 text-lg leading-relaxed">
-                        Transformação física não acontece por acaso. Ela é o resultado de uma metodologia estruturada, que combina periodização inteligente, análise biomecânica e consistência diária.
-                    </p>
                 </div>
 
-                {/* Cards técnicos grandes */}
-                <div className="max-w-5xl mx-auto grid gap-10 mb-24">
-                    <div className="border border-white/5 bg-zinc-900/30 backdrop-blur-sm rounded-lg p-8" data-aos="fade-up">
-                        <h3 className="text-white font-semibold mb-3">
-                            Periodização Baseada em Evidências
-                        </h3>
-                        <p className="text-gray-400 text-sm leading-relaxed">
-                            Cada treino é planejado com base na sua rotina, nível de condicionamento e objetivos específicos. Mapeamos o volume, intensidade e descanso ideais para garantir que você evolua sem risco de lesões.
-                        </p>
-                    </div>
-
-                    <div
-                        className="border border-white/5 bg-zinc-900/30 backdrop-blur-sm rounded-lg p-8"
-                        data-aos="fade-up"
-                        data-aos-delay="100"
-                    >
-                        <h3 className="text-white font-semibold mb-3">
-                            Análise e Ajuste de Biomecânica
-                        </h3>
-                        <p className="text-gray-400 text-sm leading-relaxed">
-                            A execução correta do movimento é a chave para ativar os músculos certos e proteger suas articulações. Ajustamos sua postura e técnica detalhadamente para máxima eficiência em cada repetição.
-                        </p>
-                    </div>
-                </div>
-
-                {/* GRID com GSAP */}
+                {/* Grid of Modern Cards */}
                 <div
                     ref={gridRef}
-                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center"
+                    className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
                 >
-                    {[
-                        {
-                            title: "Hipertrofia",
-                            subtitle: "Volume & Tensão Mecânica",
-                            desc: "Foco no ganho de massa muscular magra, definição e tonificação corporal de forma estruturada.",
-                        },
-                        {
-                            title: "Emagrecimento",
-                            subtitle: "Déficit & Gasto Energético",
-                            desc: "Métodos metabólicos eficientes para acelerar a queima de gordura e aumentar o condicionamento.",
-                        },
-                        {
-                            title: "Mobilidade",
-                            subtitle: "Amplitude & Postura",
-                            desc: "Prevenção de dores e lesões, melhoria articular e flexibilidade para as atividades diárias.",
-                        },
-                        {
-                            title: "Performance",
-                            subtitle: "Força & Condicionamento",
-                            desc: "Desenvolvimento de força funcional integrada e resistência cardiovascular de elite.",
-                        },
-                    ].map((item, index) => (
-                        <div
-                            key={item.title}
-                            ref={(el) => {
-                                if (el) cardsRef.current[index] = el
-                            }}
-                            className="
-                                p-6
-                                border border-white/5
-                                rounded-lg
-                                hover:border-white/20
-                                transition-all
-                                will-change-transform
-                            "
-                        >
-                            <span className="block text-white font-bold text-lg">
-                                {item.title}
-                            </span>
-                            <span className="block text-xs text-gray-500 mt-1">
-                                {item.subtitle}
-                            </span>
-                            <p className="text-gray-400 text-xs mt-3 leading-relaxed">
-                                {item.desc}
+                    
+                    {/* CARD 1: Emagrecimento */}
+                    <div
+                        ref={(el) => { if (el) cardsRef.current[0] = el }}
+                        className="bg-white p-8 rounded-[2.2rem] border border-[#e6e2da] shadow-[0_15px_40px_-20px_rgba(0,0,0,0.04)] hover:scale-[1.03] transition-all duration-500 hover:shadow-md flex flex-col justify-between"
+                    >
+                        <div>
+                            <span className="text-[8px] font-mono text-[#bda07a] uppercase tracking-widest block mb-4">MÓDULO 01</span>
+                            <h3 className="text-lg font-bold uppercase text-[#111111] mb-3">Emagrecimento</h3>
+                            <p className="text-xs text-[#66635f] font-light leading-relaxed mb-6">
+                                Planejamento voltado para a queima calórica eficiente através de treinos tensionais e metabólicos, acelerando a queima de gordura e mantendo a massa magra.
                             </p>
                         </div>
-                    ))}
+                        <span className="text-[10px] font-black text-[#111111] flex items-center gap-2 mt-4">Consultar Detalhes <ArrowRight size={12} /></span>
+                    </div>
+
+                    {/* CARD 2: Treinamento de Força */}
+                    <div
+                        ref={(el) => { if (el) cardsRef.current[1] = el }}
+                        className="bg-white p-8 rounded-[2.2rem] border border-[#e6e2da] shadow-[0_15px_40px_-20px_rgba(0,0,0,0.04)] hover:scale-[1.03] transition-all duration-500 hover:shadow-md flex flex-col justify-between"
+                    >
+                        <div>
+                            <span className="text-[8px] font-mono text-[#bda07a] uppercase tracking-widest block mb-4">MÓDULO 02</span>
+                            <h3 className="text-lg font-bold uppercase text-[#111111] mb-3">Treinamento de Força</h3>
+                            <p className="text-xs text-[#66635f] font-light leading-relaxed mb-6">
+                                Ênfase na progressão de cargas lógica e ativação muscular profunda (hipertrofia). Ajuste biomecânico dos exercícios básicos e isolados.
+                            </p>
+                        </div>
+                        <span className="text-[10px] font-black text-[#111111] flex items-center gap-2 mt-4">Consultar Detalhes <ArrowRight size={12} /></span>
+                    </div>
+
+                    {/* CARD 3: Fitness Feminino */}
+                    <div
+                        ref={(el) => { if (el) cardsRef.current[2] = el }}
+                        className="bg-white p-8 rounded-[2.2rem] border border-[#e6e2da] shadow-[0_15px_40px_-20px_rgba(0,0,0,0.04)] hover:scale-[1.03] transition-all duration-500 hover:shadow-md flex flex-col justify-between"
+                    >
+                        <div>
+                            <span className="text-[8px] font-mono text-[#bda07a] uppercase tracking-widest block mb-4">MÓDULO 03</span>
+                            <h3 className="text-lg font-bold uppercase text-[#111111] mb-3">Fitness Feminino</h3>
+                            <p className="text-xs text-[#66635f] font-light leading-relaxed mb-6">
+                                Acompanhamento especializado na anatomia e fisiologia hormonal feminina. Foco em membros inferiores (glúteos e pernas) e fortalecimento global.
+                            </p>
+                        </div>
+                        <span className="text-[10px] font-black text-[#111111] flex items-center gap-2 mt-4">Consultar Detalhes <ArrowRight size={12} /></span>
+                    </div>
+
+                    {/* CARD 4: Consultoria Online */}
+                    <div
+                        ref={(el) => { if (el) cardsRef.current[3] = el }}
+                        className="bg-white p-8 rounded-[2.2rem] border border-[#e6e2da] shadow-[0_15px_40px_-20px_rgba(0,0,0,0.04)] hover:scale-[1.03] transition-all duration-500 hover:shadow-md flex flex-col justify-between"
+                    >
+                        <div>
+                            <span className="text-[8px] font-mono text-[#bda07a] uppercase tracking-widest block mb-4">MÓDULO 04</span>
+                            <h3 className="text-lg font-bold uppercase text-[#111111] mb-3">Consultoria Online</h3>
+                            <p className="text-xs text-[#66635f] font-light leading-relaxed mb-6">
+                                Planejamento totalmente digital via aplicativo. Análise semanal de execuções em vídeo, planilha de treinos dinâmicos e suporte direto com a Jéssica.
+                            </p>
+                        </div>
+                        <span className="text-[10px] font-black text-[#111111] flex items-center gap-2 mt-4">Consultar Detalhes <ArrowRight size={12} /></span>
+                    </div>
+
                 </div>
 
             </div>

@@ -2,9 +2,9 @@
 
 import React, { useLayoutEffect, useRef } from 'react'
 import Image from 'next/image'
-import { Medal, Student, Boat, Certificate, CaretRight } from '@phosphor-icons/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { GraduationCap, Trophy, FlowerLotus, Sparkle, MapPin } from '@phosphor-icons/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -12,57 +12,73 @@ export function About() {
     const containerRef = useRef<HTMLDivElement>(null)
     const imageRef = useRef<HTMLDivElement>(null)
     const textRef = useRef<HTMLDivElement>(null)
+    const statsRef = useRef<HTMLDivElement>(null)
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            // 1. Animação da Imagem
-            gsap.fromTo(imageRef.current,
-                { clipPath: 'inset(0% 100% 0% 0%)', opacity: 0.5 },
+            // 1. Efeito parallax / zoom suave na imagem principal conforme scroll
+            gsap.fromTo(".about-photo",
+                { scale: 1.15 },
                 {
-                    clipPath: 'inset(0% 0% 0% 0%)',
-                    opacity: 1,
-                    duration: 1.5,
-                    ease: 'power3.inOut',
+                    scale: 1,
+                    ease: 'none',
                     scrollTrigger: {
                         trigger: containerRef.current,
-                        start: 'top 75%',
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true
                     }
                 }
             )
 
-            // 2. Animação dos Textos
-            const textElements = textRef.current?.querySelectorAll('.animate-text')
-            if (textElements) {
-                gsap.fromTo(textElements,
-                    { y: 30, opacity: 0 },
+            // 2. Revelação em máscara (clip-path) da imagem
+            gsap.fromTo(imageRef.current,
+                { clipPath: 'inset(0% 100% 0% 0%)', opacity: 0.8 },
+                {
+                    clipPath: 'inset(0% 0% 0% 0%)',
+                    opacity: 1,
+                    duration: 1.6,
+                    ease: 'power4.inOut',
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top 70%',
+                    }
+                }
+            )
+
+            // 3. Revelação em cascata dos textos editoriais
+            const animateElements = textRef.current?.querySelectorAll('.reveal-item')
+            if (animateElements) {
+                gsap.fromTo(animateElements,
+                    { y: 50, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 0.8,
-                        stagger: 0.1,
-                        ease: 'power2.out',
+                        duration: 1,
+                        stagger: 0.15,
+                        ease: 'power3.out',
                         scrollTrigger: {
                             trigger: textRef.current,
-                            start: 'top 85%',
+                            start: 'top 80%',
                         }
                     }
                 )
             }
 
-            // 3. Animação dos Cards
-            const cards = textRef.current?.querySelectorAll('.stat-card')
+            // 4. Animação dos cards de conquistas
+            const cards = statsRef.current?.querySelectorAll('.cred-card')
             if (cards) {
                 gsap.fromTo(cards,
                     { y: 40, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 0.6,
-                        stagger: 0.15,
-                        ease: 'back.out(1.7)',
+                        duration: 0.8,
+                        stagger: 0.12,
+                        ease: 'power2.out',
                         scrollTrigger: {
-                            trigger: textRef.current,
-                            start: 'top 70%',
+                            trigger: statsRef.current,
+                            start: 'top 85%',
                         }
                     }
                 )
@@ -73,115 +89,146 @@ export function About() {
     }, [])
 
     return (
-        <section ref={containerRef} className="bg-black py-20 md:py-32 px-6 overflow-hidden border-t border-white/10 relative font-sans">
-            <div className="container mx-auto max-w-6xl">
-                <div className="flex flex-col md:flex-row items-start gap-12 md:gap-20">
+        <section 
+            ref={containerRef} 
+            id="about" 
+            className="bg-[#FAF8F5] py-32 md:py-48 px-6 md:px-12 border-t border-[#e6e2da] overflow-hidden relative font-sans text-[#111111]"
+        >
+            {/* Linhas decorativas sutis - Estilo Editorial Awwwards */}
+            <div className="absolute top-0 left-1/4 w-[1px] h-full bg-[#e6e2da]/40 pointer-events-none hidden lg:block" />
+            <div className="absolute top-0 left-3/4 w-[1px] h-full bg-[#e6e2da]/40 pointer-events-none hidden lg:block" />
 
-                    {/* --- COLUNA ESQUERDA: FOTO --- */}
-                    <div ref={imageRef} className="w-full md:w-5/12 sticky md:top-24">
-                        <div className="aspect-[3/4] relative border border-white/10 rounded-sm overflow-hidden bg-zinc-900 shadow-2xl">
+            <div className="container mx-auto max-w-7xl relative z-10">
+                <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+
+                    {/* --- COLUNA ESQUERDA: FOTO (LARGURA 5/12) --- */}
+                    <div ref={imageRef} className="lg:col-span-5 w-full sticky lg:top-32">
+                        <div className="aspect-[3/4] relative rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#F5F2EB] shadow-2xl group">
+                            
+                            {/* Overlay de gradiente luxuoso no topo da imagem */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 pointer-events-none" />
+
                             <Image
-                                src="/jessica.jpg"
-                                alt="Jessica Natalia"
+                                src="/jessica.jpeg"
+                                alt="Jéssica Natália - Personal Trainer & Pilates"
                                 fill
-                                className="object-cover"
+                                className="about-photo object-cover transition-transform duration-700"
                                 quality={100}
                                 priority
                             />
 
-                            {/* Overlay Minimalista */}
-                            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent p-6 md:p-10 pt-32">
-                                <h3 className="text-white text-2xl md:text-3xl font-black uppercase leading-none tracking-tighter mb-2">
-                                    Jessica <br /> Natalia
-                                </h3>
-                                <div className="h-[1px] w-12 bg-white mb-3"></div>
-                                <p className="text-zinc-400 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold">
-                                    Personal Trainer & Mentora
-                                </p>
+                            {/* Badge flutuante Awwwards no canto */}
+                            <div className="absolute bottom-6 left-6 z-20 bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl border border-[#e6e2da]/60 shadow-lg flex items-center gap-3">
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#bda07a] animate-ping" />
+                                <span className="text-[9px] font-black tracking-widest text-[#111111] uppercase">CREF 0314135-G/DF</span>
                             </div>
                         </div>
-                        {/* Decorativo */}
-                        <div className="hidden md:block absolute -z-10 -bottom-4 -right-4 w-full h-full border border-white/5 rounded-sm" />
                     </div>
 
-                    {/* --- COLUNA DIREITA: CONTEÚDO --- */}
-                    <div ref={textRef} className="w-full md:w-7/12 text-white">
-
-                        {/* Cabeçalho */}
-                        <div className="animate-text mb-10">
-                            <span className="inline-block py-1 px-3 border border-white/20 rounded-full text-[10px] uppercase tracking-widest text-zinc-500 mb-4 bg-zinc-900/50">
-                                Sobre a Personal
+                    {/* --- COLUNA DIREITA: CONTEÚDO EDITORIAL (LARGURA 7/12) --- */}
+                    <div ref={textRef} className="lg:col-span-7 w-full flex flex-col justify-center pt-4 lg:pt-0">
+                        
+                        {/* Categoria / Badge */}
+                        <div className="reveal-item mb-6 flex items-center gap-2">
+                            <span className="text-[10px] font-black tracking-[0.4em] text-[#bda07a] uppercase">
+                                HAUTE COUTURE FITNESS
                             </span>
-                            <h2 className="text-5xl md:text-7xl font-black text-white uppercase leading-none tracking-tighter">
-                                A Personal
-                            </h2>
+                            <div className="h-[1px] w-8 bg-[#bda07a]/60"></div>
                         </div>
 
-                        <div className="prose prose-invert text-zinc-400 leading-relaxed mb-12 animate-text font-light max-w-none">
-                            <p className="text-lg md:text-xl mb-6">
-                                Com anos de atuação na área da saúde e do fitness, <strong className="text-white font-black">Jessica Natalia</strong> desenvolve programas de treinamento focados na individualidade biológica de cada aluno.
+                        {/* Título Principal */}
+                        <h2 className="reveal-item text-4xl md:text-6xl font-black uppercase tracking-tight leading-[0.9] text-[#111111] mb-8">
+                            Jéssica Natália <br />
+                            <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">
+                                Personal & Pilates
+                            </span>
+                        </h2>
+
+                        {/* Citação Inspiradora (Editorial) */}
+                        <div className="reveal-item border-l-2 border-[#bda07a] pl-6 py-2 mb-10">
+                            <p className="text-md md:text-xl font-light text-[#66635f] italic leading-relaxed">
+                                "Graduada pela UCB, com trajetória esculpida em grandes redes premium como a Bodytech. Desenvolvo um treinamento que une a exatidão biomecânica e a fluidez do Pilates para redefinir o seu corpo e performance."
                             </p>
-                            <p className="text-zinc-500">
-                                Especializada em <strong className="text-white border-b border-white/30 pb-0.5">biomecânica do exercício e periodização de força</strong>, ela une ciência prática e dedicação para guiar você rumo aos seus objetivos de forma segura, sustentável e eficiente.
+                        </div>
+
+                        {/* Texto Biográfico */}
+                        <div className="reveal-item text-[#66635f] font-light leading-relaxed text-sm md:text-base space-y-6 mb-12">
+                            <p>
+                                Jéssica Natália é especialista em treinos personalizados e instrutora certificada de Pilates. Com base teórica pela <strong className="text-[#111111] font-semibold">Universidade Católica de Brasília</strong> e experiência prática acumulada na rede de alta performance <strong className="text-[#111111] font-semibold">Bodytech</strong>, seu método foca no alinhamento perfeito de postura, potência e integridade articular.
+                            </p>
+                            <p>
+                                Seus planejamentos englobam o ganho de força, resistência, mobilidade e condicionamento físico de elite. Também oferece suporte altamente seguro para <strong className="text-[#111111] font-semibold">gestantes e acompanhamento de pós-parto</strong>, respeitando integralmente as alterações fisiológicas e os objetivos estéticos de cada fase da mulher.
+                            </p>
+                            <p>
+                                Atende de forma presencial exclusiva nas regiões da <strong className="text-[#111111] font-semibold">Asa Sul e Sudoeste (Brasília - DF)</strong>, além de guiar alunos em todo o Brasil e exterior por meio de sua renomada consultoria fitness online personalizada.
                             </p>
                         </div>
 
-                        {/* Grid de Conquistas */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-text">
-
-                            {/* Card 1 */}
-                            <div className="stat-card group flex items-start gap-4 p-6 rounded-2xl bg-zinc-900/40 border border-white/5 hover:border-white/20 transition-all duration-500">
-                                <div className="bg-white text-black p-2.5 rounded-lg shrink-0 group-hover:scale-110 transition-transform duration-500">
-                                    <Medal size={24} weight="bold" />
+                        {/* Grid de Diferenciais e Qualificações */}
+                        <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            
+                            {/* Credencial 1 */}
+                            <div className="cred-card group p-6 rounded-[2rem] bg-white border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-[0_15px_30px_rgba(0,0,0,0.02)] transition-all duration-500 flex items-start gap-4">
+                                <div className="bg-[#FAF8F5] text-[#bda07a] p-3.5 rounded-2xl group-hover:bg-[#111111] group-hover:text-white transition-colors duration-500">
+                                    <GraduationCap size={22} />
                                 </div>
                                 <div>
-                                    <strong className="block text-sm text-white mb-2 tracking-widest uppercase font-black">Formação</strong>
-                                    <p className="text-[11px] text-zinc-500 group-hover:text-zinc-300">
-                                        Graduada em Educação Física e especialista em Prescrição de Treinos.
+                                    <h4 className="text-xs font-black uppercase text-[#111111] mb-1 tracking-wider">Formação UCB</h4>
+                                    <p className="text-[11px] text-[#66635f] font-light leading-snug">
+                                        Bacharel em Educação Física pela prestigiada Universidade Católica de Brasília.
                                     </p>
                                 </div>
                             </div>
 
-                            {/* Card 2 */}
-                            <div className="stat-card group flex items-start gap-4 p-6 rounded-2xl bg-zinc-900/40 border border-white/5 hover:border-white/20 transition-all duration-500">
-                                <div className="bg-white text-black p-2.5 rounded-lg shrink-0 group-hover:scale-110 transition-transform duration-500">
-                                    <Student size={24} weight="bold" />
+                            {/* Credencial 2 */}
+                            <div className="cred-card group p-6 rounded-[2rem] bg-white border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-[0_15px_30px_rgba(0,0,0,0.02)] transition-all duration-500 flex items-start gap-4">
+                                <div className="bg-[#FAF8F5] text-[#bda07a] p-3.5 rounded-2xl group-hover:bg-[#111111] group-hover:text-white transition-colors duration-500">
+                                    <Trophy size={22} />
                                 </div>
                                 <div>
-                                    <strong className="block text-sm text-white mb-2 tracking-widest uppercase font-black">Experiência</strong>
-                                    <p className="text-[11px] text-zinc-500 leading-snug group-hover:text-zinc-300">
-                                        Mais de 5 anos atuando com treinamento personalizado e consultorias.
+                                    <h4 className="text-xs font-black uppercase text-[#111111] mb-1 tracking-wider">DNA Bodytech</h4>
+                                    <p className="text-[11px] text-[#66635f] font-light leading-snug">
+                                        Atuação de alto padrão na maior e mais qualificada rede de academias premium do país.
                                     </p>
                                 </div>
                             </div>
 
-                            {/* Card 3 */}
-                            <div className="stat-card group flex items-start gap-4 p-6 rounded-2xl bg-zinc-900/40 border border-white/5 hover:border-white/20 transition-all duration-500">
-                                <div className="bg-white text-black p-2.5 rounded-lg shrink-0 group-hover:scale-110 transition-transform duration-500">
-                                    <Certificate size={24} weight="bold" />
+                            {/* Credencial 3 */}
+                            <div className="cred-card group p-6 rounded-[2rem] bg-white border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-[0_15px_30px_rgba(0,0,0,0.02)] transition-all duration-500 flex items-start gap-4">
+                                <div className="bg-[#FAF8F5] text-[#bda07a] p-3.5 rounded-2xl group-hover:bg-[#111111] group-hover:text-white transition-colors duration-500">
+                                    <FlowerLotus size={22} />
                                 </div>
                                 <div>
-                                    <strong className="block text-sm text-white mb-2 tracking-widest uppercase font-black">Metodologia</strong>
-                                    <p className="text-[11px] text-zinc-500 group-hover:text-zinc-300">
-                                        Periodização individual baseada em biomecânica e controle de carga.
+                                    <h4 className="text-xs font-black uppercase text-[#111111] mb-1 tracking-wider">Método Pilates</h4>
+                                    <p className="text-[11px] text-[#66635f] font-light leading-snug">
+                                        Controle motor, reabilitação articular e fortalecimento profundo do core.
                                     </p>
                                 </div>
                             </div>
 
-                            {/* Card 4 */}
-                            <div className="stat-card group flex items-start gap-4 p-6 rounded-2xl bg-zinc-900/40 border border-white/5 hover:border-white/20 transition-all duration-500">
-                                <div className="bg-white text-black p-2.5 rounded-lg shrink-0 group-hover:scale-110 transition-transform duration-500">
-                                    <Boat size={24} weight="bold" />
+                            {/* Credencial 4 */}
+                            <div className="cred-card group p-6 rounded-[2rem] bg-white border border-[#e6e2da] hover:border-[#bda07a] hover:shadow-[0_15px_30px_rgba(0,0,0,0.02)] transition-all duration-500 flex items-start gap-4">
+                                <div className="bg-[#FAF8F5] text-[#bda07a] p-3.5 rounded-2xl group-hover:bg-[#111111] group-hover:text-white transition-colors duration-500">
+                                    <Sparkle size={22} />
                                 </div>
                                 <div>
-                                    <strong className="block text-sm text-white mb-2 tracking-widest uppercase font-black">Resultados</strong>
-                                    <p className="text-[11px] text-zinc-500 group-hover:text-zinc-300 italic">
-                                        Mais de 150 alunos com vidas e físicos transformados.
+                                    <h4 className="text-xs font-black uppercase text-[#111111] mb-1 tracking-wider">Gestantes & Materno</h4>
+                                    <p className="text-[11px] text-[#66635f] font-light leading-snug">
+                                        Protocolos seguros para uma gestação ativa e recuperação célere no pós-parto.
                                     </p>
                                 </div>
                             </div>
 
                         </div>
+
+                        {/* Local de Atendimento / Link de Parceria */}
+                        <div className="reveal-item mt-10 p-5 rounded-2xl bg-[#F5F2EB]/60 border border-[#e6e2da] flex items-center gap-4 text-xs font-light text-[#66635f]">
+                            <MapPin size={18} className="text-[#bda07a] shrink-0" weight="fill" />
+                            <span>
+                                Atendimento presencial exclusivo em condomínios e na Ascade (Asa Sul / Sudoeste), Brasília - DF.
+                            </span>
+                        </div>
+
                     </div>
 
                 </div>
