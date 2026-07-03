@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { ArrowRight, MapPin, Globe, WhatsappLogo } from '@phosphor-icons/react'
+import { ArrowRight, MapPin, Globe, WhatsappLogo, Users, Barbell, HouseLine } from '@phosphor-icons/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -29,7 +29,7 @@ export function Services() {
                 y: 0,
                 duration: 1.4,
                 ease: 'power4.out',
-                stagger: 0.2,
+                stagger: 0.15,
                 scrollTrigger: {
                     trigger: gridRef.current,
                     start: 'top 85%',
@@ -38,7 +38,10 @@ export function Services() {
         )
     }, [])
 
-    const whatsappLink = "https://wa.me/5561996844400?text=Olá%20Jéssica!%20Acessei%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20seu%20acompanhamento%20personalizado."
+    // Função auxiliar para gerar links de WhatsApp personalizados
+    const getWhatsappLink = (text: string) => {
+        return `https://wa.me/5561996844400?text=${encodeURIComponent(text)}`
+    }
 
     return (
         <section
@@ -59,21 +62,21 @@ export function Services() {
                     </h2>
                 </div>
 
-                {/* Grid of Modern Bento Cards */}
+                {/* Grid of Modern Bento Cards (2x2 Grid) */}
                 <div
                     ref={gridRef}
                     className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch"
                 >
                     
-                    {/* CARD 1: Presencial VIP */}
+                    {/* CARD 1: Consultoria On-line */}
                     <div
                         ref={(el) => { if (el) cardsRef.current[0] = el }}
-                        className="group relative h-[450px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
+                        className="group relative h-[450px] md:h-[500px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
                     >
                         {/* Imagem de Fundo com Zoom Lento */}
                         <Image
-                            src="/image46.jpeg"
-                            alt="Presencial VIP"
+                            src="/appjessica.jpeg"
+                            alt="Consultoria On-line"
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
                             sizes="(max-width: 768px) 100vw, 50vw"
@@ -83,28 +86,28 @@ export function Services() {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/40 to-transparent z-10 pointer-events-none" />
 
                         {/* Conteúdo do Card */}
-                        <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-20 text-white">
+                        <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-20 text-white">
                             {/* Top info */}
                             <div className="flex justify-between items-start">
                                 <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#bda07a] uppercase tracking-widest">
-                                    PRESENCIAL
+                                    Consultoria On-line
                                 </span>
                                 <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center border border-white/10 shrink-0">
-                                    <MapPin size={20} weight="fill" />
+                                    <Globe size={20} />
                                 </div>
                             </div>
 
                             {/* Bottom info */}
                             <div>
                                 <h3 className="text-2xl md:text-3xl font-black uppercase tracking-wide mb-3" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-                                    Presencial VIP
+                                    Via Aplicativo
                                 </h3>
                                 <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
-                                    Treinos individuais presenciais focados em alta performance, técnica biomecânica e correção postural imediata. Atendimento exclusivo e focado em resultados rápidos nas unidades da Bodytech (Lago Sul e Sudoeste) em Brasília.
+                                    Treino totalmente adaptado aos seus objetivos com suporte diário pelo meu aplicativo. Você acompanha seu progresso, envia seus vídeos e recebe feedbacks personalizados, garantindo evolução constante, sem sair de casa.
                                 </p>
                                 
                                 <a 
-                                    href={whatsappLink}
+                                    href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre a Consultoria On-line.")}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
@@ -115,15 +118,15 @@ export function Services() {
                         </div>
                     </div>
 
-                    {/* CARD 2: Treine Onde Quiser */}
+                    {/* CARD 2: Consultoria Híbrida */}
                     <div
                         ref={(el) => { if (el) cardsRef.current[1] = el }}
-                        className="group relative h-[450px] md:h-[520px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
+                        className="group relative h-[450px] md:h-[500px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
                     >
                         {/* Imagem de Fundo com Zoom Lento */}
                         <Image
-                            src="/image32.jpeg"
-                            alt="Treine Onde Quiser"
+                            src="/image8.jpeg"
+                            alt="Consultoria Híbrida"
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
                             sizes="(max-width: 768px) 100vw, 50vw"
@@ -133,28 +136,128 @@ export function Services() {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/40 to-transparent z-10 pointer-events-none" />
 
                         {/* Conteúdo do Card */}
-                        <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-20 text-white">
+                        <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-20 text-white">
                             {/* Top info */}
                             <div className="flex justify-between items-start">
                                 <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#bda07a] uppercase tracking-widest">
-                                    DIGITAL & HÍBRIDO
+                                    Híbrido
                                 </span>
                                 <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center border border-white/10 shrink-0">
-                                    <Globe size={20} />
+                                    <Users size={20} />
                                 </div>
                             </div>
 
                             {/* Bottom info */}
                             <div>
                                 <h3 className="text-2xl md:text-3xl font-black uppercase tracking-wide mb-3" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-                                    Treine Onde Quiser
+                                    Consultoria Híbrida
                                 </h3>
                                 <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
-                                    Sua planilha e planejamento de treinos e Pilates totalmente estruturados via aplicativo. Suporte diário direto com a Jéssica, feedbacks semanais da sua execução por vídeo para você evoluir em qualquer academia, parque ou viagem.
+                                    O melhor dos dois mundos: treino personalizado no aplicativo e um encontro presencial para ajuste fino. Você recebe o treino no app, treina no seu ritmo e nos encontramos para ajustar a técnica, tirar dúvidas e garantir que você evolua com segurança, confiança e autonomia.
                                 </p>
                                 
                                 <a 
-                                    href={whatsappLink}
+                                    href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre a Consultoria Híbrida.")}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                >
+                                    Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* CARD 3: Experiência Personal Trainer em grandes academias */}
+                    <div
+                        ref={(el) => { if (el) cardsRef.current[2] = el }}
+                        className="group relative h-[450px] md:h-[500px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
+                    >
+                        {/* Imagem de Fundo com Zoom Lento */}
+                        <Image
+                            src="/image22.jpeg"
+                            alt="Experiência Personal Trainer - Academias"
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            loading="lazy"
+                        />
+                        {/* Película de Contraste Escura */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/40 to-transparent z-10 pointer-events-none" />
+
+                        {/* Conteúdo do Card */}
+                        <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-20 text-white">
+                            {/* Top info */}
+                            <div className="flex justify-between items-start">
+                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#bda07a] uppercase tracking-widest">
+                                    GRANDES ACADEMIAS
+                                </span>
+                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center border border-white/10 shrink-0">
+                                    <Barbell size={20} />
+                                </div>
+                            </div>
+
+                            {/* Bottom info */}
+                            <div>
+                                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-wide mb-3" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
+                                    Personal Trainer
+                                </h3>
+                                <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
+                                    Treinamento personalizado para quem deseja um corpo forte, funcional e preparado para a vida. Cada sessão é planejada de acordo com seus objetivos, histórico e momento atual, respeitando sua individualidade. Atendimentos presenciais na Rede Bodytech e Rede Smart Fit em Brasília.
+                                </p>
+                                
+                                <a 
+                                    href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre o Personal Trainer presencial nas grandes academias.")}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                >
+                                    Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* CARD 4: Experiência Personal Trainer em casa */}
+                    <div
+                        ref={(el) => { if (el) cardsRef.current[3] = el }}
+                        className="group relative h-[450px] md:h-[500px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
+                    >
+                        {/* Imagem de Fundo com Zoom Lento */}
+                        <Image
+                            src="/image29.jpeg"
+                            alt="Experiência Personal Trainer - Em Casa"
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            loading="lazy"
+                        />
+                        {/* Película de Contraste Escura */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/40 to-transparent z-10 pointer-events-none" />
+
+                        {/* Conteúdo do Card */}
+                        <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-20 text-white">
+                            {/* Top info */}
+                            <div className="flex justify-between items-start">
+                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#bda07a] uppercase tracking-widest">
+                                    ATENDIMENTO EM CASA
+                                </span>
+                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center border border-white/10 shrink-0">
+                                    <HouseLine size={20} />
+                                </div>
+                            </div>
+
+                            {/* Bottom info */}
+                            <div>
+                                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-wide mb-3" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
+                                    Em Casa & Condomínio
+                                </h3>
+                                <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
+                                    Seu treino, no seu espaço. Vou até você, seja no conforto do seu lar, no seu condomínio ou na academia do seu prédio. Treino individualizado, com foco nos seus objetivos, sem que você precise sair de casa. Acompanhamento próximo e evolução constante.
+                                </p>
+                                
+                                <a 
+                                    href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre o Personal Trainer presencial em casa ou condomínio.")}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"

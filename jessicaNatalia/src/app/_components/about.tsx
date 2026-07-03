@@ -40,36 +40,36 @@ export function About() {
     // Agrupador de especialidades para reuso estrutural nos layouts
     const specialtiesList = [
         {
-            title: "Climatério & Menopausa",
-            desc: "MatPilates adaptado para mulheres na perimenopausa e menopausa, focando em ganho de densidade óssea e flexibilidade muscular.",
-            src: "/image12.jpeg",
+            title: "Metabolismo ativo 40+",
+            desc: "Musculação e pilates para Perimenopausa e Menopausa. Quando seu metabolismo está mudando, seu treino também precisa mudar. Treinos desenvolvidos para mulheres que desejam preservar massa muscular, acelerar o metabolismo, reduzir dores articulares e atravessar a menopausa com mais energia, disposição, confiança e amor-próprio.",
+            src: "/image40.png",
             icon: <FlowerLotus size={20} />,
             delay: "100"
         },
         {
-            title: "MatPilates Gestantes",
-            desc: "Fortalecimento de assoalho pélvico e estabilização de core para uma gestação ativa, saudável e sem desconforto lombar.",
+            title: "Gestação em movimento",
+            desc: "MatPilates para gestantes. Cuide do seu corpo, se prepare para o parto e recuperação pós parto com MatPilates durante a gravidez. Exercícios seguros que ajudam a reduzir dores lombares, melhorar a postura, respiração e mindfullness.",
             src: "/image44.jpeg",
             icon: <Baby size={20} />,
             delay: "200"
         },
         {
-            title: "Recuperação Pós-Parto",
-            desc: "Recuperação biomecânica progressiva pós-parto, com foco em reabilitação de diástase abdominal e fortalecimento postural global.",
+            title: "Reconexão pós-parto",
+            desc: "MatPilates pós-parto. Cuide de você e se reconheça! Seu corpo fez algo extraordinário, agora merece cuidado e estratégia para recuperar força, estabilidade abdominal e confiança após a gestação, respeitando cada etapa da sua recuperação. Treinos leves, curtos e para você fazer onde estiver.",
             src: "/image36.jpeg",
             icon: <Users size={20} />,
             delay: "300"
         },
         {
-            title: "MatPilates Corredores",
-            desc: "Foco em estabilização pélvica, aumento de amplitude articular e equilíbrio muscular para prevenção de lesões na corrida.",
+            title: "Leveza a cada passada",
+            desc: "MatPilates para corredoras sem dor. Treino seu corpo para acompanhar suas paixões. Programa focado em mobilidade, estabilidade e fortalecimento para corredoras que querem correr com prazer, sem sentirem dores nos joelhos, quadris, lombar ou tornozelos.",
             src: "/image30.jpeg",
             icon: <Star size={20} />,
             delay: "400"
         },
         {
-            title: "MatPilates Ciclistas",
-            desc: "Compensação e fortalecimento da cadeia posterior para ciclistas de estrada e mountain bike, reduzindo fadiga e dores nas costas.",
+            title: "Cintura fina, pedal e core fortes",
+            desc: "MatPilates para ciclistas sem dor. Treino seu corpo para acompanhar suas paixões. Quanto mais kms você pedala maior costuma ser a sobrecarga no seu corpo. Pedale com mais conforto combatendo dores cervicais, torácicas, lombares, articulares e desequilíbrios musculares causados pelas suas horas sobre a bicicleta.",
             src: "/image39.jpeg",
             icon: <Bicycle size={20} />,
             delay: "500"
@@ -170,8 +170,8 @@ export function About() {
                     duration: 2,
                     ease: 'power3.out',
                     scrollTrigger: {
-                        trigger: counter,
-                        start: 'top 90%',
+                        trigger: statsRef.current,
+                        start: 'top 80%',
                         toggleActions: 'play none none none',
                     },
                     onUpdate: () => {
@@ -210,7 +210,7 @@ export function About() {
                     <div ref={imageRef} className="lg:col-span-5 w-full sticky lg:top-32">
                         <div className="aspect-[3/4] relative rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#F5F2EB] shadow-2xl">
                             <Image
-                                src="/image25.jpeg"
+                                src="/image8.jpeg"
                                 alt="Jéssica Natália"
                                 fill
                                 className="about-photo object-cover transition-transform duration-700"

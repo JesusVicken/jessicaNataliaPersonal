@@ -4,6 +4,7 @@ import { Outfit } from "next/font/google"
 import "./globals.css"
 import { AosInit } from "./_components/aos-init"
 import { ParallaxWrapper } from "./_components/ParallaxWrapper"
+import { CustomCursor } from "./_components/custom-cursor"
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${outfit.variable} font-sans antialiased`}>
+        <CustomCursor />
         <ParallaxWrapper>
           {children}
           <AosInit />

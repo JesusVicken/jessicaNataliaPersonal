@@ -18,8 +18,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import bodytechLogo from '../../../public/bodytech.png'
 import smartfitLogo from '../../../public/smartfit.png'
 import vertacoLogo from '../../../public/vertaco.jpg'
-import acvcLogo from '../../../public/acvc.jpg'
+import agemaLogo from '../../../public/agema.png'
 import kaleLogo from '../../../public/kale.jpg'
+import icmbioLogo from '../../../public/icmbio.jpeg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -27,8 +28,9 @@ const PARTNERS = [
   { name: 'Bodytech', logo: bodytechLogo, url: 'https://bodytech.com.br' },
   { name: 'SmartFit', logo: smartfitLogo, url: 'https://www.smartfit.com.br' },
   { name: 'Vertaco', logo: vertacoLogo, url: 'https://www.vertaco.com.br' },
-  { name: 'ACVC', logo: acvcLogo, url: 'https://www.instagram.com/acv_cv_oficial/' },
+  { name: 'Agema', logo: agemaLogo, url: '#' },
   { name: 'Kale', logo: kaleLogo, url: 'https://www.instagram.com/kaleespacosaude/' },
+  { name: 'ICMBio', logo: icmbioLogo, url: 'https://www.gov.br/icmbio/pt-br' },
 ]
 
 export function Footer() {
@@ -77,7 +79,7 @@ export function Footer() {
             Parceiros Oficiais
           </h4>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 justify-center items-center max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 justify-center items-center max-w-5xl mx-auto">
             {PARTNERS.map((item, index) => (
               <a
                 key={item.name}
