@@ -140,7 +140,7 @@ export default function Projects() {
 
         const frameObj = { frame: 0 }
 
-        const scrollDistance = device === 'mobile' ? 800 : 2000
+        const scrollDistance = device === 'mobile' ? 500 : 1000
         const isMob = device === 'mobile'
 
         // Cria o GSAP Context para agrupar todas as animações e limpar corretamente no unmount
@@ -186,28 +186,13 @@ export default function Projects() {
                 pointerEvents: "none",
                 duration: isMob ? 0.20 : 0.12,
                 ease: "power1.inOut"
-            }, isMob ? 0.22 : 0.22)
+            }, isMob ? 0.35 : 0.35)
 
-            // Grupo 2: Aparece e desaparece (Metodologia)
+            // Grupo 2: Aparece e fixa até o final da sequência (Fim da rolagem)
             tl.fromTo(".hero-group-2",
                 { opacity: 0, y: 30, filter: "blur(10px)", pointerEvents: "none" },
-                { opacity: 1, y: 0, filter: "blur(0px)", pointerEvents: "auto", duration: isMob ? 0.20 : 0.12, ease: "power1.inOut" },
-                isMob ? 0.40 : 0.34
-            )
-            tl.to(".hero-group-2", {
-                opacity: 0,
-                y: -30,
-                filter: "blur(10px)",
-                pointerEvents: "none",
-                duration: isMob ? 0.20 : 0.12,
-                ease: "power1.inOut"
-            }, isMob ? 0.65 : 0.66)
-
-            // Grupo 3: Sobe e fixa no final
-            tl.fromTo(".hero-group-3",
-                { opacity: 0, y: 60, pointerEvents: "none" },
-                { opacity: 1, y: 0, pointerEvents: "auto", duration: isMob ? 0.25 : 0.15, ease: "power2.out" },
-                isMob ? 0.82 : 0.78
+                { opacity: 1, y: 0, filter: "blur(0px)", pointerEvents: "auto", duration: isMob ? 0.25 : 0.15, ease: "power1.inOut" },
+                isMob ? 0.60 : 0.58
             )
         }, container)
 
@@ -300,58 +285,38 @@ export default function Projects() {
                         
                         {/* GRUPO 1: Frames iniciais */}
                         <div className="hero-group-1 absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
-                            <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#bda07a] uppercase mb-4">EXCLUSIVIDADE & ESTÉTICA</span>
+                            <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#bda07a] uppercase mb-4">MOVIMENTO & PROPÓSITO</span>
                             <h1 
                                 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[0.95] text-white mb-4 max-w-4xl"
                                 style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.4)' }}
                             >
-                                Transforme seu corpo. <br />
-                                <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">Eleve sua vida.</span>
+                                Fortaleça seu corpo. <br />
+                                <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">Cure suas dores.</span>
                             </h1>
                             <p 
                                 className="text-xs sm:text-sm md:text-base lg:text-lg text-zinc-300 font-light max-w-2xl leading-relaxed"
                                 style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.3)' }}
                             >
-                                Treinamento personalizado de alta performance estruturado para construir força, confiança e resultados estéticos consistentes.
+                                Seu corpo precisa estar preparado para a vida que você escolheu viver.
                             </p>
                         </div>
 
                         {/* GRUPO 2: Frames intermediários */}
                         <div className="hero-group-2 absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 opacity-0 pointer-events-none">
-                            <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#bda07a] uppercase mb-4">BIOMECÂNICA APLICADA</span>
+                            <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#bda07a] uppercase mb-4">MOVIMENTO QUE TRANSFORMA</span>
                             <h2 
                                 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[0.95] text-white max-w-3xl"
                                 style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.4)' }}
                             >
-                                Técnica, Precisão <br />
-                                <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">& Alta Performance.</span>
+                                Muito além <br />
+                                <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">da estética:</span>
                             </h2>
                             <p 
                                 className="text-xs sm:text-sm md:text-base text-zinc-300 font-light max-w-lg leading-relaxed mt-4"
                                 style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.3)' }}
                             >
-                                Cada movimento é calculado para máxima ativação e desenvolvimento muscular seguro, livre de dores ou lesões.
+                                Força, saúde, prevenção e qualidade de vida.
                             </p>
-                        </div>
-
-                        {/* GRUPO 3: Frames finais */}
-                        <div className="hero-group-3 absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 opacity-0 pointer-events-none">
-                            <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#bda07a] uppercase mb-4">COMECE A SUA EVOLUÇÃO</span>
-                            <h2 
-                                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[0.95] text-white mb-6 max-w-3xl"
-                                style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.4)' }}
-                            >
-                                Pronta para o <br />
-                                <span className="font-serif italic font-light text-[#bda07a] capitalize tracking-normal">próximo nível?</span>
-                            </h2>
-                            
-                            <a
-                                href="#cta"
-                                className="group inline-flex items-center gap-2.5 bg-white text-[#111111] px-8 py-4 sm:px-10 sm:py-5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest hover:bg-[#bda07a] hover:text-white transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.25)] hover:scale-105"
-                            >
-                                Agendar Minha Primeira Sessão
-                                <ArrowRight size={16} />
-                            </a>
                         </div>
                     </div>
 

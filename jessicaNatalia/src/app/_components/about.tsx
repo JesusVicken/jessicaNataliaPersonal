@@ -231,7 +231,7 @@ export function About() {
                     <div ref={imageRef} className="lg:col-span-5 w-full sticky lg:top-32">
                         <div className="aspect-[3/4] relative rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#F5F2EB] shadow-2xl">
                             <Image
-                                src="/image8.jpeg"
+                                src="/Jess.jpeg"
                                 alt="Jéssica Natália"
                                 fill
                                 className="about-photo object-cover transition-transform duration-700"
@@ -253,28 +253,28 @@ export function About() {
                         {/* Pequeno Título com sugestão de impacto */}
                         <div className="reveal-item mb-4">
                             <span className="text-[10px] font-black tracking-[0.35em] text-[#bda07a] uppercase block mb-2">
-                                CONHEÇA A JÉSSICA
+                                Conheça Jéssica Natália
                             </span>
                             <span className="text-xs font-serif italic text-[#66635f] block">
-                                Especialista em MatPilates para Mulheres, Corredores e Ciclistas.
+                                Força • Movimento • Qualidade de Vida
                             </span>
                         </div>
 
                         {/* Título Principal */}
                         <h2 className="reveal-item text-xl md:text-3xl font-black uppercase tracking-tight leading-tight text-[#111111] mb-8 max-w-2xl">
-                            Mais de 10 anos ajudando mulheres, corredoras e ciclistas a conquistarem um corpo mais forte, saudável e preparado para viver e praticar esportes com qualidade de vida.
+                            Especialista em Musculação e Pilates para Mulheres, Corredoras e Ciclistas.
                         </h2>
 
                         {/* Parágrafos de Texto */}
                         <div className="reveal-item text-[#66635f] font-light leading-relaxed text-sm md:text-base space-y-6 mb-12">
                             <p>
-                                Especialista em treinamento feminino e MatPilates, Jéssica Natália une sua experiência como Personal Trainer, Instrutora de MatPilates e Pós-graduada em Treinamento para Grupos Especiais para desenvolver programas voltados à saúde, performance e prevenção de lesões.
+                                Pós-graduada em Treinamento para Grupos Especiais, acredito que o movimento transforma muito mais do que o corpo. Ele devolve autonomia, confiança, saúde e qualidade de vida.
                             </p>
                             <p>
-                                Sua metodologia atende mulheres em diferentes fases da vida — da gestação à menopausa — além de corredores e ciclistas que desejam melhorar o desempenho, reduzir dores e manter a prática esportiva por muitos anos.
+                                Ao longo da minha trajetória, encontrei um propósito que vai além do treino: ajudar mulheres que convivem com dores, limitações ou inseguranças a redescobrirem a força do próprio corpo e voltarem a viver com liberdade.
                             </p>
                             <p>
-                                Ao longo da carreira, já ajudou mais de 1.000 pessoas a conquistarem mais força, mobilidade, confiança e qualidade de vida.
+                                Entre a musculação, o Pilates, a corrida, o mountain bike e os esportes de aventura, construí uma metodologia que une ciência, experiência e acolhimento para promover reabilitação do movimento e fortalecimento.
                             </p>
                         </div>
 
@@ -339,7 +339,7 @@ export function About() {
                     <div className="md:w-2/3 border-t md:border-t-0 md:border-l border-[#e6e2da] pt-6 md:pt-0 md:pl-10">
                         <p className="text-sm md:text-base text-[#66635f] leading-relaxed font-light">
                             <strong className="text-[#111111] font-semibold block mb-2 text-md">Acredito que o movimento transforma vidas.</strong>
-                            Meu objetivo é ajudar mulheres, corredoras e ciclistas a desenvolverem um corpo forte, funcional e resiliente através do MatPilates e do treinamento físico, permitindo que pratiquem suas atividades com mais segurança, confiança e qualidade de vida.
+                            Ajudar mulheres a redescobrirem a força do próprio corpo e viverem com mais liberdade, saúde e qualidade de vida.
                         </p>
                     </div>
                 </div>
@@ -366,7 +366,7 @@ export function About() {
                                     src={idx === 5 ? "/image10.jpeg" : item.src}
                                     alt={item.title}
                                     fill
-                                    className="object-cover"
+                                    className={`object-cover ${item.src === '/image50.jpeg' ? 'object-right' : ''}`}
                                     sizes="80vw"
                                     loading="lazy"
                                 />
@@ -558,7 +558,7 @@ export function About() {
                                 src={specialtiesList[4].src}
                                 alt={specialtiesList[4].title}
                                 fill
-                                className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                className="object-cover object-right group-hover:scale-105 transition-transform duration-700 ease-out z-0"
                                 sizes="33vw"
                                 loading="lazy"
                             />
