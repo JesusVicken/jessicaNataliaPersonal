@@ -19,32 +19,78 @@ function useGSAP(callback: gsap.ContextFunc, dependencies: any[] = []) {
 export default function PilatesSection() {
     const containerRef = useRef<HTMLDivElement>(null)
     const textGroupRef = useRef<HTMLDivElement>(null)
+    const videoRef = useRef<HTMLVideoElement>(null)
+
+    useEffect(() => {
+        const video = videoRef.current
+        if (!video) return
+
+        // Força configurações de mudo no nível da DOM (essencial para o Safari)
+        video.muted = true
+        video.defaultMuted = true
+
+        const playVideo = () => {
+            video.play().catch((error) => {
+                console.log("Autoplay de vídeo impedido pelo navegador:", error)
+            })
+        }
+
+        playVideo()
+
+        window.addEventListener('touchstart', playVideo, { once: true })
+        window.addEventListener('click', playVideo, { once: true })
+
+        return () => {
+            window.removeEventListener('touchstart', playVideo)
+            window.removeEventListener('click', playVideo)
+        }
+    }, [])
 
     useGSAP(() => {
         const elements = textGroupRef.current?.querySelectorAll('.reveal-yoga')
-        if (!elements) return
-
-        // Animação suave de revelação Y + Fade-in ao entrar na viewport (Awwwards Style)
-        gsap.fromTo(elements,
-            { 
-                y: 50, 
-                opacity: 0,
-                filter: "blur(5px)"
-            },
-            {
-                y: 0,
-                opacity: 1,
-                filter: "blur(0px)",
-                duration: 1.4,
-                stagger: 0.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 75%", // Inicia quando a seção está 25% visível na tela
-                    toggleActions: "play none none none"
+        if (elements && elements.length > 0) {
+            // Animação suave de revelação Y + Fade-in ao entrar na viewport (Awwwards Style)
+            gsap.fromTo(elements,
+                { 
+                    y: 50, 
+                    opacity: 0,
+                    filter: "blur(5px)"
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: 1.4,
+                    stagger: 0.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 75%", // Inicia quando a seção está 25% visível na tela
+                        toggleActions: "play none none none"
+                    }
                 }
-            }
-        )
+            )
+        }
+
+        // Controla o vídeo para iniciar do começo quando o usuário chegar na seção
+        const video = videoRef.current
+        if (video) {
+            ScrollTrigger.create({
+                trigger: containerRef.current,
+                start: "top 80%", // Dispara quando a seção entra 20% na tela
+                onEnter: () => {
+                    video.currentTime = 0
+                    if (video.paused) {
+                        video.play().catch((err) => console.log("Erro de reprodução ScrollTrigger:", err))
+                    }
+                },
+                onEnterBack: () => {
+                    if (video.paused) {
+                        video.play().catch((err) => console.log("Erro de reprodução ScrollTrigger:", err))
+                    }
+                }
+            })
+        }
     }, [])
 
     return (
@@ -55,13 +101,16 @@ export default function PilatesSection() {
         >
             {/* Tag de vídeo de fundo em tela cheia (z-0) */}
             <video
-                src="/video2.mp4"
+                ref={videoRef}
                 autoPlay
                 loop
                 muted
                 playsInline
+                preload="auto"
                 className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
-            />
+            >
+                <source src="/video2.mp4" type="video/mp4" />
+            </video>
 
             {/* Camada dupla de overlay escuro e gradiente de alta legibilidade (z-10) */}
             <div className="absolute inset-0 bg-black/50 z-10 pointer-events-none" />

@@ -15,7 +15,10 @@ import {
     Baby, 
     Bicycle, 
     ArrowRight,
-    Sparkle
+    Sparkle,
+    CaretLeft,
+    CaretRight,
+    WhatsappLogo
 } from '@phosphor-icons/react'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -36,13 +39,31 @@ export function About() {
     const textRef = useRef<HTMLDivElement>(null)
     const statsRef = useRef<HTMLDivElement>(null)
     const specialtiesTriggerRef = useRef<HTMLDivElement>(null)
+    const carouselRef = useRef<HTMLDivElement>(null)
+
+    const scrollCarousel = (direction: 'left' | 'right') => {
+        const container = carouselRef.current
+        if (!container) return
+        
+        // Define o deslocamento com base em 80% da largura visível + espaçamento do grid gap
+        const scrollAmount = container.clientWidth * 0.8 + 24
+        
+        container.scrollBy({
+            left: direction === 'left' ? -scrollAmount : scrollAmount,
+            behavior: 'smooth'
+        })
+    }
+
+    const getWhatsappLink = (programTitle: string) => {
+        return `https://wa.me/5561996844400?text=Olá%20Jéssica!%20Gostaria%20de%20saber%20mais%20sobre%20o%20programa%20${encodeURIComponent(programTitle)}.`
+    }
 
     // Agrupador de especialidades para reuso estrutural nos layouts
     const specialtiesList = [
         {
             title: "Metabolismo ativo 40+",
             desc: "Musculação e pilates para Perimenopausa e Menopausa. Quando seu metabolismo está mudando, seu treino também precisa mudar. Treinos desenvolvidos para mulheres que desejam preservar massa muscular, acelerar o metabolismo, reduzir dores articulares e atravessar a menopausa com mais energia, disposição, confiança e amor-próprio.",
-            src: "/image40.png",
+            src: "/image49.png",
             icon: <FlowerLotus size={20} />,
             delay: "100"
         },
@@ -63,14 +84,14 @@ export function About() {
         {
             title: "Leveza a cada passada",
             desc: "MatPilates para corredoras sem dor. Treino seu corpo para acompanhar suas paixões. Programa focado em mobilidade, estabilidade e fortalecimento para corredoras que querem correr com prazer, sem sentirem dores nos joelhos, quadris, lombar ou tornozelos.",
-            src: "/image30.jpeg",
+            src: "/image38.jpeg",
             icon: <Star size={20} />,
             delay: "400"
         },
         {
             title: "Cintura fina, pedal e core fortes",
             desc: "MatPilates para ciclistas sem dor. Treino seu corpo para acompanhar suas paixões. Quanto mais kms você pedala maior costuma ser a sobrecarga no seu corpo. Pedale com mais conforto combatendo dores cervicais, torácicas, lombares, articulares e desequilíbrios musculares causados pelas suas horas sobre a bicicleta.",
-            src: "/image39.jpeg",
+            src: "/image50.jpeg",
             icon: <Bicycle size={20} />,
             delay: "500"
         },
@@ -327,19 +348,22 @@ export function About() {
                 <div ref={specialtiesTriggerRef} className="mb-24 md:mb-32 specialties-trigger">
                     {/* Header */}
                     <div className="text-center mb-16" data-aos="fade-up">
-                        <span className="text-[10px] font-black tracking-[0.35em] text-[#bda07a] uppercase block mb-4">MÉTODOS DE AÇÃO</span>
-                        <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111]">Especialidades</h3>
+                        <span className="text-[10px] font-black tracking-[0.35em] text-[#bda07a] uppercase block mb-4">CONHEÇA OS MEUS</span>
+                        <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111]">Programas</h3>
                     </div>
 
                     {/* --- LAYOUT MOBILE: CARROUSSEL HORIZONTAL --- */}
-                    <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-6 scrollbar-none px-2 pb-8 w-full">
+                    <div 
+                        ref={carouselRef}
+                        className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-6 scrollbar-none px-2 pb-8 w-full scroll-smooth"
+                    >
                         {specialtiesList.map((item, idx) => (
                             <div 
                                 key={`mob-spec-${idx}`}
                                 className="w-[80vw] shrink-0 snap-center rounded-3xl overflow-hidden aspect-[3/4] relative border border-zinc-200/80 bg-zinc-950 shadow-lg"
                             >
                                 <Image
-                                    src={item.src}
+                                    src={idx === 5 ? "/image10.jpeg" : item.src}
                                     alt={item.title}
                                     fill
                                     className="object-cover"
@@ -352,10 +376,41 @@ export function About() {
                                         {item.icon}
                                     </div>
                                     <h4 className="text-sm font-bold uppercase tracking-wider mb-1" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>{item.title}</h4>
-                                    <p className="text-[10px] text-zinc-300 font-light leading-relaxed">{item.desc}</p>
+                                    <p className="text-[10px] text-zinc-300 font-light leading-relaxed mb-3">{item.desc}</p>
+                                    <div className="pointer-events-auto mt-2">
+                                        <a 
+                                            href={getWhatsappLink(item.title)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1.5 bg-[#25D366] text-white hover:bg-[#1EBE57] hover:scale-105 px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
+                                        >
+                                            Saber mais <WhatsappLogo size={10} weight="fill" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         ))}
+                    </div>
+
+                    {/* Controles de Navegação do Carrossel Mobile (UX Aprimorada) */}
+                    <div className="flex md:hidden justify-center items-center gap-6 mt-2 mb-8">
+                        <button
+                            onClick={() => scrollCarousel('left')}
+                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#bda07a] active:text-white transition-all duration-300 shadow-sm"
+                            aria-label="Card anterior"
+                        >
+                            <CaretLeft size={18} weight="bold" />
+                        </button>
+                        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-400 select-none">
+                            Deslize ou clique
+                        </span>
+                        <button
+                            onClick={() => scrollCarousel('right')}
+                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#bda07a] active:text-white transition-all duration-300 shadow-sm"
+                            aria-label="Próximo card"
+                        >
+                            <CaretRight size={18} weight="bold" />
+                        </button>
                     </div>
 
                     {/* --- LAYOUT DESKTOP: BENTO GRID ASSIMÉTRICO (AWWWARDS) --- */}
@@ -382,6 +437,16 @@ export function About() {
                                 <p className="text-xs text-zinc-300 font-light leading-relaxed max-w-xl">
                                     {specialtiesList[0].desc}
                                 </p>
+                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-14 opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <a 
+                                        href={getWhatsappLink(specialtiesList[0].title)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md mt-3"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -406,6 +471,16 @@ export function About() {
                                 <p className="text-xs text-zinc-300 font-light leading-relaxed">
                                     {specialtiesList[1].desc}
                                 </p>
+                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-14 opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <a 
+                                        href={getWhatsappLink(specialtiesList[1].title)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md mt-3"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -430,6 +505,16 @@ export function About() {
                                 <p className="text-xs text-zinc-300 font-light leading-relaxed">
                                     {specialtiesList[2].desc}
                                 </p>
+                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-14 opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <a 
+                                        href={getWhatsappLink(specialtiesList[2].title)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md mt-3"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -454,6 +539,16 @@ export function About() {
                                 <p className="text-xs text-zinc-300 font-light leading-relaxed">
                                     {specialtiesList[3].desc}
                                 </p>
+                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-14 opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <a 
+                                        href={getWhatsappLink(specialtiesList[3].title)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md mt-3"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -478,6 +573,16 @@ export function About() {
                                 <p className="text-xs text-zinc-300 font-light leading-relaxed">
                                     {specialtiesList[4].desc}
                                 </p>
+                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-14 opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <a 
+                                        href={getWhatsappLink(specialtiesList[4].title)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md mt-3"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -502,6 +607,16 @@ export function About() {
                                 <p className="text-xs text-zinc-300 font-light leading-relaxed max-w-xl">
                                     {specialtiesList[5].desc}
                                 </p>
+                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-14 opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <a 
+                                        href={getWhatsappLink(specialtiesList[5].title)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md mt-3"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
 

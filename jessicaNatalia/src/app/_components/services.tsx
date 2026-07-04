@@ -56,9 +56,9 @@ export function Services() {
 
                 {/* Header */}
                 <div className="text-center mb-20" data-aos="fade-up">
-                    <span className="text-[10px] font-black tracking-[0.3em] text-[#bda07a] uppercase mb-4 inline-block">MÉTODOS DE ACOMPANHAMENTO</span>
+                    <span className="text-[10px] font-black tracking-[0.3em] text-[#bda07a] uppercase mb-4 inline-block">EXCLUSIVIDADE & DIRECIONAMENTO</span>
                     <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111] leading-none">
-                        Programas de <span className="font-serif italic font-light text-[#bda07a]">Evolução</span>
+                        Como Treinar <span className="font-serif italic font-light text-[#bda07a]">Comigo</span>
                     </h2>
                 </div>
 
@@ -125,7 +125,7 @@ export function Services() {
                     >
                         {/* Imagem de Fundo com Zoom Lento */}
                         <Image
-                            src="/image8.jpeg"
+                            src="/image40.png"
                             alt="Consultoria Híbrida"
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"

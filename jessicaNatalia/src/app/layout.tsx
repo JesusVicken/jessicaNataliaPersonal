@@ -5,6 +5,7 @@ import "./globals.css"
 import { AosInit } from "./_components/aos-init"
 import { ParallaxWrapper } from "./_components/ParallaxWrapper"
 import { CustomCursor } from "./_components/custom-cursor"
+import WhatsappFloatingButton from "./_components/whatsapp"
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
         <ParallaxWrapper>
           {children}
           <AosInit />
+          <WhatsappFloatingButton />
         </ParallaxWrapper>
       </body>
     </html>

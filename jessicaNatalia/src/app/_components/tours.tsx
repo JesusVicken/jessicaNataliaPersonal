@@ -8,6 +8,7 @@ import 'aos/dist/aos.css'
 
 export function Tours() {
   const sectionRef = useRef<HTMLElement>(null)
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true })
@@ -22,7 +23,29 @@ export function Tours() {
       })
     }, sectionRef)
 
-    return () => ctx.revert()
+    const playVideos = () => {
+      videoRefs.current.forEach((video) => {
+        if (video) {
+          // Força mudo na DOM para o Safari
+          video.muted = true
+          video.defaultMuted = true
+          video.play().catch((error) => {
+            console.log("Autoplay de vídeo impedido pelo navegador:", error)
+          })
+        }
+      })
+    }
+
+    playVideos()
+
+    window.addEventListener('touchstart', playVideos, { once: true })
+    window.addEventListener('click', playVideos, { once: true })
+
+    return () => {
+      ctx.revert()
+      window.removeEventListener('touchstart', playVideos)
+      window.removeEventListener('click', playVideos)
+    }
   }, [])
 
   return (
@@ -56,13 +79,16 @@ export function Tours() {
           >
             {/* Vídeo de Fundo Loop */}
             <video
-              src="/video3.mp4"
+              ref={(el) => { if (el) videoRefs.current[0] = el }}
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
               className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
-            />
+            >
+              <source src="/video3.mp4" type="video/mp4" />
+            </video>
             {/* Película Protetora Escura */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/65 to-[#060606]/20 z-10 pointer-events-none" />
 
@@ -141,13 +167,16 @@ export function Tours() {
           >
             {/* Vídeo de Fundo Loop */}
             <video
-              src="/video2.mp4"
+              ref={(el) => { if (el) videoRefs.current[1] = el }}
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
               className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
-            />
+            >
+              <source src="/video2.mp4" type="video/mp4" />
+            </video>
             {/* Película Protetora Escura */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/65 to-[#060606]/20 z-10 pointer-events-none" />
 
