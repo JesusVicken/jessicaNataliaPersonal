@@ -95,10 +95,14 @@ export function Footer() {
                   <Image
                     src={item.logo}
                     alt={item.name}
-                    width={item.name === 'SmartFit' ? 220 : 140}
-                    height={item.name === 'SmartFit' ? 60 : 40}
+                    width={item.name === 'SmartFit' || item.name === 'ICMBio' ? 220 : 140}
+                    height={item.name === 'SmartFit' || item.name === 'ICMBio' ? 60 : 40}
                     className={`object-contain transition-all duration-500 ease-out ${
-                      item.name === 'SmartFit' ? 'max-h-20 scale-125' : 'max-h-12 hover:scale-105'
+                      item.name === 'SmartFit' 
+                        ? 'max-h-20 scale-125' 
+                        : item.name === 'ICMBio'
+                        ? 'max-h-16 scale-125 md:max-h-20' 
+                        : 'max-h-12 hover:scale-105'
                     }`}
                   />
                 ) : (
