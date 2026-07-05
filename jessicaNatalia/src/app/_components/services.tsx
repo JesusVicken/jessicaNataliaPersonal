@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger)
 export function Services() {
     const gridRef = useRef<HTMLDivElement | null>(null)
     const cardsRef = useRef<HTMLDivElement[]>([])
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
     useEffect(() => {
         if (!gridRef.current || !cardsRef.current.length) return
@@ -38,6 +39,30 @@ export function Services() {
         )
     }, [])
 
+    useEffect(() => {
+        const playVideos = () => {
+            videoRefs.current.forEach((video) => {
+                if (video) {
+                    video.muted = true
+                    video.defaultMuted = true
+                    video.play().catch((error) => {
+                        console.log('Autoplay blocked:', error)
+                    })
+                }
+            })
+        }
+
+        playVideos()
+
+        window.addEventListener('touchstart', playVideos, { once: true })
+        window.addEventListener('click', playVideos, { once: true })
+
+        return () => {
+            window.removeEventListener('touchstart', playVideos)
+            window.removeEventListener('click', playVideos)
+        }
+    }, [])
+
     // Função auxiliar para gerar links de WhatsApp personalizados
     const getWhatsappLink = (text: string) => {
         return `https://wa.me/5561996844400?text=${encodeURIComponent(text)}`
@@ -56,7 +81,7 @@ export function Services() {
 
                 {/* Header */}
                 <div className="text-center mb-20" data-aos="fade-up">
-                    <span className="text-[10px] font-black tracking-[0.3em] text-[#bda07a] uppercase mb-4 inline-block">EXCLUSIVIDADE & DIRECIONAMENTO</span>
+                    {/* <span className="text-[10px] font-black tracking-[0.3em] text-[#bda07a] uppercase mb-4 inline-block">EXCLUSIVIDADE & DIRECIONAMENTO</span> */}
                     <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111] leading-none">
                         Como Treinar <span className="font-serif italic font-light text-[#bda07a]">Comigo</span>
                     </h2>
@@ -73,15 +98,18 @@ export function Services() {
                         ref={(el) => { if (el) cardsRef.current[0] = el }}
                         className="group relative h-[450px] md:h-[500px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
                     >
-                        {/* Imagem de Fundo com Zoom Lento */}
-                        <Image
-                            src="/appjessica.jpeg"
-                            alt="Consultoria On-line"
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            loading="lazy"
-                        />
+                        {/* Vídeo de Fundo */}
+                        <video
+                            ref={(el) => { if (el) videoRefs.current[0] = el }}
+                            playsInline
+                            loop
+                            muted
+                            autoPlay
+                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                            preload="auto"
+                        >
+                            <source src="/video7.mp4" type="video/mp4" />
+                        </video>
                         {/* Película de Contraste Escura */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/40 to-transparent z-10 pointer-events-none" />
 
@@ -102,18 +130,20 @@ export function Services() {
                                 <h3 className="text-2xl md:text-3xl font-black uppercase tracking-wide mb-3" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                                     Via Aplicativo
                                 </h3>
-                                <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
-                                    Treino totalmente adaptado aos seus objetivos com suporte diário pelo meu aplicativo. Você acompanha seu progresso, envia seus vídeos e recebe feedbacks personalizados, garantindo evolução constante, sem sair de casa.
-                                </p>
-                                
-                                <a 
-                                    href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre a Consultoria On-line.")}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
-                                >
-                                    Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
-                                </a>
+                                <div className="pointer-events-auto md:max-h-0 md:opacity-0 md:group-hover:max-h-[220px] md:group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
+                                        Treino totalmente adaptado aos seus objetivos com suporte diário pelo meu aplicativo. Você acompanha seu progresso, envia seus vídeos e recebe feedbacks personalizados, garantindo evolução constante, sem sair de casa.
+                                    </p>
+                                    
+                                    <a 
+                                        href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre a Consultoria On-line.")}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,15 +153,18 @@ export function Services() {
                         ref={(el) => { if (el) cardsRef.current[1] = el }}
                         className="group relative h-[450px] md:h-[500px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
                     >
-                        {/* Imagem de Fundo com Zoom Lento */}
-                        <Image
-                            src="/image40.png"
-                            alt="Consultoria Híbrida"
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            loading="lazy"
-                        />
+                        {/* Vídeo de Fundo */}
+                        <video
+                            ref={(el) => { if (el) videoRefs.current[1] = el }}
+                            playsInline
+                            loop
+                            muted
+                            autoPlay
+                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                            preload="auto"
+                        >
+                            <source src="/video10.mp4" type="video/mp4" />
+                        </video>
                         {/* Película de Contraste Escura */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/40 to-transparent z-10 pointer-events-none" />
 
@@ -152,18 +185,20 @@ export function Services() {
                                 <h3 className="text-2xl md:text-3xl font-black uppercase tracking-wide mb-3" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                                     Consultoria Híbrida
                                 </h3>
-                                <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
-                                    O melhor dos dois mundos: treino personalizado no aplicativo e um encontro presencial para ajuste fino. Você recebe o treino no app, treina no seu ritmo e nos encontramos para ajustar a técnica, tirar dúvidas e garantir que você evolua com segurança, confiança e autonomia.
-                                </p>
-                                
-                                <a 
-                                    href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre a Consultoria Híbrida.")}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
-                                >
-                                    Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
-                                </a>
+                                <div className="pointer-events-auto md:max-h-0 md:opacity-0 md:group-hover:max-h-[220px] md:group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
+                                        O melhor dos dois mundos: treino personalizado no aplicativo e um encontro presencial para ajuste fino. Você recebe o treino no app, treina no seu ritmo e nos encontramos para ajustar a técnica, tirar dúvidas e garantir que você evolua com segurança, confiança e autonomia.
+                                    </p>
+                                    
+                                    <a 
+                                        href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre a Consultoria Híbrida.")}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,15 +208,18 @@ export function Services() {
                         ref={(el) => { if (el) cardsRef.current[2] = el }}
                         className="group relative h-[450px] md:h-[500px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
                     >
-                        {/* Imagem de Fundo com Zoom Lento */}
-                        <Image
-                            src="/image22.jpeg"
-                            alt="Experiência Personal Trainer - Academias"
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            loading="lazy"
-                        />
+                        {/* Vídeo de Fundo */}
+                        <video
+                            ref={(el) => { if (el) videoRefs.current[2] = el }}
+                            playsInline
+                            loop
+                            muted
+                            autoPlay
+                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                            preload="auto"
+                        >
+                            <source src="/about-video.mp4" type="video/mp4" />
+                        </video>
                         {/* Película de Contraste Escura */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/40 to-transparent z-10 pointer-events-none" />
 
@@ -202,18 +240,20 @@ export function Services() {
                                 <h3 className="text-2xl md:text-3xl font-black uppercase tracking-wide mb-3" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                                     Personal Trainer
                                 </h3>
-                                <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
-                                    Treinamento personalizado para quem deseja um corpo forte, funcional e preparado para a vida. Cada sessão é planejada de acordo com seus objetivos, histórico e momento atual, respeitando sua individualidade. Atendimentos presenciais na Rede Bodytech e Rede Smart Fit em Brasília.
-                                </p>
-                                
-                                <a 
-                                    href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre o Personal Trainer presencial nas grandes academias.")}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
-                                >
-                                    Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
-                                </a>
+                                <div className="pointer-events-auto md:max-h-0 md:opacity-0 md:group-hover:max-h-[220px] md:group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
+                                        Treinamento personalizado para quem deseja um corpo forte, funcional e preparado para a vida. Cada sessão é planejada de acordo com seus objetivos, histórico e momento atual, respeitando sua individualidade. Atendimentos presenciais na Rede Bodytech e Rede Smart Fit em Brasília.
+                                    </p>
+                                    
+                                    <a 
+                                        href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre o Personal Trainer presencial nas grandes academias.")}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -223,15 +263,18 @@ export function Services() {
                         ref={(el) => { if (el) cardsRef.current[3] = el }}
                         className="group relative h-[450px] md:h-[500px] rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-zinc-950 shadow-lg hover:shadow-2xl transition-all duration-500"
                     >
-                        {/* Imagem de Fundo com Zoom Lento */}
-                        <Image
-                            src="/image29.jpeg"
-                            alt="Experiência Personal Trainer - Em Casa"
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            loading="lazy"
-                        />
+                        {/* Vídeo de Fundo */}
+                        <video
+                            ref={(el) => { if (el) videoRefs.current[3] = el }}
+                            playsInline
+                            loop
+                            muted
+                            autoPlay
+                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                            preload="auto"
+                        >
+                            <source src="/video11.mp4" type="video/mp4" />
+                        </video>
                         {/* Película de Contraste Escura */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/40 to-transparent z-10 pointer-events-none" />
 
@@ -250,20 +293,22 @@ export function Services() {
                             {/* Bottom info */}
                             <div>
                                 <h3 className="text-2xl md:text-3xl font-black uppercase tracking-wide mb-3" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-                                    Em Casa & Condomínio
+                                    Treine onde estiver
                                 </h3>
-                                <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
-                                    Seu treino, no seu espaço. Vou até você, seja no conforto do seu lar, no seu condomínio ou na academia do seu prédio. Treino individualizado, com foco nos seus objetivos, sem que você precise sair de casa. Acompanhamento próximo e evolução constante.
-                                </p>
-                                
-                                <a 
-                                    href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre o Personal Trainer presencial em casa ou condomínio.")}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
-                                >
-                                    Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
-                                </a>
+                                <div className="pointer-events-auto md:max-h-0 md:opacity-0 md:group-hover:max-h-[220px] md:group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed mb-6 max-w-md">
+                                        Seu treino, no seu space. Vou até você, seja no conforto do seu lar, no seu condomínio ou na academia do seu prédio. Treino individualizado, com foco nos seus objetivos, sem que você precise sair de casa. Acompanhamento próximo e evolução constante.
+                                    </p>
+                                    
+                                    <a 
+                                        href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre o Personal Trainer presencial em casa ou condomínio.")}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
