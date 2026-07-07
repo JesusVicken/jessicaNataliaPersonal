@@ -195,7 +195,7 @@ export function Footer() {
       <div className="w-full h-[350px] md:h-[400px] border-t border-[#e6e2da] overflow-hidden relative">
         <iframe
           title="Localização de Atendimento"
-          src="https://www.google.com/maps?q=Bodytech%20Sudoeste%20Brasilia&z=17&output=embed"
+          src="https://www.google.com/maps?q=Bras%C3%ADlia%2C%20DF&z=11&output=embed"
           width="100%"
           height="100%"
           loading="lazy"
