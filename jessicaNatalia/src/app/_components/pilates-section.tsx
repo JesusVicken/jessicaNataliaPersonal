@@ -126,7 +126,7 @@ export default function PilatesSection() {
                 preload="auto"
                 className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
             >
-                <source src="/video12.mp4" type="video/mp4" />
+                <source src="/video2.mp4" type="video/mp4" />
             </video>
 
             {/* Camada dupla de overlay escuro e gradiente de alta legibilidade (z-10) */}
