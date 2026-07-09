@@ -276,7 +276,7 @@ export function Footer() {
             <div className="w-full max-w-[400px] aspect-square rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#FAF8F5] shadow-lg relative">
               <iframe
                 title="Localização de Atendimento Plano Piloto"
-                src="https://www.google.com/maps?q=Plano%20Piloto%2C%20Bras%C3%ADlia%20-%20DF&z=15&output=embed"
+                src="https://www.google.com/maps?q=-15.793889,-47.882778&z=15&output=embed"
                 width="100%"
                 height="100%"
                 loading="lazy"
