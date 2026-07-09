@@ -30,8 +30,8 @@ export function CustomCursor() {
             // Expande o anel dourado no hover de elementos clicáveis
             gsap.to(ringRef.current, {
                 scale: 1.6,
-                borderColor: '#bda07a',
-                backgroundColor: 'rgba(189, 160, 122, 0.08)',
+                borderColor: '#1d7682',
+                backgroundColor: 'rgba(29, 118, 130, 0.08)',
                 duration: 0.3,
                 ease: 'power2.out'
             })
@@ -41,7 +41,7 @@ export function CustomCursor() {
             // Retorna ao tamanho e cor originais
             gsap.to(ringRef.current, {
                 scale: 1,
-                borderColor: 'rgba(189, 160, 122, 0.45)',
+                borderColor: 'rgba(29, 118, 130, 0.45)',
                 backgroundColor: 'transparent',
                 duration: 0.3,
                 ease: 'power2.out'
@@ -79,7 +79,7 @@ export function CustomCursor() {
     return (
         <div 
             ref={ringRef} 
-            className="fixed top-0 left-0 w-8 h-8 border border-[#bda07a]/45 rounded-full pointer-events-none z-[99999]"
+            className="fixed top-0 left-0 w-8 h-8 border border-[#1d7682]/45 rounded-full pointer-events-none z-[99999]"
         />
     )
 }

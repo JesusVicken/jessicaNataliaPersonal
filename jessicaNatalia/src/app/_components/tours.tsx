@@ -62,7 +62,7 @@ export function Tours() {
             ACOMPANHAMENTO DETALHADO
           </span>
           <h2 className="text-4xl md:text-6xl font-black text-[#111111] uppercase leading-none mb-6 tracking-tighter">
-            Formatos de <span className="font-serif italic font-light text-[#bda07a] capitalize">Treino</span>
+            Formatos de <span className="font-serif italic font-light text-[#1d7682] capitalize">Treino</span>
           </h2>
           <p className="text-[#66635f] text-base md:text-lg max-w-xl mx-auto font-light px-4 leading-relaxed">
             Escolha o formato ideal para acelerar os seus resultados com orientação profissional direcionada.
@@ -97,35 +97,35 @@ export function Tours() {
               <div>
                 <div className="flex justify-between items-start mb-12 md:mb-20">
                   <div className="flex flex-col gap-2">
-                    <div className="bg-white/10 backdrop-blur-md text-[#bda07a] text-[9px] font-black px-3 py-1.5 uppercase tracking-widest self-start rounded-md border border-white/10">
+                    <div className="bg-white/10 backdrop-blur-md text-[#1d7682] text-[9px] font-black px-3 py-1.5 uppercase tracking-widest self-start rounded-md border border-white/10">
                       Consultoria Online
                     </div>
-                    <div className="bg-[#bda07a] text-white text-[9px] font-black px-3 py-1.5 uppercase tracking-widest self-start rounded-md shadow-sm">
+                    <div className="bg-[#1d7682] text-white text-[9px] font-black px-3 py-1.5 uppercase tracking-widest self-start rounded-md shadow-sm">
                       Via Aplicativo
                     </div>
                   </div>
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/10 backdrop-blur-md shadow-sm text-[#bda07a]">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/10 backdrop-blur-md shadow-sm text-[#1d7682]">
                     <CalendarBlank size={20} />
                   </div>
                 </div>
 
                 <h3 className="text-4xl md:text-6xl font-black text-white uppercase leading-[0.8] mb-6 tracking-tighter" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                   Treine onde <br />
-                  <span className="font-serif italic font-light text-[#bda07a] capitalize">quiser</span>
+                  <span className="font-serif italic font-light text-[#1d7682] capitalize">quiser</span>
                 </h3>
 
                 <div className="flex flex-wrap gap-2 md:gap-3 mb-8">
                   <span className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-2 rounded-full text-[9px] font-bold uppercase border border-white/10 text-white">
-                    <Clock size={14} weight="fill" className="text-[#bda07a]" /> Treino no Seu Tempo
+                    <Clock size={14} weight="fill" className="text-[#1d7682]" /> Treino no Seu Tempo
                   </span>
                   <span className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-2 rounded-full text-[9px] font-bold uppercase border border-white/10 text-white">
-                    <Clock size={14} weight="fill" className="text-[#bda07a]" /> Suporte Direto
+                    <Clock size={14} weight="fill" className="text-[#1d7682]" /> Suporte Direto
                   </span>
                 </div>
 
                 {/* Lista de Tópicos (Glassmorphism Premium) */}
                 <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 transition-all">
-                  <h4 className="text-[#bda07a] font-black uppercase mb-4 tracking-[0.2em] text-[9px] border-b border-white/10 pb-2">O que está incluso:</h4>
+                  <h4 className="text-[#1d7682] font-black uppercase mb-4 tracking-[0.2em] text-[9px] border-b border-white/10 pb-2">O que está incluso:</h4>
                   <ul className="space-y-4 md:space-y-3">
                     {[
                       "Ficha de treino dinâmica personalizada via aplicativo",
@@ -138,7 +138,7 @@ export function Tours() {
                       "Foco em hipertrofia, emagrecimento ou condicionamento"
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3 text-xs md:text-sm text-zinc-300 hover:text-white transition-colors leading-snug">
-                        <Check size={16} className="text-[#bda07a] mt-0.5 shrink-0" weight="bold" />
+                        <Check size={16} className="text-[#1d7682] mt-0.5 shrink-0" weight="bold" />
                         {item}
                       </li>
                     ))}
@@ -151,7 +151,7 @@ export function Tours() {
                   href="https://wa.me/5561996844400?text=Olá%20Jéssica!%20Gostaria%20de%20saber%20mais%20sobre%20a%20sua%20Consultoria%20Online."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-white hover:bg-[#bda07a] text-[#111111] hover:text-white font-bold py-4 px-6 transition-all flex items-center justify-center gap-3 uppercase text-xs tracking-widest rounded-xl shadow-lg hover:scale-[1.02]"
+                  className="w-full bg-white hover:bg-[#1d7682] text-[#111111] hover:text-white font-bold py-4 px-6 transition-all flex items-center justify-center gap-3 uppercase text-xs tracking-widest rounded-xl shadow-lg hover:scale-[1.02]"
                 >
                   Contratar Consultoria <WhatsappLogo size={14} weight="fill" />
                 </a>
@@ -185,32 +185,32 @@ export function Tours() {
               <div>
                 <div className="flex justify-between items-start mb-12 md:mb-20">
                   <div className="flex flex-col gap-2">
-                    <div className="bg-white/10 backdrop-blur-md text-[#bda07a] text-[9px] font-black px-4 py-1.5 tracking-widest uppercase rounded-md border border-white/10">
+                    <div className="bg-white/10 backdrop-blur-md text-[#1d7682] text-[9px] font-black px-4 py-1.5 tracking-widest uppercase rounded-md border border-white/10">
                       Aulas Individuais
                     </div>
-                    <div className="bg-[#bda07a] text-white text-[9px] font-black px-4 py-1.5 tracking-widest uppercase rounded-md shadow-sm">
+                    <div className="bg-[#1d7682] text-white text-[9px] font-black px-4 py-1.5 tracking-widest uppercase rounded-md shadow-sm">
                       Presencial VIP (DF)
                     </div>
                   </div>
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/10 backdrop-blur-md shadow-sm text-[#bda07a]">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/10 backdrop-blur-md shadow-sm text-[#1d7682]">
                     <Anchor size={20} weight="fill" />
                   </div>
                 </div>
 
                 <h3 className="text-4xl md:text-6xl font-black text-white uppercase leading-[0.8] mb-6 tracking-tighter" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                   Presencial <br />
-                  <span className="font-serif italic font-light text-[#bda07a] capitalize">VIP</span>
+                  <span className="font-serif italic font-light text-[#1d7682] capitalize">VIP</span>
                 </h3>
 
                 <div className="flex items-center gap-3 mb-8">
                   <span className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-2 rounded-full text-[9px] font-black uppercase border border-white/10 text-white">
-                    <Clock size={14} weight="fill" className="text-[#bda07a]" /> Acompanhamento Individualizado
+                    <Clock size={14} weight="fill" className="text-[#1d7682]" /> Acompanhamento Individualizado
                   </span>
                 </div>
 
                 {/* Lista de Tópicos (Glassmorphism Premium) */}
                 <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 transition-all">
-                  <h4 className="text-[#bda07a] font-black uppercase mb-4 tracking-[0.2em] text-[9px] border-b border-white/10 pb-2">O que está incluso:</h4>
+                  <h4 className="text-[#1d7682] font-black uppercase mb-4 tracking-[0.2em] text-[9px] border-b border-white/10 pb-2">O que está incluso:</h4>
                   <ul className="space-y-4 md:space-y-3">
                     {[
                       "Supervisão presencial 100% dedicada durante todo o treino",
@@ -223,7 +223,7 @@ export function Tours() {
                       "Motivação e energia para treinar no seu limite máximo"
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3 text-xs md:text-sm text-zinc-300 hover:text-white transition-colors leading-snug">
-                        <Check size={16} className="text-[#bda07a] mt-0.5 shrink-0" weight="bold" />
+                        <Check size={16} className="text-[#1d7682] mt-0.5 shrink-0" weight="bold" />
                         {item}
                       </li>
                     ))}
@@ -236,7 +236,7 @@ export function Tours() {
                   href="https://wa.me/5561996844400?text=Olá%20Jéssica!%20Gostaria%20de%20saber%20valores%20e%20disponibilidade%20para%20as%20Aulas%20VIP%20Presenciais%20em%20Brasília."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-white hover:bg-[#bda07a] text-[#111111] hover:text-white font-bold py-4 px-6 transition-all flex items-center justify-center gap-3 uppercase text-xs tracking-widest rounded-xl shadow-lg hover:scale-[1.02]"
+                  className="w-full bg-white hover:bg-[#1d7682] text-[#111111] hover:text-white font-bold py-4 px-6 transition-all flex items-center justify-center gap-3 uppercase text-xs tracking-widest rounded-xl shadow-lg hover:scale-[1.02]"
                 >
                   Consultar Disponibilidade <WhatsappLogo size={14} weight="fill" />
                 </a>

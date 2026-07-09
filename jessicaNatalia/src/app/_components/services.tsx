@@ -81,9 +81,9 @@ export function Services() {
 
                 {/* Header */}
                 <div className="text-center mb-20" data-aos="fade-up">
-                    {/* <span className="text-[10px] font-black tracking-[0.3em] text-[#bda07a] uppercase mb-4 inline-block">EXCLUSIVIDADE & DIRECIONAMENTO</span> */}
+                    {/* <span className="text-[10px] font-black tracking-[0.3em] text-[#1d7682] uppercase mb-4 inline-block">EXCLUSIVIDADE & DIRECIONAMENTO</span> */}
                     <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111] leading-none">
-                        Como Treinar <span className="font-serif italic font-light text-[#bda07a]">Comigo</span>
+                        Como Treinar <span className="font-serif italic font-light text-[#1d7682]">Comigo</span>
                     </h2>
                 </div>
 
@@ -117,10 +117,10 @@ export function Services() {
                         <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-20 text-white">
                             {/* Top info */}
                             <div className="flex justify-between items-start">
-                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#bda07a] uppercase tracking-widest">
+                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#1d7682] uppercase tracking-widest">
                                     Consultoria On-line
                                 </span>
-                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center border border-white/10 shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center border border-white/10 shrink-0">
                                     <Globe size={20} />
                                 </div>
                             </div>
@@ -139,7 +139,7 @@ export function Services() {
                                         href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre a Consultoria On-line.")}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#1d7682] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
                                     >
                                         Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
                                     </a>
@@ -172,10 +172,10 @@ export function Services() {
                         <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-20 text-white">
                             {/* Top info */}
                             <div className="flex justify-between items-start">
-                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#bda07a] uppercase tracking-widest">
+                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#1d7682] uppercase tracking-widest">
                                     Híbrido
                                 </span>
-                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center border border-white/10 shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center border border-white/10 shrink-0">
                                     <Users size={20} />
                                 </div>
                             </div>
@@ -194,7 +194,7 @@ export function Services() {
                                         href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre a Consultoria Híbrida.")}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#1d7682] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
                                     >
                                         Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
                                     </a>
@@ -227,10 +227,10 @@ export function Services() {
                         <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-20 text-white">
                             {/* Top info */}
                             <div className="flex justify-between items-start">
-                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#bda07a] uppercase tracking-widest">
+                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#1d7682] uppercase tracking-widest">
                                     GRANDES ACADEMIAS
                                 </span>
-                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center border border-white/10 shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center border border-white/10 shrink-0">
                                     <Barbell size={20} />
                                 </div>
                             </div>
@@ -249,7 +249,7 @@ export function Services() {
                                         href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre o Personal Trainer presencial nas grandes academias.")}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#1d7682] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
                                     >
                                         Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
                                     </a>
@@ -282,10 +282,10 @@ export function Services() {
                         <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-20 text-white">
                             {/* Top info */}
                             <div className="flex justify-between items-start">
-                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#bda07a] uppercase tracking-widest">
+                                <span className="text-[8px] font-mono bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-[#1d7682] uppercase tracking-widest">
                                     ATENDIMENTO EM CASA
                                 </span>
-                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center border border-white/10 shrink-0">
+                                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center border border-white/10 shrink-0">
                                     <HouseLine size={20} />
                                 </div>
                             </div>
@@ -304,7 +304,7 @@ export function Services() {
                                         href={getWhatsappLink("Olá Jéssica! Gostaria de saber mais sobre o Personal Trainer presencial em casa ou condomínio.")}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#bda07a] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
+                                        className="inline-flex items-center gap-2 bg-white text-[#111111] hover:bg-[#1d7682] hover:text-white px-6 py-3.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 pointer-events-auto"
                                     >
                                         Falar com a Jéssica <WhatsappLogo size={14} weight="fill" />
                                     </a>

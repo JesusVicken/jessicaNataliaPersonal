@@ -75,7 +75,7 @@ export function Footer() {
         {/* PARCEIROS */}
         <div className="border-b border-[#e6e2da] pb-16 mb-16" data-aos="fade-up">
           <h4 className="text-xl md:text-2xl font-black mb-10 text-center flex items-center justify-center gap-3 text-[#111111] uppercase tracking-wider">
-            <Handshake className="w-6 h-6 text-[#bda07a]" />
+            <Handshake className="w-6 h-6 text-[#1d7682]" />
             Parceiros Oficiais
           </h4>
 
@@ -106,7 +106,7 @@ export function Footer() {
                     }`}
                   />
                 ) : (
-                  <span className="text-[#111111] font-black uppercase tracking-[0.2em] text-[10px] md:text-xs group-hover:text-[#bda07a] transition-colors duration-300">
+                  <span className="text-[#111111] font-black uppercase tracking-[0.2em] text-[10px] md:text-xs group-hover:text-[#1d7682] transition-colors duration-300">
                     {item.name}
                   </span>
                 )}
@@ -119,18 +119,30 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 md:gap-12">
           {/* SOBRE */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-            <h3 className="text-lg font-black text-[#111111] uppercase tracking-[0.2em]">
-              Jéssica Natália
-            </h3>
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#e6e2da] bg-white flex items-center justify-center">
+                <img 
+                  src="/logo.jpeg" 
+                  alt="Jéssica Natália Logo" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex flex-col text-left">
+                <h3 className="text-base font-black text-[#111111] uppercase tracking-[0.2em] leading-tight">
+                  Jéssica Natália
+                </h3>
+                <span className="text-[8px] text-[#1d7682] uppercase font-bold tracking-[0.25em]">Personal Trainer</span>
+              </div>
+            </div>
             <p className="text-xs font-light leading-relaxed max-w-xs">
-              Treinamento personalizado e consultoria online baseados em evidência científica, anatomia e biomecânica aplicada.
+              Há mais de 15 anos prescrevendo saúde. Treinamento personalizado e consultoria online baseados em evidência científica, anatomia e biomecânica aplicada.
             </p>
 
             <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#111111] hover:bg-[#bda07a] text-white font-bold py-3 px-6 rounded-full transition-all hover:scale-105 shadow-sm text-xs uppercase tracking-wider"
+              className="inline-flex items-center gap-2 bg-[#111111] hover:bg-[#1d7682] text-white font-bold py-3 px-6 rounded-full transition-all hover:scale-105 shadow-sm text-xs uppercase tracking-wider"
             >
               <WhatsappLogo size={18} weight="fill" />
               Fale Conosco
@@ -144,22 +156,50 @@ export function Footer() {
             </h3>
             <ul className="space-y-4 text-xs font-light">
               <li className="flex items-center gap-3">
-                <Phone size={16} className="text-[#bda07a]" />
-                <a href="tel:+5561996844400" className="hover:text-[#bda07a] transition-colors">(61) 99684-4400</a>
+                <Phone size={16} className="text-[#1d7682]" />
+                <a href="tel:+5561996844400" className="hover:text-[#1d7682] transition-colors">(61) 99684-4400</a>
               </li>
               <li className="flex items-center gap-3">
-                <Envelope size={16} className="text-[#bda07a]" />
-                <a href="mailto:jessnatalia.rs@gmail.com" className="hover:text-[#bda07a] transition-colors">jessnatalia.rs@gmail.com</a>
+                <Envelope size={16} className="text-[#1d7682]" />
+                <a href="mailto:jessnatalia.rs@gmail.com" className="hover:text-[#1d7682] transition-colors">jessnatalia.rs@gmail.com</a>
               </li>
-              <li className="flex items-start gap-3 max-w-xs">
-                <MapPin size={18} className="text-[#bda07a] mt-0.5 shrink-0" />
-                <span>
-                  Academia Bodytech Lago Sul
-                  <br />
-                  <span className="text-[10px] text-zinc-400 uppercase font-bold tracking-widest">
-                    Brasília DF
-                  </span>
-                </span>
+              <li className="flex flex-col gap-2 pt-2 border-t border-zinc-100 max-w-xs w-full">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#1d7682] text-left">Locais de Atendimento:</span>
+                <div className="space-y-3 mt-1 text-left">
+                  
+                  {/* Bodytech */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-5 h-5 rounded-md overflow-hidden bg-white border border-[#e6e2da] flex items-center justify-center p-0.5 shrink-0">
+                      <img src="/bodytech.png" alt="Bodytech Logo" className="w-full h-full object-contain" />
+                    </div>
+                    <span>Rede Bodytech (Lago Sul)</span>
+                  </div>
+
+                  {/* SmartFit */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-5 h-5 rounded-md overflow-hidden bg-white border border-[#e6e2da] flex items-center justify-center p-0.5 shrink-0">
+                      <img src="/smartfit.png" alt="SmartFit Logo" className="w-full h-full object-contain" />
+                    </div>
+                    <span>Rede Smartfit</span>
+                  </div>
+
+                  {/* Kale */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-5 h-5 rounded-md overflow-hidden bg-white border border-[#e6e2da] flex items-center justify-center p-0.5 shrink-0">
+                      <img src="/kale.jpg" alt="Kale Espaço Saúde Logo" className="w-full h-full object-contain" />
+                    </div>
+                    <span>Kale Espaço Saúde</span>
+                  </div>
+
+                  {/* Domiciliar */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-5 h-5 rounded-md overflow-hidden bg-white border border-[#e6e2da] flex items-center justify-center shrink-0">
+                      <MapPin size={12} className="text-[#1d7682]" weight="fill" />
+                    </div>
+                    <span>Atendimento Domiciliar</span>
+                  </div>
+
+                </div>
               </li>
             </ul>
           </div>
@@ -191,18 +231,63 @@ export function Footer() {
         </div>
       </div>
 
-      {/* MAPA LOCAL */}
-      <div className="w-full h-[350px] md:h-[400px] border-t border-[#e6e2da] overflow-hidden relative">
-        <iframe
-          title="Localização de Atendimento"
-          src="https://www.google.com/maps?q=Bras%C3%ADlia%2C%20DF&z=11&output=embed"
-          width="100%"
-          height="100%"
-          loading="lazy"
-          style={{ border: 0 }}
-          allowFullScreen
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+      {/* MAPA LOCAL & INFORMAÇÕES DE ATENDIMENTO */}
+      <div className="border-t border-[#e6e2da] bg-white">
+        <div className="container mx-auto max-w-7xl px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Informações modernas de atendimento */}
+          <div className="space-y-6 text-left">
+            <span className="text-[10px] font-black tracking-[0.35em] text-[#1d7682] uppercase block">
+              COBERTURA & ATENDIMENTO
+            </span>
+            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-[#111111] leading-tight">
+              Onde Treinar <span className="font-serif italic font-light text-[#1d7682]">Comigo</span>
+            </h3>
+            <p className="text-xs text-zinc-500 font-light leading-relaxed max-w-md">
+              Atendimento presencial personalizado nas principais regiões de Brasília. Planejamento estratégico de treino adequado à sua rotina e localização.
+            </p>
+            <div className="space-y-4 pt-2">
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 rounded-full bg-[#1d7682] mt-1.5 shrink-0" />
+                <div>
+                  <h4 className="text-xs font-bold text-[#111111] uppercase tracking-wider">Plano Piloto & Lago Sul</h4>
+                  <p className="text-[10px] text-zinc-400 font-light mt-0.5">Atendimento presencial focado e otimizado no Plano Piloto e Lago Sul.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 rounded-full bg-[#1d7682] mt-1.5 shrink-0" />
+                <div>
+                  <h4 className="text-xs font-bold text-[#111111] uppercase tracking-wider">Academias Parceiras</h4>
+                  <p className="text-[10px] text-zinc-400 font-light mt-0.5">Musculação, Pilates e Recovery na Rede Bodytech, Rede SmartFit e Kale Espaço Saúde.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 rounded-full bg-[#1d7682] mt-1.5 shrink-0" />
+                <div>
+                  <h4 className="text-xs font-bold text-[#111111] uppercase tracking-wider">Atendimento Domiciliar</h4>
+                  <p className="text-[10px] text-zinc-400 font-light mt-0.5">Atendimento personalizado no conforto da academia do seu condomínio ou residência.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mapa Quadrado */}
+          <div className="flex justify-center w-full">
+            <div className="w-full max-w-[400px] aspect-square rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#FAF8F5] shadow-lg relative">
+              <iframe
+                title="Localização de Atendimento Plano Piloto"
+                src="https://www.google.com/maps?q=Plano%20Piloto%2C%20Bras%C3%ADlia%20-%20DF&z=15&output=embed"
+                width="100%"
+                height="100%"
+                loading="lazy"
+                style={{ border: 0 }}
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
+
+        </div>
       </div>
 
       {/* COPYRIGHT */}

@@ -127,10 +127,17 @@ export function About() {
         },
         {
             title: "Consultoria de Treino",
-            desc: "Acompanhamento individualizado e personalized de treinamento de força, unindo ciência prática e biomecânica.",
+            desc: "Acompanhamento individualizado e personalizado de treinamento de força, unindo ciência prática e biomecânica.",
             src: "/video1.mp4",
             icon: <Barbell size={20} />,
             delay: "600"
+        },
+        {
+            title: "Massoterapia Corporal",
+            desc: "Liberação miofascial, massagem desportiva, mobilidade, alongamento, flexibilidade e relaxamento.",
+            src: "/aboutjess.jpeg",
+            icon: <Sparkle size={20} />,
+            delay: "700"
         }
     ]
 
@@ -286,7 +293,7 @@ export function About() {
                             
                             {/* Card de autoridade sobreposto */}
                             <div className="absolute bottom-6 left-6 z-20 bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl border border-[#e6e2da]/60 shadow-lg flex items-center gap-3">
-                                <div className="w-2.5 h-2.5 rounded-full bg-[#bda07a] animate-ping" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#1d7682] animate-ping" />
                                 <span className="text-[9px] font-black tracking-widest text-[#111111] uppercase">CREF 0314135-G/DF</span>
                             </div>
                         </div>
@@ -297,7 +304,7 @@ export function About() {
                         
                         {/* Pequeno Título com sugestão de impacto */}
                         <div className="reveal-item mb-4">
-                            <span className="text-[10px] font-black tracking-[0.35em] text-[#bda07a] uppercase block mb-2">
+                            <span className="text-[10px] font-black tracking-[0.35em] text-[#1d7682] uppercase block mb-2">
                                 Conheça Jéssica Natália
                             </span>
                             <span className="text-xs font-serif italic text-[#66635f] block">
@@ -326,47 +333,68 @@ export function About() {
                         {/* Grid Moderno de Cards / Ícones */}
                         <div className="reveal-item grid grid-cols-1 sm:grid-cols-2 gap-4">
                             
-                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
-                                <Barbell size={20} className="text-[#bda07a]" weight="fill" />
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#1d7682] transition-all">
+                                <Barbell size={20} className="text-[#1d7682]" weight="fill" />
                                 <div className="flex flex-col">
                                     <span className="text-xs font-bold text-[#111111]">Personal Trainer</span>
                                     <span className="text-[10px] text-zinc-400">Consultoria Online e Presencial</span>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
-                                <FlowerLotus size={20} className="text-[#bda07a]" weight="fill" />
-                                <span className="text-xs font-bold text-[#111111]">Instrutora de MatPilates</span>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#1d7682] transition-all">
+                                <GraduationCap size={20} className="text-[#1d7682]" weight="fill" />
+                                <div className="flex flex-col">
+                                    <span className="text-xs font-bold text-[#111111]">Treinamento Funcional</span>
+                                    <span className="text-[10px] text-zinc-400">Instrutora Core 360º</span>
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
-                                <GraduationCap size={20} className="text-[#bda07a]" weight="fill" />
-                                <span className="text-xs font-bold text-[#111111]">Pós-graduada em Grupos Especiais</span>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#1d7682] transition-all">
+                                <FlowerLotus size={20} className="text-[#1d7682]" weight="fill" />
+                                <div className="flex flex-col">
+                                    <span className="text-xs font-bold text-[#111111]">Pilates Completo</span>
+                                    <span className="text-[10px] text-zinc-400">Mat Pilates & Aparelhos (Clássico/Contemporâneo)</span>
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
-                                <Sparkle size={20} className="text-[#bda07a]" weight="fill" />
-                                <span className="text-xs font-bold text-[#111111]">Professora da Rede Bodytech</span>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#1d7682] transition-all">
+                                <Compass size={20} className="text-[#1d7682]" weight="fill" />
+                                <div className="flex flex-col">
+                                    <span className="text-xs font-bold text-[#111111]">Condutora ICMBio</span>
+                                    <span className="text-[10px] text-zinc-400">Ecoturismo na Chapada dos Veadeiros</span>
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
-                                <Mountains size={20} className="text-[#bda07a]" weight="fill" />
-                                <span className="text-xs font-bold text-[#111111]">Ex-atleta de esportes outdoor</span>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#1d7682] transition-all">
+                                <Users size={20} className="text-[#1d7682]" weight="fill" />
+                                <div className="flex flex-col">
+                                    <span className="text-xs font-bold text-[#111111]">Grandes Redes</span>
+                                    <span className="text-[10px] text-zinc-400">Personal e Professora Bodytech & SmartFit</span>
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
-                                <Compass size={20} className="text-[#bda07a]" weight="fill" />
-                                <span className="text-xs font-bold text-[#111111]">Guia da Chapada dos Veadeiros</span>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#1d7682] transition-all">
+                                <Star size={20} className="text-[#1d7682]" weight="fill" />
+                                <div className="flex flex-col">
+                                    <span className="text-xs font-bold text-[#111111]">+15 Anos de Experiência</span>
+                                    <span className="text-[10px] text-zinc-400">Prescrevendo saúde e performance</span>
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
-                                <Star size={20} className="text-[#bda07a]" weight="fill" />
-                                <span className="text-xs font-bold text-[#111111]">Mais de 10 anos de experiência</span>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#1d7682] transition-all">
+                                <Mountains size={20} className="text-[#1d7682]" weight="fill" />
+                                <div className="flex flex-col">
+                                    <span className="text-xs font-bold text-[#111111]">Esportes Outdoor</span>
+                                    <span className="text-[10px] text-zinc-400">Ex-atleta de esportes de aventura</span>
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#bda07a] transition-all">
-                                <Users size={20} className="text-[#bda07a]" weight="fill" />
-                                <span className="text-xs font-bold text-[#111111]">Mais de 1.000 vidas transformadas</span>
+                            <div className="flex items-center gap-3 p-4 rounded-xl bg-white border border-[#e6e2da] hover:border-[#1d7682] transition-all">
+                                <Sparkle size={20} className="text-[#1d7682]" weight="fill" />
+                                <div className="flex flex-col">
+                                    <span className="text-xs font-bold text-[#111111]">+1.000 Vidas</span>
+                                    <span className="text-[10px] text-zinc-400">Transformadas pelo movimento</span>
+                                </div>
                             </div>
 
                         </div>
@@ -384,7 +412,7 @@ export function About() {
                     </div>
                     <div className="md:w-2/3 border-t md:border-t-0 md:border-l border-[#e6e2da] pt-6 md:pt-0 md:pl-10">
                         <p className="text-sm md:text-base text-[#66635f] leading-relaxed font-light select-none">
-                            {"Devolver às mulheres a confiança no próprio corpo através do movimento. Quando uma mulher recupera sua força, ela recupera também sua liberdade, sua autonomia, sua saúde e a coragem de viver tudo o que deseja.".split("").map((char, idx) => (
+                            {"Desenvolvo às mulheres a ganharem confiança no próprio corpo através do movimento. Quando uma recupera sua força e autoestima, ela recupera também sua liberdade, autonomia, sua saúde e a coragem de viver tudo que deseja!".split("").map((char, idx) => (
                                 <span key={`mission-char-${idx}`} className="mission-char opacity-15">
                                     {char}
                                 </span>
@@ -397,7 +425,7 @@ export function About() {
                 <div ref={specialtiesTriggerRef} className="mb-24 md:mb-32 specialties-trigger">
                     {/* Header */}
                     <div className="text-center mb-16" data-aos="fade-up">
-                        <span className="text-[10px] font-black tracking-[0.35em] text-[#bda07a] uppercase block mb-4">CONHEÇA OS MEUS</span>
+                        <span className="text-[10px] font-black tracking-[0.35em] text-[#1d7682] uppercase block mb-4">CONHEÇA OS MEUS</span>
                         <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111]">Programas</h3>
                     </div>
 
@@ -435,7 +463,7 @@ export function About() {
                                 )}
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/55 to-transparent z-10 pointer-events-none" />
                                 <div className="absolute inset-0 p-6 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                    <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-3 border border-white/10 shrink-0">
+                                    <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-3 border border-white/10 shrink-0">
                                         {item.icon}
                                     </div>
                                     <h4 className="text-sm font-bold uppercase tracking-wider mb-1" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>{item.title}</h4>
@@ -459,7 +487,7 @@ export function About() {
                     <div className="flex md:hidden justify-center items-center gap-6 mt-2 mb-8">
                         <button
                             onClick={() => scrollCarousel('left')}
-                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#bda07a] active:text-white transition-all duration-300 shadow-sm"
+                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#1d7682] active:text-white transition-all duration-300 shadow-sm"
                             aria-label="Card anterior"
                         >
                             <CaretLeft size={18} weight="bold" />
@@ -469,7 +497,7 @@ export function About() {
                         </span>
                         <button
                             onClick={() => scrollCarousel('right')}
-                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#bda07a] active:text-white transition-all duration-300 shadow-sm"
+                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#1d7682] active:text-white transition-all duration-300 shadow-sm"
                             aria-label="Próximo card"
                         >
                             <CaretRight size={18} weight="bold" />
@@ -505,7 +533,7 @@ export function About() {
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
                             <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
                                     {specialtiesList[0].icon}
                                 </div>
                                 <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
@@ -553,7 +581,7 @@ export function About() {
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
                             <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
                                     {specialtiesList[1].icon}
                                 </div>
                                 <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
@@ -587,7 +615,7 @@ export function About() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
                             <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
                                     {specialtiesList[2].icon}
                                 </div>
                                 <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
@@ -635,7 +663,7 @@ export function About() {
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
                             <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
                                     {specialtiesList[3].icon}
                                 </div>
                                 <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
@@ -683,7 +711,7 @@ export function About() {
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
                             <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
                                     {specialtiesList[4].icon}
                                 </div>
                                 <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
@@ -705,8 +733,8 @@ export function About() {
                             </div>
                         </div>
 
-                        {/* CARD 6: Consultoria de Treino (Largo - spans 2 cols, row 3) */}
-                        <div className="bento-card-revelation col-span-2 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
+                        {/* CARD 6: Consultoria de Treino (Normal - spans 1 col, row 3) */}
+                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
                             {specialtiesList[5].src.endsWith('.mp4') ? (
                                 <video
                                     ref={(el) => { if (el) { specVideoRefs.current[5] = el } }}
@@ -725,24 +753,58 @@ export function About() {
                                     alt={specialtiesList[5].title}
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    sizes="66vw"
+                                    sizes="33vw"
                                     loading="lazy"
                                 />
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
                             <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#bda07a] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#bda07a] group-hover:text-white transition-all duration-300 shrink-0">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
                                     {specialtiesList[5].icon}
                                 </div>
                                 <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
                                     {specialtiesList[5].title}
                                 </h4>
                                 <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
-                                    <p className="text-xs text-zinc-300 font-light leading-relaxed max-w-xl mb-4">
+                                    <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
                                         {specialtiesList[5].desc}
                                     </p>
                                     <a 
                                         href={getWhatsappLink(specialtiesList[5].title)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
+                                    >
+                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* CARD 7: Massoterapia Corporal (Normal - spans 1 col, row 3) */}
+                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
+                            <Image
+                                src={specialtiesList[6].src}
+                                alt={specialtiesList[6].title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                sizes="33vw"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
+                                    {specialtiesList[6].icon}
+                                </div>
+                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+                                    {specialtiesList[6].title}
+                                </h4>
+                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                    <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
+                                        {specialtiesList[6].desc}
+                                    </p>
+                                    <a 
+                                        href={getWhatsappLink(specialtiesList[6].title)}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
@@ -760,17 +822,17 @@ export function About() {
                 <div ref={statsRef} className="py-16 px-6 bg-white border border-[#e6e2da] rounded-[2.5rem] grid grid-cols-1 md:grid-cols-3 gap-12 text-center items-center shadow-sm">
                     <div>
                         <span className="about-counter block text-4xl md:text-5xl font-black text-[#111111] mb-2" data-target="10" data-suffix="+">0+</span>
-                        <span className="text-[9px] uppercase font-bold tracking-widest text-[#bda07a] block mb-1">Anos de experiência</span>
+                        <span className="text-[9px] uppercase font-bold tracking-widest text-[#1d7682] block mb-1">Anos de experiência</span>
                         <span className="text-[9px] text-zinc-400 font-light block">Atuação profissional consistente</span>
                     </div>
                     <div>
                         <span className="about-counter block text-4xl md:text-5xl font-black text-[#111111] mb-2" data-target="1000" data-suffix="+">0+</span>
-                        <span className="text-[9px] uppercase font-bold tracking-widest text-[#bda07a] block mb-1">Vidas transformadas</span>
+                        <span className="text-[9px] uppercase font-bold tracking-widest text-[#1d7682] block mb-1">Vidas transformadas</span>
                         <span className="text-[9px] text-zinc-400 font-light block">Resultados reais mensuráveis</span>
                     </div>
                     <div>
                         <span className="about-counter block text-4xl md:text-5xl font-black text-[#111111] mb-2" data-target="100" data-suffix="%">0%</span>
-                        <span className="text-[9px] uppercase font-bold tracking-widest text-[#bda07a] block mb-1">Atendimento Individualizado</span>
+                        <span className="text-[9px] uppercase font-bold tracking-widest text-[#1d7682] block mb-1">Atendimento Individualizado</span>
                         <span className="text-[9px] text-zinc-400 font-light block">Online, presencial e para todo o Brasil</span>
                     </div>
                 </div>
@@ -780,7 +842,7 @@ export function About() {
                     <a
                         href="#programs"
                         onClick={scrollToPrograms}
-                        className="group inline-flex items-center gap-3 bg-[#111111] text-white px-12 py-6 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#bda07a] transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.15)] hover:scale-105"
+                        className="group inline-flex items-center gap-3 bg-[#111111] text-white px-12 py-6 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#1d7682] transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.15)] hover:scale-105"
                     >
                         Quero treinar com a Jéssica
                         <ArrowRight size={16} />

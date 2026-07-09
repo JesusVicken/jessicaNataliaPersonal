@@ -129,13 +129,13 @@ export default function PilatesSection() {
                 ref={textGroupRef}
                 className="relative z-20 text-center px-6 max-w-4xl flex flex-col items-center justify-center select-none"
             >
-                <span className="reveal-yoga text-[10px] font-black tracking-[0.45em] text-[#bda07a] uppercase mb-4 block">
+                <span className="reveal-yoga text-[10px] font-black tracking-[0.45em] text-[#1d7682] uppercase mb-4 block">
                     EXPERIÊNCIA PILATES EM APARELHOS
                 </span>
                 
                 <h2 className="reveal-yoga text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-tight leading-none text-white mb-6">
                     Movimento com <br />
-                    <span className="font-serif italic font-light text-[#bda07a] tracking-normal">propósito</span>
+                    <span className="font-serif italic font-light text-[#1d7682] tracking-normal">propósito</span>
                 </h2>
                 
                 <p className="reveal-yoga text-sm sm:text-base md:text-lg text-zinc-300 font-light max-w-lg leading-relaxed">
@@ -144,7 +144,7 @@ export default function PilatesSection() {
 
                 {/* Pequeno detalhe minimalista de respiração */}
                 <div className="reveal-yoga mt-10 flex flex-col items-center gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#bda07a] animate-ping" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#1d7682] animate-ping" />
                     <span className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-zinc-500 font-bold">Atendimento exclusivo na Rede Bodytech</span>
                 </div>
             </div>
