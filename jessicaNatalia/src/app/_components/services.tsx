@@ -71,7 +71,7 @@ export function Services() {
     return (
         <section
             id="programs"
-            className="bg-[#F5F2EB] py-24 md:py-36 px-6 md:px-12 border-t border-[#e6e2da] overflow-hidden relative font-sans text-[#111111]"
+            className="bg-[#F5F2EB] py-24 md:py-36 px-6 md:px-12 border-t border-[#e6e2da] overflow-hidden relative z-30 font-sans text-[#111111]"
         >
             {/* Linhas decorativas estéticas */}
             <div className="absolute top-0 left-1/3 w-[1px] h-full bg-[#e6e2da]/30 pointer-events-none hidden lg:block" />

@@ -49,7 +49,7 @@ export function Tours() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="results" className="bg-[#FAF8F5] py-24 px-4 md:px-6 border-t border-[#e6e2da] relative overflow-hidden font-sans">
+    <section ref={sectionRef} id="results" className="bg-[#FAF8F5] py-24 px-4 md:px-6 border-t border-[#e6e2da] relative z-30 overflow-hidden font-sans">
       
       {/* Elementos decorativos de fundo */}
       <div className="absolute top-0 left-1/2 w-[1px] h-full bg-[#e6e2da]/30 pointer-events-none hidden lg:block" />

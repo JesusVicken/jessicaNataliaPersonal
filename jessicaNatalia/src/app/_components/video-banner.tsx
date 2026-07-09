@@ -27,27 +27,44 @@ export function VideoBanner() {
         window.addEventListener('touchstart', playVideo, { once: true })
         window.addEventListener('click', playVideo, { once: true })
 
-        // GSAP ScrollTrigger for Parallax and Fade out
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
+        // 1. Efeito Curtain (Sticky Reveal): Fixa a seção enquanto a de baixo a encobre
+        ScrollTrigger.create({
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            pin: true,
+            pinSpacing: false
         })
 
-        // Zoom and fade out video
-        tl.fromTo(video,
-            { yPercent: -10, scale: 1.1, opacity: 0.95 },
-            { yPercent: 10, scale: 1, opacity: 0.1, ease: "none" }
+        // 2. Parallax de Zoom e Movimento no vídeo
+        gsap.fromTo(video,
+            { scale: 1.15, yPercent: -8 },
+            {
+                scale: 1.02,
+                yPercent: 8,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            }
         )
 
-        // Text parallax
-        tl.fromTo(textRef.current,
-            { y: 50 },
-            { y: -50, ease: "none" },
-            0
+        // 3. Parallax sutil no texto
+        gsap.fromTo(textRef.current,
+            { y: 30 },
+            {
+                y: -30,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            }
         )
 
         return () => {
@@ -59,7 +76,7 @@ export function VideoBanner() {
     return (
         <section 
             ref={containerRef}
-            className="relative h-[65vh] w-full overflow-hidden bg-[#0A0A0A] flex items-center justify-center border-t border-[#e6e2da]"
+            className="relative h-[70vh] w-full overflow-hidden bg-[#0A0A0A] flex items-center justify-center border-t border-[#e6e2da] z-20"
         >
             {/* Background Video */}
             <video
@@ -74,16 +91,16 @@ export function VideoBanner() {
                 <source src="/video12.mp4" type="video/mp4" />
             </video>
 
-            {/* Dark Overlays */}
-            <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50 z-10 pointer-events-none" />
+            {/* Overlays mais claros para dar máxima visibilidade ao vídeo */}
+            <div className="absolute inset-0 bg-black/15 z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 z-10 pointer-events-none" />
 
-            {/* Content */}
+            {/* Content com drop-shadow forte para legibilidade em fundo claro */}
             <div 
                 ref={textRef}
-                className="relative z-20 text-center px-6 max-w-4xl flex flex-col items-center justify-center text-white select-none"
+                className="relative z-20 text-center px-6 max-w-4xl flex flex-col items-center justify-center text-white select-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.65)]"
             >
-                <span className="text-[10px] font-black tracking-[0.45em] text-[#1d7682] uppercase mb-4">
+                <span className="text-[10px] font-black tracking-[0.45em] text-[#1d7682] uppercase mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
                     MOVIMENTO SEM LIMITES
                 </span>
                 <h2 className="text-3xl sm:text-5xl md:text-6xl font-extralight tracking-tight leading-none text-white max-w-3xl">
