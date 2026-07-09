@@ -90,6 +90,23 @@ export default function PilatesSection() {
                     }
                 }
             })
+
+            // Efeito parallax no vídeo (zoom suave e fade out conforme scrolla)
+            gsap.fromTo(video,
+                { yPercent: 0, scale: 1, opacity: 1 },
+                {
+                    yPercent: 15,
+                    scale: 1.08,
+                    opacity: 0,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                }
+            )
         }
     }, [])
 
@@ -109,7 +126,7 @@ export default function PilatesSection() {
                 preload="auto"
                 className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
             >
-                <source src="/video2.mp4" type="video/mp4" />
+                <source src="/video12.mp4" type="video/mp4" />
             </video>
 
             {/* Camada dupla de overlay escuro e gradiente de alta legibilidade (z-10) */}
