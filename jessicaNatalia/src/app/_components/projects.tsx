@@ -140,19 +140,19 @@ export default function Projects() {
 
         const frameObj = { frame: 0 }
 
-        // Reduzido para permitir transição rápida em 2 deslizes na tela (220px mobile / 450px desktop)
-        const scrollDistance = device === 'mobile' ? 220 : 450
+        // Restaura a distância e inércia do scroll da versão fluida (450px mobile / 800px desktop)
+        const scrollDistance = device === 'mobile' ? 450 : 800
         const isMob = device === 'mobile'
 
         // Cria o GSAP Context para agrupar todas as animações e limpar corretamente no unmount
         const gsapCtx = gsap.context(() => {
-            // Timeline de animação ultra fluida com base no scroll
+            // Timeline de animação ultra fluida com inércia cinemática com base no scroll
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: container,
                     start: "top top",
                     end: `+=${scrollDistance}`,
-                    scrub: 0.3, // Scrub super responsivo para acompanhar o toque diretamente sem lag
+                    scrub: 1, // Rolagem ultra fluida com inércia de 1s (mesma fluidez da versão original)
                     pin: true,
                     anticipatePin: 1,
                 }
@@ -174,26 +174,26 @@ export default function Projects() {
 
             // Zoom suave cinemático no canvas conforme o scroll
             tl.to(canvas, {
-                scale: isMob ? 1.06 : 1.04,
+                scale: isMob ? 1.08 : 1.05,
                 ease: "none",
                 duration: 1
             }, 0)
 
-            // Transição rápida de texto 1 -> texto 2
+            // Transição fluida do Texto 1 -> Texto 2
             tl.to('.hero-text-1', {
                 opacity: 0,
-                y: -25,
-                ease: 'power2.out',
-                duration: 0.25
-            }, 0.2)
+                y: -30,
+                ease: 'power2.inOut',
+                duration: 0.35
+            }, 0.15)
 
             tl.fromTo('.hero-text-2', 
-                { opacity: 0, y: 25 },
+                { opacity: 0, y: 30 },
                 {
                     opacity: 1,
                     y: 0,
-                    ease: 'power2.out',
-                    duration: 0.25
+                    ease: 'power2.inOut',
+                    duration: 0.35
                 }, 0.45)
         }, container)
 

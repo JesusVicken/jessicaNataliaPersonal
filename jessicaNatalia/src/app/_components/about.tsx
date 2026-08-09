@@ -98,7 +98,7 @@ export function About() {
         {
             title: "Força na Menopausa (50+)",
             desc: "Treinamento voltado para mulheres na menopausa que desejam preservar massa muscular, proteger a saúde óssea, melhorar o equilíbrio, recuperar força, mobilidade e manter independência física ao longo dos anos.",
-            src: "/video9.mp4",
+            src: "/video14.mp4",
             icon: <Star size={20} />,
             delay: "200",
             featured: true
