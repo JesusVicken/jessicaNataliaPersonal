@@ -1,13 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { 
     GraduationCap, 
     FlowerLotus, 
     Barbell, 
     Sparkle, 
     CalendarBlank, 
-    BookmarkSimple
+    BookmarkSimple,
+    CaretLeft,
+    CaretRight
 } from '@phosphor-icons/react'
 
 interface Certification {
@@ -150,10 +152,21 @@ const CATEGORIES = [
 
 export function CertificationsSection() {
     const [activeTab, setActiveTab] = useState<string>('all')
+    const carouselRef = useRef<HTMLDivElement>(null)
 
     const filteredCertifications = activeTab === 'all'
         ? CERTIFICATIONS
         : CERTIFICATIONS.filter(c => c.category === activeTab)
+
+    const scrollCarousel = (direction: 'left' | 'right') => {
+        const container = carouselRef.current
+        if (!container) return
+        const scrollAmount = container.clientWidth * 0.82 + 16
+        container.scrollBy({
+            left: direction === 'left' ? -scrollAmount : scrollAmount,
+            behavior: 'smooth'
+        })
+    }
 
     const getIcon = (category: string) => {
         switch (category) {
@@ -239,9 +252,71 @@ export function CertificationsSection() {
                     ))}
                 </div>
 
-                {/* Grid de Certificações */}
+                {/* --- LAYOUT MOBILE: CARROUSSEL HORIZONTAL (MODERNO E COMPACTO) --- */}
+                <div className="block md:hidden mb-4">
+                    <div 
+                        ref={carouselRef}
+                        className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 scrollbar-none w-full scroll-smooth px-1"
+                    >
+                        {filteredCertifications.map((cert, index) => (
+                            <div
+                                key={`mob-cert-${index}`}
+                                className="w-[82vw] sm:w-[320px] shrink-0 snap-center bg-white p-6 rounded-[2rem] border border-[#e6e2da] shadow-sm hover:shadow-md flex flex-col justify-between"
+                            >
+                                <div>
+                                    {/* Top info: badge & icon */}
+                                    <div className="flex justify-between items-start mb-4">
+                                        <span className={`text-[8px] font-bold uppercase tracking-wider px-3 py-1 rounded-full ${getCategoryBadge(cert.category)}`}>
+                                            {getCategoryLabel(cert.category)}
+                                        </span>
+                                        <div className="w-8 h-8 rounded-full bg-zinc-50 flex items-center justify-center">
+                                            {getIcon(cert.category)}
+                                        </div>
+                                    </div>
+
+                                    {/* Title & Institution */}
+                                    <h3 className="text-sm font-bold text-[#111111] leading-snug tracking-tight mb-2 font-sans">
+                                        {cert.title}
+                                    </h3>
+                                    <p className="text-xs text-zinc-500 font-light leading-relaxed mb-4">
+                                        {cert.institution}
+                                    </p>
+                                </div>
+
+                                {/* Bottom: Date */}
+                                <div className="flex items-center gap-2 pt-4 border-t border-zinc-100 text-[10px] text-zinc-400 font-mono">
+                                    <CalendarBlank size={12} />
+                                    <span>{cert.period}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Controles de Navegação do Carrossel Mobile */}
+                    <div className="flex justify-center items-center gap-6 mt-3">
+                        <button
+                            onClick={() => scrollCarousel('left')}
+                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/90 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#1d7682] active:text-white transition-all duration-300 shadow-sm"
+                            aria-label="Anterior"
+                        >
+                            <CaretLeft size={18} weight="bold" />
+                        </button>
+                        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-400 select-none">
+                            Deslize para ver mais
+                        </span>
+                        <button
+                            onClick={() => scrollCarousel('right')}
+                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/90 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#1d7682] active:text-white transition-all duration-300 shadow-sm"
+                            aria-label="Próximo"
+                        >
+                            <CaretRight size={18} weight="bold" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* --- LAYOUT DESKTOP: GRID DE CERTIFICAÇÕES --- */}
                 <div 
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6"
                     data-aos="fade-up"
                 >
                     {filteredCertifications.map((cert, index) => (

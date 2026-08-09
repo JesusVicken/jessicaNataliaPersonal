@@ -140,18 +140,19 @@ export default function Projects() {
 
         const frameObj = { frame: 0 }
 
-        const scrollDistance = device === 'mobile' ? 400 : 800
+        // Reduzido para permitir transição rápida em 2 deslizes na tela (220px mobile / 450px desktop)
+        const scrollDistance = device === 'mobile' ? 220 : 450
         const isMob = device === 'mobile'
 
         // Cria o GSAP Context para agrupar todas as animações e limpar corretamente no unmount
         const gsapCtx = gsap.context(() => {
-            // Timeline de animação com base no scroll
+            // Timeline de animação ultra fluida com base no scroll
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: container,
                     start: "top top",
                     end: `+=${scrollDistance}`,
-                    scrub: 1, // Rolagem fluida com inércia no mobile e desktop
+                    scrub: 0.3, // Scrub super responsivo para acompanhar o toque diretamente sem lag
                     pin: true,
                     anticipatePin: 1,
                 }
@@ -171,12 +172,29 @@ export default function Projects() {
                 }
             }, 0)
 
-            // Zoom suave cinemático no canvas conforme o scroll (Awwwards motion)
+            // Zoom suave cinemático no canvas conforme o scroll
             tl.to(canvas, {
-                scale: isMob ? 1.08 : 1.05,
+                scale: isMob ? 1.06 : 1.04,
                 ease: "none",
                 duration: 1
             }, 0)
+
+            // Transição rápida de texto 1 -> texto 2
+            tl.to('.hero-text-1', {
+                opacity: 0,
+                y: -25,
+                ease: 'power2.out',
+                duration: 0.25
+            }, 0.2)
+
+            tl.fromTo('.hero-text-2', 
+                { opacity: 0, y: 25 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    ease: 'power2.out',
+                    duration: 0.25
+                }, 0.45)
         }, container)
 
         return () => {
@@ -281,23 +299,47 @@ export default function Projects() {
 
                     {/* TEXT OVERLAYS */}
                     <div className="relative w-full max-w-5xl flex-1 flex items-center justify-center pointer-events-auto">
-                        
-                        {/* TEXTO ÚNICO */}
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
-                            <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#1d7682] uppercase mb-4">Movimento e propósito</span>
+                        {/* TEXTO 1 - Visível inicialmente */}
+                        <div className="hero-text-1 absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6">
+                            <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#1d7682] uppercase mb-4">Treinamento Feminino Baseado em Evidências</span>
                             <h1 
                                 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[0.95] text-white mb-4 max-w-4xl"
                                 style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.4)' }}
                             >
-                                Fortaleço seu corpo. <br />
-                                <span className="font-serif italic font-light text-[#1d7682] tracking-normal normal-case">Cure suas dores e melhore seu físico.</span>
+                                Seu corpo mudou <br />depois dos 35?
                             </h1>
                             <p 
-                                className="text-xs sm:text-sm md:text-base lg:text-lg text-zinc-300 font-light max-w-2xl leading-relaxed"
+                                className="text-xs sm:text-sm md:text-base lg:text-lg text-zinc-300 font-light max-w-2xl leading-relaxed font-serif italic"
                                 style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.3)' }}
                             >
-                                Seu corpo precisa estar preparado para a vida que você escolheu viver.
+                                Seu treino também precisa mudar.
                             </p>
+                        </div>
+
+                        {/* TEXTO 2 - Aparece com scroll */}
+                        <div className="hero-text-2 absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 opacity-0">
+                            <span className="text-[10px] md:text-xs font-black tracking-[0.4em] text-[#1d7682] uppercase mb-4">Treine para sua nova fase</span>
+                            <h1 
+                                className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[0.95] text-white mb-4 max-w-4xl"
+                                style={{ textShadow: '0 2px 15px rgba(0, 0, 0, 0.4)' }}
+                            >
+                                Preserve e recupere <br />
+                                <span className="font-serif italic font-light text-[#1d7682] tracking-normal normal-case">força e massa muscular.</span>
+                            </h1>
+                            <p 
+                                className="text-xs sm:text-sm md:text-base lg:text-lg text-zinc-300 font-light max-w-2xl leading-relaxed mb-6"
+                                style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.3)' }}
+                            >
+                                Acelere seu metabolismo, melhore a sua disposição e saúde.
+                            </p>
+                            <a
+                                href="#programs"
+                                onClick={(e) => handleNavClick(e, 'programs')}
+                                className="inline-flex items-center gap-3 bg-[#1d7682] hover:bg-white hover:text-[#111111] text-white px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-lg pointer-events-auto hover:scale-105"
+                            >
+                                Quero encontrar meu programa
+                                <ArrowRight size={16} />
+                            </a>
                         </div>
                     </div>
 

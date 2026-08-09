@@ -89,57 +89,72 @@ export function About() {
     }
 
     // Agrupador de especialidades para reuso estrutural nos layouts
-    const specialtiesList = [
+    const highlightedPrograms = [
         {
-            title: "Metabolismo ativo 40+",
-            desc: "Musculação e pilates para Perimenopausa e Menopausa. Quando seu metabolismo está mudando, seu treino também precisa mudar. Treinos desenvolvidos para mulheres que desejam preservar massa muscular, acelerar o metabolismo, reduzir dores articulares e atravessar a menopausa com mais energia, disposição, confiança e amor-próprio.",
+            title: "Metabolismo Feminino | Perimenopausa (35+)",
+            desc: "Treinamento para mulheres que perceberam alterações hormonais, dificuldade para manter massa muscular, aumento da gordura abdominal, queda de energia e recuperação mais lenta. Um programa estruturado para preservar o metabolismo, aumentar a força e manter um corpo ativo durante a transição hormonal.",
             src: "/video9.mp4",
             icon: <FlowerLotus size={20} />,
-            delay: "100"
+            delay: "100",
+            featured: true
         },
+        {
+            title: "Força na Menopausa (50+)",
+            desc: "Treinamento voltado para mulheres na menopausa que desejam preservar massa muscular, proteger a saúde óssea, melhorar o equilíbrio, recuperar força, mobilidade e manter independência física ao longo dos anos.",
+            src: "/video1.mp4",
+            icon: <Star size={20} />,
+            delay: "200",
+            featured: true
+        }
+    ]
+
+    const complementaryPrograms = [
         {
             title: "Gestação em movimento",
             desc: "MatPilates para gestantes. Cuide do seu corpo, se prepare para o parto e recuperação pós parto com MatPilates durante a gravidez. Exercícios seguros que ajudam a reduzir dores lombares, melhorar a postura, respiração e mindfullness.",
             src: "/video8.mp4",
             icon: <Baby size={20} />,
-            delay: "200"
+            delay: "100"
         },
         {
             title: "Reconexão pós-parto",
             desc: "MatPilates pós-parto. Cuide de você e se reconheça! Seu corpo fez algo extraordinário, agora merece cuidado e estratégia para recuperar força, estabilidade abdominal e confiança após a gestação, respeitando cada etapa da sua recuperação. Treinos leves, curtos e para você fazer onde estiver.",
             src: "/image36.jpeg",
             icon: <Users size={20} />,
-            delay: "300"
+            delay: "200"
         },
         {
             title: "Leveza a cada passada",
             desc: "MatPilates para corredoras sem dor. Treino seu corpo para acompanhar suas paixões. Programa focado em mobilidade, estabilidade e fortalecimento para corredoras que querem correr com prazer, sem sentirem dores nos joelhos, quadris, lombar ou tornozelos.",
             src: "/video13.mp4",
             icon: <Star size={20} />,
-            delay: "400"
+            delay: "300"
         },
         {
             title: "Cintura fina, pedal e core fortes",
             desc: "MatPilates para ciclistas sem dor. Treino seu corpo para acompanhar suas paixões. Quanto mais kms você pedala maior costuma ser a sobrecarga no seu corpo. Pedale com mais conforto combatendo dores cervicais, torácicas, lombares, articulares e desequilíbrios musculares causados pelas suas horas sobre a bicicleta.",
             src: "/video5.mp4",
             icon: <Bicycle size={20} />,
-            delay: "500"
+            delay: "400"
         },
         {
             title: "Consultoria de Treino",
             desc: "Acompanhamento individualizado e personalizado de treinamento de força, unindo ciência prática e biomecânica.",
             src: "/video1.mp4",
             icon: <Barbell size={20} />,
-            delay: "600"
+            delay: "500"
         },
         {
             title: "Massoterapia Corporal",
             desc: "Liberação miofascial, massagem desportiva, mobilidade, alongamento, flexibilidade e relaxamento.",
             src: "/aboutjess.jpeg",
             icon: <Sparkle size={20} />,
-            delay: "700"
+            delay: "600"
         }
     ]
+
+    // Combined list for backward compatibility with carousel and bento grid
+    const specialtiesList = [...highlightedPrograms, ...complementaryPrograms]
 
     useGSAP(() => {
         // 1. Efeito parallax / zoom suave na imagem principal conforme scroll
@@ -273,6 +288,207 @@ export function About() {
 
             <div className="container mx-auto max-w-7xl relative z-10">
                 
+                {/* --- SEÇÃO DE ESPECIALIDADES --- */}
+                <div ref={specialtiesTriggerRef} id="programs" className="mb-24 md:mb-32 specialties-trigger">
+                    {/* Header - Programas em Destaque */}
+                    <div className="text-center mb-16" data-aos="fade-up">
+                        <span className="text-[10px] font-black tracking-[0.35em] text-[#1d7682] uppercase block mb-4">PROGRAMAS</span>
+                        <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111]">Conheça minhas especialidades</h3>
+                    </div>
+
+                    {/* --- LAYOUT MOBILE: CARROUSSEL HORIZONTAL --- */}
+                    <div 
+                        ref={carouselRef}
+                        className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-6 scrollbar-none px-2 pb-8 w-full scroll-smooth"
+                    >
+                        {specialtiesList.map((item, idx) => (
+                            <div 
+                                key={`mob-spec-${idx}`}
+                                className="w-[80vw] shrink-0 snap-center rounded-3xl overflow-hidden aspect-[3/4] relative border border-zinc-200/80 bg-zinc-950 shadow-lg"
+                            >
+                                {item.src.endsWith('.mp4') ? (
+                                    <video
+                                        ref={(el) => { if (el) { specVideoRefs.current[idx] = el } }}
+                                        playsInline
+                                        loop
+                                        muted
+                                        autoPlay
+                                        className="absolute inset-0 w-full h-full object-cover z-0"
+                                        preload="auto"
+                                    >
+                                        <source src={item.src} type="video/mp4" />
+                                    </video>
+                                ) : (
+                                    <Image
+                                        src={item.src}
+                                        alt={item.title}
+                                        fill
+                                        className={`object-cover z-0 ${item.src === '/image50.jpeg' ? 'object-right' : ''}`}
+                                        sizes="80vw"
+                                        loading="lazy"
+                                    />
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/55 to-transparent z-10 pointer-events-none" />
+                                <div className="absolute inset-0 p-6 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                    <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-3 border border-white/10 shrink-0">
+                                        {item.icon}
+                                    </div>
+                                    <h4 className="text-sm font-bold uppercase tracking-wider mb-1" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>{item.title}</h4>
+                                    <p className="text-[10px] text-zinc-300 font-light leading-relaxed mb-3">{item.desc}</p>
+                                    <div className="pointer-events-auto mt-2">
+                                        <a 
+                                            href={getWhatsappLink(item.title)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1.5 bg-[#25D366] text-white hover:bg-[#1EBE57] hover:scale-105 px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
+                                        >
+                                            Saber mais <WhatsappLogo size={10} weight="fill" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Controles de Navegação do Carrossel Mobile (UX Aprimorada) */}
+                    <div className="flex md:hidden justify-center items-center gap-6 mt-2 mb-8">
+                        <button
+                            onClick={() => scrollCarousel('left')}
+                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#1d7682] active:text-white transition-all duration-300 shadow-sm"
+                            aria-label="Card anterior"
+                        >
+                            <CaretLeft size={18} weight="bold" />
+                        </button>
+                        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-400 select-none">
+                            Deslize ou clique
+                        </span>
+                        <button
+                            onClick={() => scrollCarousel('right')}
+                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#1d7682] active:text-white transition-all duration-300 shadow-sm"
+                            aria-label="Próximo card"
+                        >
+                            <CaretRight size={18} weight="bold" />
+                        </button>
+                    </div>
+
+                    {/* --- LAYOUT DESKTOP: CARDS EM DESTAQUE (2 colunas) --- */}
+                    <div className="hidden md:grid grid-cols-2 gap-6 mb-16">
+                        {highlightedPrograms.map((item, idx) => (
+                            <div key={`highlight-${idx}`} className="bento-card-revelation relative h-[420px] rounded-3xl overflow-hidden border-2 border-[#1d7682]/30 bg-white group shadow-md hover:shadow-xl transition-shadow duration-500">
+                                {item.src.endsWith('.mp4') ? (
+                                    <video
+                                        ref={(el) => { if (el) { specVideoRefs.current[idx] = el } }}
+                                        playsInline
+                                        loop
+                                        muted
+                                        autoPlay
+                                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                        preload="auto"
+                                    >
+                                        <source src={item.src} type="video/mp4" />
+                                    </video>
+                                ) : (
+                                    <Image
+                                        src={item.src}
+                                        alt={item.title}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                        sizes="50vw"
+                                        loading="lazy"
+                                    />
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                                {/* Badge de Destaque */}
+                                <div className="absolute top-6 left-6 z-30">
+                                    <span className="inline-flex items-center gap-1.5 bg-[#1d7682] text-white px-4 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest shadow-lg">
+                                        <Star size={12} weight="fill" /> Em destaque
+                                    </span>
+                                </div>
+                                <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                    <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
+                                        {item.icon}
+                                    </div>
+                                    <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+                                        {item.title}
+                                    </h4>
+                                    <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[200px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                        <p className="text-xs text-zinc-300 font-light leading-relaxed max-w-xl mb-4">
+                                            {item.desc}
+                                        </p>
+                                        <a 
+                                            href={getWhatsappLink(item.title)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
+                                        >
+                                            Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* --- SUBTÍTULO: Ser mulher em cada fase --- */}
+                    <div className="text-center mb-12 mt-8" data-aos="fade-up">
+                        <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-[#111111]">
+                            Ser mulher <span className="font-serif italic font-light text-[#1d7682] tracking-normal normal-case">em cada fase</span>
+                        </h3>
+                    </div>
+
+                    {/* --- LAYOUT DESKTOP: GRID COMPLEMENTAR --- */}
+                    <div className="hidden md:grid grid-cols-3 gap-6 auto-rows-[380px] items-stretch">
+                        {complementaryPrograms.map((item, idx) => (
+                            <div key={`comp-${idx}`} className="bento-card-revelation relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
+                                {item.src.endsWith('.mp4') ? (
+                                    <video
+                                        ref={(el) => { if (el) { specVideoRefs.current[idx + 2] = el } }}
+                                        playsInline
+                                        loop
+                                        muted
+                                        autoPlay
+                                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                        preload="auto"
+                                    >
+                                        <source src={item.src} type="video/mp4" />
+                                    </video>
+                                ) : (
+                                    <Image
+                                        src={item.src}
+                                        alt={item.title}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
+                                        sizes="33vw"
+                                        loading="lazy"
+                                    />
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                                <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
+                                    <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
+                                        {item.icon}
+                                    </div>
+                                    <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+                                        {item.title}
+                                    </h4>
+                                    <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
+                                        <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
+                                            {item.desc}
+                                        </p>
+                                        <a 
+                                            href={getWhatsappLink(item.title)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
+                                        >
+                                            Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
                 {/* --- SEÇÃO PRINCIPAL: FOTO + BIO --- */}
                 <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start mb-24 md:mb-32">
                     
@@ -305,7 +521,7 @@ export function About() {
                         {/* Pequeno Título com sugestão de impacto */}
                         <div className="reveal-item mb-4">
                             <span className="text-[10px] font-black tracking-[0.35em] text-[#1d7682] uppercase block mb-2">
-                                Conheça Jéssica Natália
+                                CONHEÇA JÉSSICA NATÁLIA
                             </span>
                             <span className="text-xs font-serif italic text-[#66635f] block">
                                 Força • Movimento • Qualidade de Vida
@@ -314,19 +530,19 @@ export function About() {
 
                         {/* Título Principal */}
                         <h2 className="reveal-item text-xl md:text-3xl font-black uppercase tracking-tight leading-tight text-[#111111] mb-8 max-w-2xl">
-                            Especialista em Musculação e Pilates para Mulheres, Corredoras e Ciclistas.
+                            Especialista em musculação e Pilates para mulheres.
                         </h2>
 
                         {/* Parágrafos de Texto */}
                         <div className="reveal-item text-[#66635f] font-light leading-relaxed text-sm md:text-base space-y-6 mb-12">
                             <p>
-                                Pós-graduada em Treinamento para Grupos Especiais, acredito que o movimento transforma muito mais do que o corpo. Ele devolve autonomia, confiança, saúde e qualidade de vida.
+                                Pós-graduada em Treinamento para Grupos Especiais, acredito que o movimento transforma muito mais do que o corpo. Ele devolve força, autonomia, confiança e qualidade de vida.
                             </p>
                             <p>
-                                Ao longo da minha trajetória, encontrei um propósito que vai além do treino: ajudar mulheres que convivem com dores, limitações ou inseguranças a redescobrirem a força do próprio corpo e voltarem a viver com liberdade.
+                                Ao longo da minha trajetória, encontrei um propósito que vai além do treino: ajudar mulheres a compreenderem as mudanças do próprio corpo e redescobrirem sua força em cada fase da vida, especialmente durante a perimenopausa e a menopausa.
                             </p>
                             <p>
-                                Entre a musculação, o Pilates, a corrida, o mountain bike e os esportes de aventura, construí uma metodologia que une ciência, experiência e acolhimento para promover reabilitação do movimento e fortalecimento.
+                                Minha metodologia une ciência, experiência e acolhimento para desenvolver programas de treinamento seguros, eficientes e adaptáveis à rotina de cada mulher, promovendo saúde, independência e bem-estar de forma duradoura.
                             </p>
                         </div>
 
@@ -412,409 +628,12 @@ export function About() {
                     </div>
                     <div className="md:w-2/3 border-t md:border-t-0 md:border-l border-[#e6e2da] pt-6 md:pt-0 md:pl-10">
                         <p className="text-sm md:text-base text-[#66635f] leading-relaxed font-light select-none">
-                            {"Desenvolvo às mulheres a ganharem confiança no próprio corpo através do movimento. Quando uma recupera sua força e autoestima, ela recupera também sua liberdade, autonomia, sua saúde e a coragem de viver tudo que deseja!".split("").map((char, idx) => (
+                            {"Ajudar mulheres a construírem um corpo forte para viverem com mais liberdade. Porque acredito que força é muito mais do que um atributo físico. Ela representa autonomia, saúde, confiança e qualidade de vida em todas as fases da mulher.".split("").map((char, idx) => (
                                 <span key={`mission-char-${idx}`} className="mission-char opacity-15">
                                     {char}
                                 </span>
                             ))}
                         </p>
-                    </div>
-                </div>
-
-                {/* --- SEÇÃO DE ESPECIALIDADES --- */}
-                <div ref={specialtiesTriggerRef} className="mb-24 md:mb-32 specialties-trigger">
-                    {/* Header */}
-                    <div className="text-center mb-16" data-aos="fade-up">
-                        <span className="text-[10px] font-black tracking-[0.35em] text-[#1d7682] uppercase block mb-4">CONHEÇA OS MEUS</span>
-                        <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-[#111111]">Programas</h3>
-                    </div>
-
-                    {/* --- LAYOUT MOBILE: CARROUSSEL HORIZONTAL --- */}
-                    <div 
-                        ref={carouselRef}
-                        className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-6 scrollbar-none px-2 pb-8 w-full scroll-smooth"
-                    >
-                        {specialtiesList.map((item, idx) => (
-                            <div 
-                                key={`mob-spec-${idx}`}
-                                className="w-[80vw] shrink-0 snap-center rounded-3xl overflow-hidden aspect-[3/4] relative border border-zinc-200/80 bg-zinc-950 shadow-lg"
-                            >
-                                {item.src.endsWith('.mp4') ? (
-                                    <video
-                                        ref={(el) => { if (el) { specVideoRefs.current[idx] = el } }}
-                                        playsInline
-                                        loop
-                                        muted
-                                        autoPlay
-                                        className="absolute inset-0 w-full h-full object-cover z-0"
-                                        preload="auto"
-                                    >
-                                        <source src={item.src} type="video/mp4" />
-                                    </video>
-                                ) : (
-                                    <Image
-                                        src={item.src}
-                                        alt={item.title}
-                                        fill
-                                        className={`object-cover z-0 ${item.src === '/image50.jpeg' ? 'object-right' : ''}`}
-                                        sizes="80vw"
-                                        loading="lazy"
-                                    />
-                                )}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/95 via-[#060606]/55 to-transparent z-10 pointer-events-none" />
-                                <div className="absolute inset-0 p-6 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                    <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-3 border border-white/10 shrink-0">
-                                        {item.icon}
-                                    </div>
-                                    <h4 className="text-sm font-bold uppercase tracking-wider mb-1" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>{item.title}</h4>
-                                    <p className="text-[10px] text-zinc-300 font-light leading-relaxed mb-3">{item.desc}</p>
-                                    <div className="pointer-events-auto mt-2">
-                                        <a 
-                                            href={getWhatsappLink(item.title)}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1.5 bg-[#25D366] text-white hover:bg-[#1EBE57] hover:scale-105 px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
-                                        >
-                                            Saber mais <WhatsappLogo size={10} weight="fill" />
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Controles de Navegação do Carrossel Mobile (UX Aprimorada) */}
-                    <div className="flex md:hidden justify-center items-center gap-6 mt-2 mb-8">
-                        <button
-                            onClick={() => scrollCarousel('left')}
-                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#1d7682] active:text-white transition-all duration-300 shadow-sm"
-                            aria-label="Card anterior"
-                        >
-                            <CaretLeft size={18} weight="bold" />
-                        </button>
-                        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-zinc-400 select-none">
-                            Deslize ou clique
-                        </span>
-                        <button
-                            onClick={() => scrollCarousel('right')}
-                            className="w-10 h-10 rounded-full border border-[#e6e2da] bg-white/70 backdrop-blur-md text-[#111111] flex items-center justify-center active:bg-[#1d7682] active:text-white transition-all duration-300 shadow-sm"
-                            aria-label="Próximo card"
-                        >
-                            <CaretRight size={18} weight="bold" />
-                        </button>
-                    </div>
-
-                    {/* --- LAYOUT DESKTOP: BENTO GRID ASSIMÉTRICO (AWWWARDS) --- */}
-                    <div className="hidden md:grid grid-cols-3 gap-6 auto-rows-[380px] items-stretch">
-                        
-                        {/* CARD 1: Climatério & Menopausa (Largo - spans 2 cols, row 1) */}
-                        <div className="bento-card-revelation col-span-2 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
-                            {specialtiesList[0].src.endsWith('.mp4') ? (
-                                <video
-                                    ref={(el) => { if (el) { specVideoRefs.current[0] = el } }}
-                                    playsInline
-                                    loop
-                                    muted
-                                    autoPlay
-                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    preload="auto"
-                                >
-                                    <source src={specialtiesList[0].src} type="video/mp4" />
-                                </video>
-                            ) : (
-                                <Image
-                                    src={specialtiesList[0].src}
-                                    alt={specialtiesList[0].title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    sizes="66vw"
-                                    loading="lazy"
-                                />
-                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
-                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
-                                    {specialtiesList[0].icon}
-                                </div>
-                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
-                                    {specialtiesList[0].title}
-                                </h4>
-                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
-                                    <p className="text-xs text-zinc-300 font-light leading-relaxed max-w-xl mb-4">
-                                        {specialtiesList[0].desc}
-                                    </p>
-                                    <a 
-                                        href={getWhatsappLink(specialtiesList[0].title)}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
-                                    >
-                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CARD 2: MatPilates Gestantes (Alto - spans 1 col, row 1 & 2) */}
-                        <div className="bento-card-revelation col-span-1 row-span-2 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
-                            {specialtiesList[1].src.endsWith('.mp4') ? (
-                                <video
-                                    ref={(el) => { if (el) { specVideoRefs.current[1] = el } }}
-                                    playsInline
-                                    loop
-                                    muted
-                                    autoPlay
-                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    preload="auto"
-                                >
-                                    <source src={specialtiesList[1].src} type="video/mp4" />
-                                </video>
-                            ) : (
-                                <Image
-                                    src={specialtiesList[1].src}
-                                    alt={specialtiesList[1].title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    sizes="33vw"
-                                    loading="lazy"
-                                />
-                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
-                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
-                                    {specialtiesList[1].icon}
-                                </div>
-                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
-                                    {specialtiesList[1].title}
-                                </h4>
-                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
-                                    <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
-                                        {specialtiesList[1].desc}
-                                    </p>
-                                    <a 
-                                        href={getWhatsappLink(specialtiesList[1].title)}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
-                                    >
-                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CARD 3: Recuperação Pós-Parto (Normal - spans 1 col, row 2) */}
-                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
-                            <Image
-                                src={specialtiesList[2].src}
-                                alt={specialtiesList[2].title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                sizes="33vw"
-                                loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
-                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
-                                    {specialtiesList[2].icon}
-                                </div>
-                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
-                                    {specialtiesList[2].title}
-                                </h4>
-                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
-                                    <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
-                                        {specialtiesList[2].desc}
-                                    </p>
-                                    <a 
-                                        href={getWhatsappLink(specialtiesList[2].title)}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
-                                    >
-                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CARD 4: MatPilates Corredores (Normal - spans 1 col, row 2) */}
-                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
-                            {specialtiesList[3].src.endsWith('.mp4') ? (
-                                <video
-                                    ref={(el) => { if (el) { specVideoRefs.current[3] = el } }}
-                                    playsInline
-                                    loop
-                                    muted
-                                    autoPlay
-                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    preload="auto"
-                                >
-                                    <source src={specialtiesList[3].src} type="video/mp4" />
-                                </video>
-                            ) : (
-                                <Image
-                                    src={specialtiesList[3].src}
-                                    alt={specialtiesList[3].title}
-                                    fill
-                                    className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    sizes="33vw"
-                                    loading="lazy"
-                                />
-                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
-                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
-                                    {specialtiesList[3].icon}
-                                </div>
-                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
-                                    {specialtiesList[3].title}
-                                </h4>
-                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
-                                    <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
-                                        {specialtiesList[3].desc}
-                                    </p>
-                                    <a 
-                                        href={getWhatsappLink(specialtiesList[3].title)}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
-                                    >
-                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CARD 5: MatPilates Ciclistas (Normal - spans 1 col, row 3) */}
-                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
-                            {specialtiesList[4].src.endsWith('.mp4') ? (
-                                <video
-                                    ref={(el) => { if (el) { specVideoRefs.current[4] = el } }}
-                                    playsInline
-                                    loop
-                                    muted
-                                    autoPlay
-                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    preload="auto"
-                                >
-                                    <source src={specialtiesList[4].src} type="video/mp4" />
-                                </video>
-                            ) : (
-                                <Image
-                                    src={specialtiesList[4].src}
-                                    alt={specialtiesList[4].title}
-                                    fill
-                                    className="object-cover object-right group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    sizes="33vw"
-                                    loading="lazy"
-                                />
-                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
-                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
-                                    {specialtiesList[4].icon}
-                                </div>
-                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
-                                    {specialtiesList[4].title}
-                                </h4>
-                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
-                                    <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
-                                        {specialtiesList[4].desc}
-                                    </p>
-                                    <a 
-                                        href={getWhatsappLink(specialtiesList[4].title)}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
-                                    >
-                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CARD 6: Consultoria de Treino (Normal - spans 1 col, row 3) */}
-                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
-                            {specialtiesList[5].src.endsWith('.mp4') ? (
-                                <video
-                                    ref={(el) => { if (el) { specVideoRefs.current[5] = el } }}
-                                    playsInline
-                                    loop
-                                    muted
-                                    autoPlay
-                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    preload="auto"
-                                >
-                                    <source src={specialtiesList[5].src} type="video/mp4" />
-                                </video>
-                            ) : (
-                                <Image
-                                    src={specialtiesList[5].src}
-                                    alt={specialtiesList[5].title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                    sizes="33vw"
-                                    loading="lazy"
-                                />
-                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
-                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
-                                    {specialtiesList[5].icon}
-                                </div>
-                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
-                                    {specialtiesList[5].title}
-                                </h4>
-                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
-                                    <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
-                                        {specialtiesList[5].desc}
-                                    </p>
-                                    <a 
-                                        href={getWhatsappLink(specialtiesList[5].title)}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
-                                    >
-                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CARD 7: Massoterapia Corporal (Normal - spans 1 col, row 3) */}
-                        <div className="bento-card-revelation col-span-1 row-span-1 relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
-                            <Image
-                                src={specialtiesList[6].src}
-                                alt={specialtiesList[6].title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0"
-                                sizes="33vw"
-                                loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/90 via-[#060606]/40 to-transparent z-10 opacity-80 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
-                            <div className="absolute inset-0 p-8 flex flex-col justify-end z-20 text-white pointer-events-none">
-                                <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md text-[#1d7682] flex items-center justify-center mb-4 border border-white/10 group-hover:bg-[#1d7682] group-hover:text-white transition-all duration-300 shrink-0">
-                                    {specialtiesList[6].icon}
-                                </div>
-                                <h4 className="text-lg font-black uppercase tracking-wider mb-2" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
-                                    {specialtiesList[6].title}
-                                </h4>
-                                <div className="pointer-events-auto self-start max-h-0 group-hover:max-h-[160px] opacity-0 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out">
-                                    <p className="text-xs text-zinc-300 font-light leading-relaxed mb-4">
-                                        {specialtiesList[6].desc}
-                                    </p>
-                                    <a 
-                                        href={getWhatsappLink(specialtiesList[6].title)}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-[#25D366] text-white hover:bg-[#1EBE57] px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all duration-300 shadow-md"
-                                    >
-                                        Falar com a Jéssica <WhatsappLogo size={12} weight="fill" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -844,7 +663,7 @@ export function About() {
                         onClick={scrollToPrograms}
                         className="group inline-flex items-center gap-3 bg-[#111111] text-white px-12 py-6 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#1d7682] transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.15)] hover:scale-105"
                     >
-                        Quero treinar com a Jéssica
+                        Quero encontrar meu programa
                         <ArrowRight size={16} />
                     </a>
                 </div>
