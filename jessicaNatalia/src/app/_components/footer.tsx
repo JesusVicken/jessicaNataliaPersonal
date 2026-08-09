@@ -290,11 +290,24 @@ export function Footer() {
         </div>
       </div>
 
-      {/* COPYRIGHT */}
-      <div className="bg-[#111111] py-6 text-center border-t border-[#e6e2da] text-zinc-500 text-[10px] tracking-wider uppercase">
+      {/* COPYRIGHT & DEV CREDIT */}
+      <div className="bg-[#111111] py-6 text-center border-t border-zinc-800/60 text-zinc-400 text-[10px] tracking-wider uppercase flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 px-4">
         <p>
           © {new Date().getFullYear()} Jéssica Natália. Todos os direitos reservados.
         </p>
+        <span className="hidden sm:inline text-zinc-700">•</span>
+        <div className="flex items-center gap-1.5 normal-case text-xs text-zinc-400">
+          <span className="uppercase text-[10px]">Desenvolvido por</span>
+          <a
+            href="https://instagram.com/v1ccken"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-white hover:text-[#1d7682] font-bold transition-colors tracking-wide"
+          >
+            @v1ccken
+            <InstagramLogo size={14} weight="fill" className="text-[#1d7682]" />
+          </a>
+        </div>
       </div>
     </section>
   )
