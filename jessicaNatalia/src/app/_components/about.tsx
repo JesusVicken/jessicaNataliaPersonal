@@ -45,6 +45,33 @@ export function About() {
     const videoRef = useRef<HTMLVideoElement>(null)
     const specVideoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
+    const isDragging = useRef(false)
+    const startX = useRef(0)
+    const scrollLeft = useRef(0)
+
+    const handleMouseDown = (e: React.MouseEvent) => {
+        if (!carouselRef.current) return
+        isDragging.current = true
+        startX.current = e.pageX - carouselRef.current.offsetLeft
+        scrollLeft.current = carouselRef.current.scrollLeft
+    }
+
+    const handleMouseLeave = () => {
+        isDragging.current = false
+    }
+
+    const handleMouseUp = () => {
+        isDragging.current = false
+    }
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging.current || !carouselRef.current) return
+        e.preventDefault()
+        const x = e.pageX - carouselRef.current.offsetLeft
+        const walk = (x - startX.current) * 1.5
+        carouselRef.current.scrollLeft = scrollLeft.current - walk
+    }
+
     useEffect(() => {
         const playVideos = () => {
             if (videoRef.current) {
@@ -423,7 +450,11 @@ export function About() {
                     <div className="block md:hidden">
                         <div 
                             ref={carouselRef}
-                            className="flex overflow-x-auto snap-x snap-mandatory gap-6 scrollbar-none px-2 pb-6 w-full scroll-smooth"
+                            onMouseDown={handleMouseDown}
+                            onMouseLeave={handleMouseLeave}
+                            onMouseUp={handleMouseUp}
+                            onMouseMove={handleMouseMove}
+                            className="flex overflow-x-auto snap-x snap-mandatory gap-6 scrollbar-none px-2 pb-6 w-full scroll-smooth cursor-grab active:cursor-grabbing select-none touch-pan-x"
                         >
                             {complementaryPrograms.map((item, idx) => (
                                 <div 

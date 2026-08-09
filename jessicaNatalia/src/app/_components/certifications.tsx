@@ -153,10 +153,36 @@ const CATEGORIES = [
 export function CertificationsSection() {
     const [activeTab, setActiveTab] = useState<string>('all')
     const carouselRef = useRef<HTMLDivElement>(null)
+    const isDragging = useRef(false)
+    const startX = useRef(0)
+    const scrollLeft = useRef(0)
 
     const filteredCertifications = activeTab === 'all'
         ? CERTIFICATIONS
         : CERTIFICATIONS.filter(c => c.category === activeTab)
+
+    const handleMouseDown = (e: React.MouseEvent) => {
+        if (!carouselRef.current) return
+        isDragging.current = true
+        startX.current = e.pageX - carouselRef.current.offsetLeft
+        scrollLeft.current = carouselRef.current.scrollLeft
+    }
+
+    const handleMouseLeave = () => {
+        isDragging.current = false
+    }
+
+    const handleMouseUp = () => {
+        isDragging.current = false
+    }
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging.current || !carouselRef.current) return
+        e.preventDefault()
+        const x = e.pageX - carouselRef.current.offsetLeft
+        const walk = (x - startX.current) * 1.5
+        carouselRef.current.scrollLeft = scrollLeft.current - walk
+    }
 
     const scrollCarousel = (direction: 'left' | 'right') => {
         const container = carouselRef.current
@@ -233,14 +259,14 @@ export function CertificationsSection() {
 
                 {/* Filtros por Categoria */}
                 <div 
-                    className="flex flex-wrap justify-center gap-2 mb-12 max-w-4xl mx-auto" 
+                    className="flex overflow-x-auto md:flex-wrap md:justify-center gap-2 mb-12 max-w-4xl mx-auto pb-2 scrollbar-none touch-pan-x" 
                     data-aos="fade-up"
                 >
                     {CATEGORIES.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 shrink-0 ${
                                 activeTab === tab.id
                                     ? 'bg-[#111111] text-white shadow-md'
                                     : 'bg-white text-zinc-600 border border-[#e6e2da] hover:border-[#1d7682] hover:text-[#1d7682]'
@@ -256,7 +282,11 @@ export function CertificationsSection() {
                 <div className="block md:hidden mb-4">
                     <div 
                         ref={carouselRef}
-                        className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 scrollbar-none w-full scroll-smooth px-1"
+                        onMouseDown={handleMouseDown}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseUp={handleMouseUp}
+                        onMouseMove={handleMouseMove}
+                        className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 scrollbar-none w-full scroll-smooth px-1 cursor-grab active:cursor-grabbing select-none touch-pan-x"
                     >
                         {filteredCertifications.map((cert, index) => (
                             <div
