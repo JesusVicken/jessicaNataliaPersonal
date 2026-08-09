@@ -21,6 +21,8 @@ import {
     WhatsappLogo
 } from '@phosphor-icons/react'
 
+import { setupSafariAutoplay } from '@/lib/safari-video'
+
 gsap.registerPlugin(ScrollTrigger)
 
 // Hook useGSAP Isomórfico customizado para compatibilidade SSR do Next.js
@@ -45,17 +47,12 @@ export function About() {
 
     useEffect(() => {
         const playVideos = () => {
-            const video = videoRef.current
-            if (video) {
-                video.muted = true
-                video.defaultMuted = true
-                video.play().catch(err => console.log("Main video play fail: ", err))
+            if (videoRef.current) {
+                setupSafariAutoplay(videoRef.current)
             }
             specVideoRefs.current.forEach((specVideo) => {
                 if (specVideo) {
-                    specVideo.muted = true
-                    specVideo.defaultMuted = true
-                    specVideo.play().catch(err => console.log("Specialties video play fail: ", err))
+                    setupSafariAutoplay(specVideo)
                 }
             })
         }
@@ -101,7 +98,7 @@ export function About() {
         {
             title: "Força na Menopausa (50+)",
             desc: "Treinamento voltado para mulheres na menopausa que desejam preservar massa muscular, proteger a saúde óssea, melhorar o equilíbrio, recuperar força, mobilidade e manter independência física ao longo dos anos.",
-            src: "/video1.mp4",
+            src: "/video9.mp4",
             icon: <Star size={20} />,
             delay: "200",
             featured: true
@@ -305,7 +302,7 @@ export function About() {
                             >
                                 {item.src.endsWith('.mp4') ? (
                                     <video
-                                        ref={(el) => { if (el) { specVideoRefs.current[idx] = el } }}
+                                        ref={(el) => { if (el) { specVideoRefs.current[idx] = el; setupSafariAutoplay(el); } }}
                                         playsInline
                                         loop
                                         muted
@@ -363,7 +360,7 @@ export function About() {
                             <div key={`highlight-${idx}`} className="bento-card-revelation relative h-[420px] rounded-3xl overflow-hidden border-2 border-[#1d7682]/30 bg-white group shadow-md hover:shadow-xl transition-shadow duration-500">
                                 {item.src.endsWith('.mp4') ? (
                                     <video
-                                        ref={(el) => { if (el) { specVideoRefs.current[idx] = el } }}
+                                        ref={(el) => { if (el) { specVideoRefs.current[idx] = el; setupSafariAutoplay(el); } }}
                                         playsInline
                                         loop
                                         muted
@@ -435,7 +432,7 @@ export function About() {
                                 >
                                     {item.src.endsWith('.mp4') ? (
                                         <video
-                                            ref={(el) => { if (el) { specVideoRefs.current[idx + 2] = el } }}
+                                            ref={(el) => { if (el) { specVideoRefs.current[idx + 2] = el; setupSafariAutoplay(el); } }}
                                             playsInline
                                             loop
                                             muted
@@ -505,7 +502,7 @@ export function About() {
                             <div key={`comp-${idx}`} className="bento-card-revelation relative rounded-3xl overflow-hidden border border-[#e6e2da] bg-white group shadow-sm hover:shadow-lg transition-shadow duration-500">
                                 {item.src.endsWith('.mp4') ? (
                                     <video
-                                        ref={(el) => { if (el) { specVideoRefs.current[idx + 2] = el } }}
+                                        ref={(el) => { if (el) { specVideoRefs.current[idx + 2] = el; setupSafariAutoplay(el); } }}
                                         playsInline
                                         loop
                                         muted
@@ -559,7 +556,7 @@ export function About() {
                     <div ref={imageRef} className="lg:col-span-5 w-full sticky lg:top-32">
                         <div className="aspect-[3/4] relative rounded-[2.5rem] overflow-hidden border border-[#e6e2da] bg-[#F5F2EB] shadow-2xl">
                             <video
-                                ref={videoRef}
+                                ref={(el) => { videoRef.current = el; setupSafariAutoplay(el); }}
                                 playsInline
                                 loop
                                 muted

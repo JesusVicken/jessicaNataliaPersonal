@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { setupSafariAutoplay } from '@/lib/safari-video'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,9 +16,7 @@ export function VideoBanner() {
         const video = videoRef.current
         if (!video) return
 
-        video.muted = true
-        video.defaultMuted = true
-        video.play().catch((err) => console.log("Autoplay video banner failed:", err))
+        setupSafariAutoplay(video)
 
         const playVideo = () => {
             if (video.paused) {
@@ -80,7 +79,7 @@ export function VideoBanner() {
         >
             {/* Background Video */}
             <video
-                ref={videoRef}
+                ref={(el) => { videoRef.current = el; setupSafariAutoplay(el); }}
                 autoPlay
                 loop
                 muted

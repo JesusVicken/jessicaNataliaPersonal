@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { ArrowRight, MapPin, Globe, WhatsappLogo, Users, Barbell, HouseLine } from '@phosphor-icons/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { setupSafariAutoplay } from '@/lib/safari-video'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -43,11 +44,7 @@ export function Services() {
         const playVideos = () => {
             videoRefs.current.forEach((video) => {
                 if (video) {
-                    video.muted = true
-                    video.defaultMuted = true
-                    video.play().catch((error) => {
-                        console.log('Autoplay blocked:', error)
-                    })
+                    setupSafariAutoplay(video)
                 }
             })
         }
@@ -100,7 +97,7 @@ export function Services() {
                     >
                         {/* Vídeo de Fundo */}
                         <video
-                            ref={(el) => { if (el) videoRefs.current[0] = el }}
+                            ref={(el) => { if (el) { videoRefs.current[0] = el; setupSafariAutoplay(el); } }}
                             playsInline
                             loop
                             muted
@@ -155,7 +152,7 @@ export function Services() {
                     >
                         {/* Vídeo de Fundo */}
                         <video
-                            ref={(el) => { if (el) videoRefs.current[1] = el }}
+                            ref={(el) => { if (el) { videoRefs.current[1] = el; setupSafariAutoplay(el); } }}
                             playsInline
                             loop
                             muted
@@ -210,7 +207,7 @@ export function Services() {
                     >
                         {/* Vídeo de Fundo */}
                         <video
-                            ref={(el) => { if (el) videoRefs.current[2] = el }}
+                            ref={(el) => { if (el) { videoRefs.current[2] = el; setupSafariAutoplay(el); } }}
                             playsInline
                             loop
                             muted
@@ -265,7 +262,7 @@ export function Services() {
                     >
                         {/* Vídeo de Fundo */}
                         <video
-                            ref={(el) => { if (el) videoRefs.current[3] = el }}
+                            ref={(el) => { if (el) { videoRefs.current[3] = el; setupSafariAutoplay(el); } }}
                             playsInline
                             loop
                             muted

@@ -3,6 +3,7 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { setupSafariAutoplay } from '@/lib/safari-video'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -22,27 +23,8 @@ export default function PilatesSection() {
     const videoRef = useRef<HTMLVideoElement>(null)
 
     useEffect(() => {
-        const video = videoRef.current
-        if (!video) return
-
-        // Força configurações de mudo no nível da DOM (essencial para o Safari)
-        video.muted = true
-        video.defaultMuted = true
-
-        const playVideo = () => {
-            video.play().catch((error) => {
-                console.log("Autoplay de vídeo impedido pelo navegador:", error)
-            })
-        }
-
-        playVideo()
-
-        window.addEventListener('touchstart', playVideo, { once: true })
-        window.addEventListener('click', playVideo, { once: true })
-
-        return () => {
-            window.removeEventListener('touchstart', playVideo)
-            window.removeEventListener('click', playVideo)
+        if (videoRef.current) {
+            setupSafariAutoplay(videoRef.current)
         }
     }, [])
 
@@ -118,7 +100,7 @@ export default function PilatesSection() {
         >
             {/* Tag de vídeo de fundo em tela cheia (z-0) */}
             <video
-                ref={videoRef}
+                ref={(el) => { videoRef.current = el; setupSafariAutoplay(el); }}
                 autoPlay
                 loop
                 muted

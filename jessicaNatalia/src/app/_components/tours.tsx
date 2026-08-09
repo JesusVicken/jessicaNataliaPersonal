@@ -5,6 +5,7 @@ import { Check, Clock, MapPin, CalendarBlank, Anchor, WhatsappLogo } from '@phos
 import gsap from 'gsap'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { setupSafariAutoplay } from '@/lib/safari-video'
 
 export function Tours() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -26,12 +27,7 @@ export function Tours() {
     const playVideos = () => {
       videoRefs.current.forEach((video) => {
         if (video) {
-          // Força mudo na DOM para o Safari
-          video.muted = true
-          video.defaultMuted = true
-          video.play().catch((error) => {
-            console.log("Autoplay de vídeo impedido pelo navegador:", error)
-          })
+          setupSafariAutoplay(video)
         }
       })
     }
@@ -79,7 +75,7 @@ export function Tours() {
           >
             {/* Vídeo de Fundo Loop */}
             <video
-              ref={(el) => { if (el) videoRefs.current[0] = el }}
+              ref={(el) => { if (el) { videoRefs.current[0] = el; setupSafariAutoplay(el); } }}
               autoPlay
               loop
               muted
@@ -167,7 +163,7 @@ export function Tours() {
           >
             {/* Vídeo de Fundo Loop */}
             <video
-              ref={(el) => { if (el) videoRefs.current[1] = el }}
+              ref={(el) => { if (el) { videoRefs.current[1] = el; setupSafariAutoplay(el); } }}
               autoPlay
               loop
               muted

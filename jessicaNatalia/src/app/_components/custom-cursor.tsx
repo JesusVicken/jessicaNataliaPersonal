@@ -15,6 +15,7 @@ export function CustomCursor() {
         setIsVisible(true)
 
         const onMouseMove = (e: MouseEvent) => {
+            if (!ringRef.current) return
             const { clientX, clientY } = e
             
             // Move o anel de delay/inércia atrás do cursor padrão do sistema
@@ -27,6 +28,7 @@ export function CustomCursor() {
         }
 
         const onMouseEnterLink = () => {
+            if (!ringRef.current) return
             // Expande o anel dourado no hover de elementos clicáveis
             gsap.to(ringRef.current, {
                 scale: 1.6,
@@ -38,6 +40,7 @@ export function CustomCursor() {
         }
 
         const onMouseLeaveLink = () => {
+            if (!ringRef.current) return
             // Retorna ao tamanho e cor originais
             gsap.to(ringRef.current, {
                 scale: 1,
