@@ -117,7 +117,7 @@ export function About() {
         {
             title: "Metabolismo Feminino | Perimenopausa (35+)",
             desc: "Treinamento para mulheres que perceberam alterações hormonais, dificuldade para manter massa muscular, aumento da gordura abdominal, queda de energia e recuperação mais lenta. Um programa estruturado para preservar o metabolismo, aumentar a força e manter um corpo ativo durante a transição hormonal.",
-            src: "/video9.mp4",
+            src: "/video15.mp4",
             icon: <FlowerLotus size={20} />,
             delay: "100",
             featured: true
@@ -325,7 +325,7 @@ export function About() {
                         {highlightedPrograms.map((item, idx) => (
                             <div 
                                 key={`mob-highlight-${idx}`}
-                                className="w-full rounded-3xl overflow-hidden min-h-[400px] relative border-2 border-[#1d7682]/40 bg-zinc-950 shadow-xl flex flex-col justify-end p-6 text-white"
+                                className="w-full rounded-3xl overflow-hidden min-h-[480px] sm:min-h-[520px] relative border-2 border-[#1d7682]/40 bg-zinc-950 shadow-xl flex flex-col justify-end p-6 text-white"
                             >
                                 {item.src.endsWith('.mp4') ? (
                                     <video
@@ -384,7 +384,7 @@ export function About() {
                     {/* --- LAYOUT DESKTOP: CARDS EM DESTAQUE (2 colunas) --- */}
                     <div className="hidden md:grid grid-cols-2 gap-6 mb-16">
                         {highlightedPrograms.map((item, idx) => (
-                            <div key={`highlight-${idx}`} className="bento-card-revelation relative h-[420px] rounded-3xl overflow-hidden border-2 border-[#1d7682]/30 bg-white group shadow-md hover:shadow-xl transition-shadow duration-500">
+                            <div key={`highlight-${idx}`} className="bento-card-revelation relative h-[540px] md:h-[580px] lg:h-[640px] rounded-3xl overflow-hidden border-2 border-[#1d7682]/30 bg-white group shadow-md hover:shadow-xl transition-shadow duration-500">
                                 {item.src.endsWith('.mp4') ? (
                                     <video
                                         ref={(el) => { if (el) { specVideoRefs.current[idx] = el; setupSafariAutoplay(el); } }}
