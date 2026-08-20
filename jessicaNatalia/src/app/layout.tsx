@@ -17,7 +17,9 @@ export const metadata: Metadata = {
   title: "Jessica Natalia | Personal Trainer & Consultoria",
   description: "Treinamento personalizado e consultoria online de alta performance com Jessica Natalia. Alcance sua melhor versão.",
   icons: {
-    icon: "/icon.jpeg",
+    icon: "/novalogo.jpeg",
+    shortcut: "/novalogo.jpeg",
+    apple: "/novalogo.jpeg",
   },
 }
 

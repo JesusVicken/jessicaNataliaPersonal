@@ -122,7 +122,7 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#e6e2da] bg-white flex items-center justify-center">
                 <img 
-                  src="/logo.jpeg" 
+                  src="/novalogo.jpeg" 
                   alt="Jéssica Natália Logo" 
                   className="w-full h-full object-cover"
                 />

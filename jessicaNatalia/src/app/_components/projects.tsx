@@ -23,7 +23,55 @@ export default function Projects() {
     
     const [device, setDevice] = useState<'mobile' | 'desktop' | null>(null)
     const [loadingProgress, setLoadingProgress] = useState(0)
+    const [displayProgress, setDisplayProgress] = useState(0)
     const [imagesLoaded, setImagesLoaded] = useState(false)
+    const [showLoader, setShowLoader] = useState(true)
+    const [isExiting, setIsExiting] = useState(false)
+
+    // Smooth visual progress interpolation guaranteeing minimum ~3.5s display time
+    useEffect(() => {
+        if (!showLoader) return
+
+        const interval = setInterval(() => {
+            setDisplayProgress(prev => {
+                if (imagesLoaded) {
+                    if (prev >= 100) {
+                        clearInterval(interval)
+                        return 100
+                    }
+                    return Math.min(100, prev + 2.5)
+                }
+
+                // If images are still downloading, advance smoothly up to 92%
+                const target = Math.min(92, Math.max(loadingProgress, prev))
+                if (prev < target) {
+                    return Math.min(target, prev + 1.1)
+                }
+                return prev
+            })
+        }, 40)
+
+        return () => clearInterval(interval)
+    }, [imagesLoaded, loadingProgress, showLoader])
+
+    // Trigger smooth exit transition when display progress reaches 100%
+    useEffect(() => {
+        if (displayProgress >= 100 && imagesLoaded && device && !isExiting) {
+            setIsExiting(true)
+            const timer = setTimeout(() => {
+                setShowLoader(false)
+            }, 800)
+            return () => clearTimeout(timer)
+        }
+    }, [displayProgress, imagesLoaded, device, isExiting])
+
+    const getStatusText = (progress: number) => {
+        if (progress < 25) return "Iniciando experiência..."
+        if (progress < 55) return "Carregando biomecânica & movimento..."
+        if (progress < 85) return "Preparando alta performance..."
+        if (progress < 100) return "Finalizando detalhes..."
+        return "Pronto!"
+    }
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
         e.preventDefault()
@@ -203,34 +251,95 @@ export default function Projects() {
         }
     }, [imagesLoaded, device])
 
-    // Exibir Loader enquanto detecta dispositivo ou carrega as imagens
-    if (!device || !imagesLoaded) {
-        return (
-            <div className="fixed inset-0 z-50 bg-[#FAF8F5] flex flex-col items-center justify-center text-[#111111]">
-                <div className="flex flex-col items-center gap-4 text-center">
-                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border border-[#e6e2da] bg-white flex items-center justify-center shadow-md mb-2 animate-pulse">
-                        <img 
-                            src="/logo.jpeg" 
-                            alt="Jéssica Natália Logo" 
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    <span className="text-sm md:text-base font-black tracking-[0.3em] text-[#111111] uppercase">JÉSSICA NATÁLIA</span>
-                    <span className="text-[9px] tracking-[0.4em] text-zinc-400 uppercase font-bold">PERSONAL TRAINER</span>
-                    <div className="w-36 h-[2px] bg-zinc-200 rounded-full overflow-hidden relative mt-2">
-                        <div 
-                            className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#1d7682] to-[#62c370] transition-all duration-300"
-                            style={{ width: `${loadingProgress}%` }}
-                        ></div>
-                    </div>
-                    <span className="text-[10px] tracking-widest text-[#1d7682] font-mono font-bold">{loadingProgress}%</span>
-                </div>
-            </div>
-        )
-    }
-
     return (
         <div className="bg-[#FAF8F5] text-[#111111] font-sans antialiased min-h-screen selection:bg-[#1d7682] selection:text-white">
+            
+            {/* --- AWWWARDS ULTRA-CLEAN CINEMATIC VIDEO LOADER OVERLAY --- */}
+            {showLoader && (
+                <div 
+                    className={`fixed inset-0 z-[100] bg-black flex flex-col justify-between p-6 md:p-12 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] select-none overflow-hidden ${
+                        isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
+                    }`}
+                >
+                    {/* Fullscreen Cinematic Background Video (video2.mp4) */}
+                    <video 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline 
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover filter brightness-[0.75] contrast-[1.05] scale-105"
+                    >
+                        <source src="/video2.mp4" type="video/mp4" />
+                    </video>
+
+                    {/* Minimal Dark Gradient Overlay for text contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/40 to-black/80 backdrop-blur-[2px]"></div>
+
+                    {/* TOP BAR (Awwwards Style Metadata Header) */}
+                    <div className="relative z-10 w-full flex justify-between items-start text-white/80 font-mono text-[10px] md:text-xs tracking-[0.25em] uppercase">
+                        <div className="flex items-center gap-2.5">
+                            <span className="w-2 h-2 rounded-full bg-[#62c370] animate-pulse"></span>
+                            <span>Jéssica Natália &copy; 2026</span>
+                        </div>
+                        <div className="hidden sm:block text-right text-zinc-300">
+                            [ PERSONAL TRAINER & CONSULTORIA ]
+                        </div>
+                    </div>
+
+                    {/* CENTER CONTENT: Pristine Clean Logo & Kinetic Counter */}
+                    <div className="relative z-10 flex flex-col items-center justify-center my-auto gap-6 text-center">
+                        
+                        {/* Clean Borderless Circular Logo with Ambient Aura */}
+                        <div className="relative group">
+                            <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-[#1d7682]/40 to-[#62c370]/40 blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+                                <img 
+                                    src="/novalogo.jpeg" 
+                                    alt="Jéssica Natália Logo" 
+                                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Brand Title */}
+                        <div className="flex flex-col items-center gap-1.5 mt-1">
+                            <h1 className="text-xl md:text-3xl font-black tracking-[0.35em] text-white uppercase leading-none drop-shadow-lg">
+                                Jéssica Natália
+                            </h1>
+                            <p className="text-[10px] md:text-xs tracking-[0.4em] text-[#2ba3b4] font-bold uppercase">
+                                Personal Trainer & Pilates
+                            </p>
+                        </div>
+
+                        {/* Kinetic Percentage Counter (Awwwards Style Signature) */}
+                        <div className="mt-2 flex items-baseline justify-center font-mono font-extralight text-6xl md:text-8xl text-white tracking-tighter drop-shadow-2xl">
+                            <span>{Math.round(displayProgress).toString().padStart(2, '0')}</span>
+                            <span className="text-2xl md:text-4xl text-[#2ba3b4] font-normal ml-1">%</span>
+                        </div>
+                    </div>
+
+                    {/* BOTTOM BAR: Status Text & Full-Width Minimal Progress Track */}
+                    <div className="relative z-10 w-full flex flex-col gap-3">
+                        <div className="flex justify-between items-end text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] text-zinc-300">
+                            <span className="text-zinc-300">
+                                {getStatusText(displayProgress)}
+                            </span>
+                            <span className="text-[#2ba3b4] font-bold">
+                                [ {displayProgress >= 100 ? 'READY' : 'LOADING'} ]
+                            </span>
+                        </div>
+
+                        {/* Ultra-Sleek Minimal Progress Line */}
+                        <div className="w-full bg-white/15 h-[2px] rounded-full overflow-hidden relative backdrop-blur-sm">
+                            <div 
+                                className="h-full bg-gradient-to-r from-[#1d7682] via-[#2ba3b4] to-[#62c370] transition-all duration-300 ease-out shadow-[0_0_12px_#2ba3b4]"
+                                style={{ width: `${displayProgress}%` }}
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+            )}
             
             {/* --- FIXED HEADER (MINIMALIST & LUXURY) --- */}
             <header className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F5]/80 backdrop-blur-md border-b border-[#e6e2da] py-4 px-6 md:px-12 flex justify-between items-center">
@@ -241,7 +350,7 @@ export default function Projects() {
                 >
                     <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#e6e2da] bg-white flex items-center justify-center">
                         <img 
-                            src="/logo.jpeg" 
+                            src="/novalogo.jpeg" 
                             alt="Jéssica Natália Logo" 
                             className="w-full h-full object-cover"
                         />
